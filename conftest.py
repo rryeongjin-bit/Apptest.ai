@@ -50,17 +50,17 @@ def main_homepage(storage_state_file):
 
     yield page  # 여기서 테스트 함수들이 page 객체 사용
 
-    # 테스트 종료 후 30초 대기
-    page.wait_for_timeout(30000)
+    # # 테스트 종료 후 30초 대기
+    # page.wait_for_timeout(30000)
 
-    context.close()
-    browser.close()
-    p.stop()
+    # context.close()
+    # browser.close()
+    # p.stop()
 
-    # 세션파일 자동삭제
-        # 세션 파일 자동 삭제
-    if os.path.exists(storage_state_file):
-        os.remove(storage_state_file)
-        print(f"✅ 로그인 세션 파일 삭제 완료: {storage_state_file}")
-    else:
-        print("⚠️ 삭제할 세션 파일이 존재하지 않습니다.")
+    # # 세션파일 자동삭제
+    #     # 세션 파일 자동 삭제
+    # if os.path.exists(storage_state_file):
+    #     os.remove(storage_state_file)
+    #     print(f"✅ 로그인 세션 파일 삭제 완료: {storage_state_file}")
+    # else:
+    #     print("⚠️ 삭제할 세션 파일이 존재하지 않습니다.")
