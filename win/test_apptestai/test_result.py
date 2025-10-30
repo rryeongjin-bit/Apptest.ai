@@ -1,6 +1,7 @@
 import pytest
 from element_total import *
 from common_utils import *
+from conftest import *
 
 @pytest.mark.order(1)
 @pytest.mark.default_step
@@ -99,9 +100,10 @@ def test_testrun_info_AOS(main_homepage):
 
 @pytest.mark.order(8)
 @pytest.mark.project_widget
-def test_check_testresult_AOS(main_homepage):
+def test_check_testresult_AOS(main_homepage, write_result):
     page = main_homepage
-    get_testrun_status_AOS(page, testrun_status, testrun_result_message_AOS)
+    App_CheckList_478_AOS= get_testrun_status_AOS(page, testrun_status, testrun_result_message_AOS)
+    write_result("N478", App_CheckList_478_AOS)
 
 @pytest.mark.order(9)
 @pytest.mark.project_widget
@@ -148,9 +150,10 @@ def test_testrun_info_IOS(main_homepage):
 
 @pytest.mark.order(12)
 @pytest.mark.project_widget
-def test_check_testresult_IOS(main_homepage):
+def test_check_testresult_IOS(main_homepage, write_result):
     page = main_homepage
-    get_testrun_status_IOS(page, testrun_status, testrun_result_message_IOS)
+    App_CheckList_478_iOS = get_testrun_status_IOS(page, testrun_status, testrun_result_message_IOS)
+    write_result("P478", App_CheckList_478_iOS)
 
 @pytest.mark.order(13)
 @pytest.mark.project_widget
