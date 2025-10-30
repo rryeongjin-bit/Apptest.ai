@@ -62,30 +62,98 @@ def test_checkresult(main_homepage):
 
 @pytest.mark.order(6)
 @pytest.mark.project_widget
-def test_lastresult(main_homepage):
+def test_checkresult_AOS(main_homepage):
     page = main_homepage
-    page.click(first_testrun_id)
+    page.click(btn_test_filter)
 
-    target_status = page.locator(testrun_status)
-    result_testrun_status = target_status.inner_text()
-    print(f"자동화테스트 결과 : {result_testrun_status}")
-    assert result_testrun_status.strip() != "", "❌testrun_status 확인실패"
+    target_title_AOS = page.locator(title_filter_section).get_by_text("Filter")
+    assert target_title_AOS.is_visible(), f"❌ {btn_test_filter} 선택 실패"
+
+    container_filter_AOS = page.locator(filter_os_section) 
+    AOS_checkbox = container_filter_AOS.locator("img[data-testid='checkBox']").nth(0)
+
+    try:
+        AOS_checkbox.scroll_into_view_if_needed()
+        AOS_checkbox.wait_for(state="visible", timeout=5000)
+        AOS_checkbox.click(force=True)
+
+        AOS_apply_button = page.get_by_role("button", name="Apply")
+        AOS_apply_button.wait_for(state="visible", timeout=5000)
+        AOS_apply_button.scroll_into_view_if_needed()
+        AOS_apply_button.click()
+
+        page.wait_for_timeout(5000)
+
+        AOS_target_element = page.locator(target_filterbox)
+        AOS_target_element.wait_for(state="visible", timeout=5000)
+        assert AOS_target_element.is_visible(), "❌ Android 필터 적용 실패"
+    except Exception as e:
+        assert False, f"❌ test device OS 필터 적용 실패: {e}"
 
 @pytest.mark.order(7)
 @pytest.mark.project_widget
-def test_checkscreen_detail(main_homepage):
+def test_testrun_info_AOS(main_homepage):
     page = main_homepage
-    page.click(btn_test_screen)
+    page.click(first_testrun_id)
+    get_testrun_info(page, testrun_id_section)
 
-    target_testrun_id = page.locator(testrun_id_section)
-    testrun_info = target_testrun_id.inner_text()
-    print(f"🔎testrun_info : {testrun_info}")
-    assert testrun_info.strip() != "", "❌ testrun_info 확인 실패"
+@pytest.mark.order(8)
+@pytest.mark.project_widget
+def test_check_testresult_AOS(main_homepage):
+    page = main_homepage
+    get_testrun_status_AOS(page, testrun_status, testrun_result_message_AOS)
 
-    target_teststeps = [ (test_step_name, "App_CheckList_478")]
-    for sel, target_text in target_teststeps:
-        found = scroll_until_element_found(page, sel)
-        assert found, f"⚠️ teststep_id 확인 필요 : {sel}"
+@pytest.mark.order(9)
+@pytest.mark.project_widget
+def test_back_testrun_list_AOS(main_homepage):
+    page = main_homepage
+    back_to_testrun_list(page, return_to_testrun, reset_filter)
+  
+@pytest.mark.order(10)
+@pytest.mark.project_widget
+def test_checkresult_IOS(main_homepage):
+    page = main_homepage
+    page.click(btn_test_filter)
 
-    # target_test_step_result = 
+    target_title_IOS= page.locator(title_filter_section).get_by_text("Filter")
+    assert target_title_IOS.is_visible(), f"❌ {btn_test_filter} 선택 실패"
 
+    container_filter_IOS = page.locator(filter_os_section) 
+    IOS_checkbox = container_filter_IOS.locator("img[data-testid='checkBox']").nth(1)
+
+    try:
+        IOS_checkbox.scroll_into_view_if_needed()
+        IOS_checkbox.wait_for(state="visible", timeout=5000)
+        IOS_checkbox.click(force=True)
+
+        IOS_apply_button = page.get_by_role("button", name="Apply")
+        IOS_apply_button.wait_for(state="visible", timeout=5000)
+        IOS_apply_button.scroll_into_view_if_needed()
+        IOS_apply_button.click()
+
+        page.wait_for_timeout(5000)
+
+        IOS_target_element = page.locator(target_filterbox)
+        IOS_target_element.wait_for(state="visible", timeout=5000)
+        assert IOS_target_element.is_visible(), "❌ IOS 필터 적용 실패"
+    except Exception as e:
+        assert False, f"❌ test device OS 필터 적용 실패: {e}"
+
+@pytest.mark.order(11)
+@pytest.mark.project_widget
+def test_testrun_info_IOS(main_homepage):
+    page = main_homepage
+    page.click(first_testrun_id)
+    get_testrun_info(page, testrun_id_section)
+
+@pytest.mark.order(12)
+@pytest.mark.project_widget
+def test_check_testresult_IOS(main_homepage):
+    page = main_homepage
+    get_testrun_status_IOS(page, testrun_status, testrun_result_message_IOS)
+
+@pytest.mark.order(13)
+@pytest.mark.project_widget
+def test_back_testrun_list_IOS(main_homepage):
+    page = main_homepage
+    back_to_testrun_list(page, return_to_testrun, reset_filter)
