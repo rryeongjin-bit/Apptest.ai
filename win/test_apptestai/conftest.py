@@ -85,10 +85,10 @@ def gsheet_client():
     client = gspread.authorize(creds)
     return client
 
-# 특정 시트 객체를 fixture로 제공
+# 자동화 결과확인 시트 객체를 fixture로 제공
 @pytest.fixture
 def sheet(gsheet_client):
-    # spreadsheet key
+
     spreadsheet_key = "1NpZVVopxJCrQXqv9c-A83PozWufznzr9mbT4NTpFKOc"
     spreadsheet = gsheet_client.open_by_key(spreadsheet_key)
     

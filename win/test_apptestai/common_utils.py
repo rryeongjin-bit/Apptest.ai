@@ -99,10 +99,10 @@ def back_to_testrun_list(page: Page, return_to_testrun: str, reset_filter: str):
         raise RuntimeError(f"❌ testrun 목록 복귀 & os 필터 초기화 실패: {e}")
 
 # google sheet update
-def write_to_sheet(sheet, cell: str, value: str):
+def write_to_sheet(auto_test_sheet, cell: str, value: str):
     """
     sheet : gspread.models.Worksheet 객체
     cell : "C3" 처럼 문자열로 지정
     value : 기록할 값
     """
-    sheet.update(range_name = cell, values = [[value]])
+    auto_test_sheet.update(range_name = cell, values = [[value]])
