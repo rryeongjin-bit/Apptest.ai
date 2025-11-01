@@ -33,6 +33,28 @@ def scroll_until_element_found(page, target_text, step=500, max_scrolls=5):
     print("❌ target_element 발견 실패")
     return False
 
+
+# 테로 로그인/계정변경 & 프로젝트 폴더 진입
+def login_and_select_project(page, target_account_name="QA part", folder_name="Mobile App"):
+    try:
+        page.goto("https://app.apptest.ai")
+        if "Dashboard" not in page.inner_text("body"):
+            raise RuntimeError("❌ 로그인 실패")
+
+        page.click(btn_changeaccount)
+        page.click(qa_account)
+        target_account = page.locator(account_section).get_by_text(target_account_name)
+        if not target_account.is_visible():
+            raise RuntimeError(f"❌ {target_account_name} 계정 변경 실패")
+
+        page.click(folder_mobileapp)
+        target_folder = page.locator(folder_title_section).get_by_text(folder_name)
+        if not target_folder.is_visible():
+            raise RuntimeError(f"❌ {folder_name} 프로젝트 폴더 선택 실패")
+
+    except Exception as e:
+        pytest.fail(f"로그인 & 프로젝트 폴더 선택 실패: {e}")
+
 # 테스트 정보 출력
 def get_testrun_info(page: Page, testrun_id_section: str) -> str:
     target_testrun_id = page.locator(testrun_id_section)

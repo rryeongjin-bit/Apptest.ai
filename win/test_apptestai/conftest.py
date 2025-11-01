@@ -79,6 +79,14 @@ def main_homepage(storage_state_file):
     #     print("⚠️ 삭제할 세션 파일이 존재하지 않습니다.")
 
 
+@pytest.fixture(scope="module")
+def aos_flag():
+    return {"run": True}
+
+@pytest.fixture(scope="module")
+def ios_flag():
+    return {"run": True}
+
 # 구글계정 > 세션 단위로 인증, 시트 클라이언트 생성
 @pytest.fixture(scope="session")
 def gsheet_client():

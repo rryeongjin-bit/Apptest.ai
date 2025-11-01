@@ -3,7 +3,7 @@
 # -------------------------------
 account_section = "#root > header > div.sc-empnci.jgzAsH > div.sc-ePDLzJ.rrOtd > div > div > div"
 btn_changeaccount = "#root > header > div.sc-empnci.jgzAsH > div.sc-ePDLzJ.rrOtd > div > img"
-qa_account = "text=QA part"
+qa_account = "text=RIDI 시나리오 수정"
 
 # -------------------------------
 # mobile app 폴더
@@ -20,8 +20,9 @@ project_title = "#content_box > div > main > div > div.sc-fTyFcS.hvAcvE > div.sc
 # prod_contentshome_preview : 
 # prod_viewer : 
 # prod_usersfile : 
-prod_shorcut= "#default-table > tbody > tr:nth-child(2) > td:nth-child(1) > div > div > div"
+prod_shorcut = "#default-table > tbody > tr:nth-child(11) > td:nth-child(1) > div > div > div"
 prod_widget= "#default-table > tbody > tr:nth-child(3) > td:nth-child(1) > div > div > div"
+
 
 # stg_start_app : 
 # stg_tabbar : 
@@ -31,7 +32,7 @@ prod_widget= "#default-table > tbody > tr:nth-child(3) > td:nth-child(1) > div >
 # stg_viewer : 
 # stg_usersfile : 
 # stg_shorcut : 
-stg_widget ="#default-table > tbody > tr:nth-child(3) > td:nth-child(1) > div > div > div"
+# stg_widget
 
 btn_test_run = "#content_box > div > main > div > div.sc-fDinKg.fneeqI > div > div.sc-goDuUA.bbgRRK > div.sc-libkiD.bnTBaE"
 title_recent_result = "#content_box > div > main > div > div.sc-fDinKg.fneeqI > div > div.sc-fPQgqs.dnSSIZ > div.sc-fhzFiK.khqNog.title-name"
