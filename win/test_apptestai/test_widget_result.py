@@ -80,23 +80,7 @@ def test_check_testresult_AOS(main_homepage, write_result, aos_flag):
 @pytest.mark.order(7)
 @pytest.mark.prod_widget
 def test_back_testrun_list_AOS(main_homepage, aos_flag):
-    page = main_homepage
-
-    try:
-        if aos_flag["run"]:
-            back_button = page.locator(return_to_testrun)
-            back_button.wait_for(state="visible", timeout=5000)
-            back_button.click()
-        else:
-            AOS_reset_filter = page.locator(reset_filter)
-            AOS_reset_filter.wait_for(state="visible", timeout=5000)
-            AOS_reset_filter.scroll_into_view_if_needed()
-            AOS_reset_filter.click()
-            page.wait_for_timeout(5000)
-
-    except Exception as e:
-        print("⚠️ testrun 목록 복귀 및 필터 초기화 실패:", e)
-        pytest.skip("⚠️ AOS 테스트 결과 없음 - skip")
+    back_and_or_reset_AOS(main_homepage, aos_flag.get("run", False))
 
 @pytest.mark.order(8)
 @pytest.mark.prod_widget
@@ -136,23 +120,7 @@ def test_check_testresult_IOS(main_homepage, write_result,ios_flag):
 @pytest.mark.order(11)
 @pytest.mark.prod_widget
 def test_back_testrun_list_IOS(main_homepage, ios_flag):
-    page = main_homepage
-
-    try:
-        if ios_flag["run"]:
-            back_button = page.locator(return_to_testrun)
-            back_button.wait_for(state="visible", timeout=5000)
-            back_button.click()
-        else:
-            IOS_reset_filter = page.locator(reset_filter)
-            IOS_reset_filter.wait_for(state="visible", timeout=5000)
-            IOS_reset_filter.scroll_into_view_if_needed()
-            IOS_reset_filter.click()
-            page.wait_for_timeout(5000)
-
-    except Exception as e:
-        print("⚠️ testrun 목록 복귀 및 필터 초기화 실패:", e)
-        pytest.skip("⚠️ IOS 테스트 결과 없음 - skip")
+    back_and_or_reset_IOS(main_homepage, ios_flag.get("run", False))
 
 # -------------------------------
 # ⌛ [Stage] 위젯 프로젝트 ⌛
@@ -165,7 +133,6 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 
 # 비교 (1번시트 row, 2번시트 row)
 row_pairs = [
-    (476, 448),
     (477, 449),
     (478, 450),
     (479, 451),

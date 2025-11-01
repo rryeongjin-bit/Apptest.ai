@@ -160,6 +160,42 @@ def apply_filter_checkbox_iOS(page: Page):
     target_elem.wait_for(state="visible", timeout=5000)
     assert target_elem.is_visible(), "❌ iOS 필터 적용 실패"
 
+def back_and_or_reset_AOS(page: Page, run_flag: bool):
+    try:
+        if run_flag:
+            # test run 목록 복귀
+            back_button = page.locator(return_to_testrun)
+            back_button.wait_for(state="visible", timeout=5000)
+            back_button.click()
+
+        #테스트 기기 OS 필터 초기화
+        reset_button = page.locator(reset_filter)
+        reset_button.wait_for(state="visible", timeout=5000)
+        reset_button.scroll_into_view_if_needed()
+        reset_button.click()
+        page.wait_for_timeout(5000)
+
+    except Exception as e:
+        raise RuntimeError(f"⚠️ AOS test run 목록 복귀/필터 초기화 실패: {e}")
+
+def back_and_or_reset_IOS(page: Page, run_flag: bool):
+    try:
+        if run_flag:
+            # test run 목록 복귀
+            back_button = page.locator(return_to_testrun)
+            back_button.wait_for(state="visible", timeout=5000)
+            back_button.click()
+
+        #테스트 기기 OS 필터 초기화
+        reset_button = page.locator(reset_filter)
+        reset_button.wait_for(state="visible", timeout=5000)
+        reset_button.scroll_into_view_if_needed()
+        reset_button.click()
+        page.wait_for_timeout(5000)
+
+    except Exception as e:
+        raise RuntimeError(f"⚠️ IOS test run 목록 복귀/필터 초기화 실패: {e}")
+    
 # google sheet update
 def write_to_sheet(auto_test_sheet, cell: str, value: str):
     """

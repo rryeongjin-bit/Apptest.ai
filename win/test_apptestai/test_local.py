@@ -30,20 +30,48 @@ def test_project_widget(main_homepage):
         assert False, f"❌ {prod_widget} 폴더 진입 실패"
 
     assert target_project.is_visible(), f"❌ {prod_widget} 폴더 진입 실패"
-    
+
 @pytest.mark.order(3)
 @pytest.mark.prod_widget
 def test_checkresult(main_homepage):
     page = main_homepage
-    page.click(btn_test_run)
-
     targets = [
-        (title_recent_result, "Recent Test Runs"),
-    ]
+            (title_recent_result, "Recent Test Runs"),
+        ]
 
-    for sel, target_text in targets:
-        found = scroll_until_element_found(page, sel)
-        assert found, f"❌ 요소를 찾지 못했습니다: {sel}"
+    click_and_verify(page, btn_test_run, targets)
+    
+@pytest.mark.order(4)
+@pytest.mark.prod_widget
+def test_checkresult_AOS(main_homepage):
+    page = main_homepage
+    apply_filter_checkbox_AOS(page)
+
+@pytest.mark.order(5)
+@pytest.mark.prod_widget
+def test_testrun_info_AOS(main_homepage, write_result,aos_flag):
+    page = main_homepage
+
+    try:
+        page.click(first_testrun_id)
+        AOS_testrun_info = get_testrun_info(page, testrun_id_section)
+        write_result("S476", AOS_testrun_info)
+    except Exception as e:
+
+        write_result("S476", "No Info")
+        aos_flag["run"] = False
+        pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
+
+@pytest.mark.order(6)
+@pytest.mark.prod_widget
+def test_check_testresult_AOS(main_homepage, write_result, aos_flag):
+    if not aos_flag["run"]:
+        write_result("Q476", "N/T")
+        pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
+
+    page = main_homepage
+    App_CheckList_478_AOS= get_testrun_status_AOS(page, testrun_status, testrun_result_message_AOS)
+    write_result("Q476", App_CheckList_478_AOS)
 
 # -------------------------------
 # ⌛ [Stage] 위젯 프로젝트 ⌛
@@ -56,19 +84,14 @@ def test_checkresult(main_homepage):
 
 # 비교 (1번시트 row, 2번시트 row)
 row_pairs = [
-    (476, 448),
-    (477, 449),
-    (478, 450),
-    (479, 451),
+    (476, 448)
 ]
 
 # 열 매핑 및 비교 열
 col1 = "E"  # 1번시트 비교 열
 col2 = "B"  # 2번시트 비교 열
 copy_map = {
-    "P": "R",
     "Q": "S",
-    "R": "T",
 }
 
 @pytest.mark.prod_widget
