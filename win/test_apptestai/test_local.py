@@ -1,4 +1,5 @@
 import pytest
+from element_total import *
 from element_copy import *
 from common_utils import *
 from conftest import *
@@ -21,7 +22,7 @@ def test_login_enter_project(main_homepage):
 @pytest.mark.prod_widget
 def test_project_widget(main_homepage):
     page = main_homepage
-    page.click(prod_widget)
+    page.click(prod_shorcut)
 
     target_project = page.locator(project_title).get_by_text("[Prod] 숏컷")
     try:
@@ -70,8 +71,13 @@ def test_check_testresult_AOS(main_homepage, write_result, aos_flag):
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_478_AOS= get_testrun_status_AOS(page, testrun_status, testrun_result_message_AOS)
-    write_result("Q476", App_CheckList_478_AOS)
+    App_CheckList_477_AOS= get_testrun_status_AOS(page, testrun_status, testrun_result_message_AOS)
+    write_result("Q476", App_CheckList_477_AOS)
+
+@pytest.mark.order(7)
+@pytest.mark.prod_widget
+def test_back_testrun_list_AOS(main_homepage, aos_flag):
+    back_and_or_reset_AOS(main_homepage, aos_flag.get("run", False))
 
 # -------------------------------
 # ⌛ [Stage] 위젯 프로젝트 ⌛
@@ -91,7 +97,9 @@ row_pairs = [
 col1 = "E"  # 1번시트 비교 열
 col2 = "B"  # 2번시트 비교 열
 copy_map = {
+    "P": "R",
     "Q": "S",
+    "R": "T",
 }
 
 @pytest.mark.prod_widget
