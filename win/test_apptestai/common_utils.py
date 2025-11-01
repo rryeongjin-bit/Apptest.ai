@@ -6,34 +6,6 @@ from playwright.sync_api import Page
 from playwright.sync_api import sync_playwright
 from playwright.sync_api import TimeoutError
 
-# 스크롤
-def scroll_until_element_found(page, target_text, step=500, max_scrolls=5):
-    """
-    지정된 셀렉터 요소가 나타날 때까지 스크롤 다운.
-    
-    :param page: playwright의 page 객체
-    :param selector: 찾을 셀렉터 (예: 'div.item:nth-child(1)')
-    :param step: 한 번에 스크롤할 픽셀 높이
-    :param max_scrolls: 최대 스크롤 시도 횟수 (무한루프 방지)
-    :return: 요소가 발견되면 True, 아니면 False
-    """
-    for i in range(max_scrolls):
-        try:
-            # 요소가 보이면 바로 리턴
-            if page.locator(target_text).is_visible():
-                print(f"✅ target_element 발견! (시도 횟수: {i+1})")
-                return True
-        except PlaywrightTimeoutError:
-            pass
-
-        # JS 실행으로 스크롤 다운
-        page.evaluate(f"window.scrollBy(0, {step})")
-        page.wait_for_timeout(500)  # 스크롤 후 약간의 대기 (0.5초)
-
-    print("❌ target_element 발견 실패")
-    return False
-
-
 # 테로 로그인/계정변경 & 프로젝트 폴더 진입
 def login_and_select_project(page, target_account_name="QA part", folder_name="Mobile App"):
     try:
@@ -119,6 +91,74 @@ def back_to_testrun_list(page: Page, return_to_testrun: str, reset_filter: str):
         page.wait_for_timeout(5000)
     except Exception as e:
         raise RuntimeError(f"❌ testrun 목록 복귀 & os 필터 초기화 실패: {e}")
+
+# 스크롤
+def scroll_until_element_found(page: Page, selector: str, max_attempts: int = 10, wait_time: int = 500) -> bool:
+    element = page.locator(selector)
+
+    for _ in range(max_attempts):
+        if element.count() > 0 and element.is_visible():
+            return True
+        element.scroll_into_view_if_needed()
+        page.wait_for_timeout(wait_time)
+
+    return False
+
+def click_and_verify(page: Page, button_selector: str, targets: list[tuple[str, str]]):
+    page.click(button_selector)
+
+    for sel, expected_text in targets:
+        found = scroll_until_element_found(page, sel)
+        assert found, f"❌ 요소를 찾지 못했습니다: {sel}"
+
+        element = page.locator(sel)
+        if expected_text:
+            text_found = expected_text in element.inner_text()
+            assert text_found, f"❌ '{expected_text}' 발견 실패: {sel}"
+
+# test run_AOS 필터적용
+def apply_filter_checkbox_AOS(page: Page):
+    page.click(btn_test_filter)
+
+    filter_container = page.locator(filter_os_section)
+    checkbox = filter_container.locator("img[data-testid='checkBox']").nth(0)
+
+    checkbox.scroll_into_view_if_needed()
+    checkbox.wait_for(state="visible", timeout=5000)
+    checkbox.click(force=True)
+
+    apply_button = page.get_by_role("button", name="Apply")
+    apply_button.scroll_into_view_if_needed()
+    apply_button.wait_for(state="visible", timeout=5000)
+    apply_button.click()
+
+    page.wait_for_timeout(5000)
+
+    target_elem = page.locator(target_filterbox)
+    target_elem.wait_for(state="visible", timeout=5000)
+    assert target_elem.is_visible(), "❌ Android 필터 적용 실패"
+
+# test run_IOS 필터 적용
+def apply_filter_checkbox_iOS(page: Page):
+    page.click(btn_test_filter)
+
+    filter_container = page.locator(filter_os_section)
+    checkbox = filter_container.locator("img[data-testid='checkBox']").nth(1)
+
+    checkbox.scroll_into_view_if_needed()
+    checkbox.wait_for(state="visible", timeout=5000)
+    checkbox.click(force=True)
+
+    apply_button = page.get_by_role("button", name="Apply")
+    apply_button.scroll_into_view_if_needed()
+    apply_button.wait_for(state="visible", timeout=5000)
+    apply_button.click()
+
+    page.wait_for_timeout(5000)
+
+    target_elem = page.locator(target_filterbox)
+    target_elem.wait_for(state="visible", timeout=5000)
+    assert target_elem.is_visible(), "❌ iOS 필터 적용 실패"
 
 # google sheet update
 def write_to_sheet(auto_test_sheet, cell: str, value: str):
