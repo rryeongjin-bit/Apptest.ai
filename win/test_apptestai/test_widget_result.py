@@ -35,45 +35,17 @@ def test_project_widget(main_homepage):
 @pytest.mark.prod_widget
 def test_checkresult(main_homepage):
     page = main_homepage
-    page.click(btn_test_run)
-
     targets = [
-        (title_recent_result, "Recent Test Runs"),
-    ]
+            (title_recent_result, "Recent Test Runs"),
+        ]
 
-    for sel, target_text in targets:
-        found = scroll_until_element_found(page, sel)
-        assert found, f"❌ 요소를 찾지 못했습니다: {sel}"
-
+    click_and_verify(page, btn_test_run, targets)
+    
 @pytest.mark.order(4)
 @pytest.mark.prod_widget
 def test_checkresult_AOS(main_homepage):
     page = main_homepage
-    page.click(btn_test_filter)
-
-    target_title_AOS = page.locator(title_filter_section).get_by_text("Filter")
-    assert target_title_AOS.is_visible(), f"❌ {btn_test_filter} 선택 실패"
-
-    container_filter_AOS = page.locator(filter_os_section) 
-    AOS_checkbox = container_filter_AOS.locator("img[data-testid='checkBox']").nth(0)
-
-    try:
-        AOS_checkbox.scroll_into_view_if_needed()
-        AOS_checkbox.wait_for(state="visible", timeout=5000)
-        AOS_checkbox.click(force=True)
-
-        AOS_apply_button = page.get_by_role("button", name="Apply")
-        AOS_apply_button.wait_for(state="visible", timeout=5000)
-        AOS_apply_button.scroll_into_view_if_needed()
-        AOS_apply_button.click()
-
-        page.wait_for_timeout(5000)
-
-        AOS_target_element = page.locator(target_filterbox)
-        AOS_target_element.wait_for(state="visible", timeout=5000)
-        assert AOS_target_element.is_visible(), "❌ Android 필터 적용 실패"
-    except Exception as e:
-        assert False, f"❌ test device OS 필터 적용 실패: {e}"
+    apply_filter_checkbox_AOS(page)
 
 @pytest.mark.order(5)
 @pytest.mark.prod_widget
@@ -130,31 +102,7 @@ def test_back_testrun_list_AOS(main_homepage, aos_flag):
 @pytest.mark.prod_widget
 def test_checkresult_IOS(main_homepage):
     page = main_homepage
-    page.click(btn_test_filter)
-
-    target_title_IOS= page.locator(title_filter_section).get_by_text("Filter")
-    assert target_title_IOS.is_visible(), f"❌ {btn_test_filter} 선택 실패"
-
-    container_filter_IOS = page.locator(filter_os_section) 
-    IOS_checkbox = container_filter_IOS.locator("img[data-testid='checkBox']").nth(1)
-
-    try:
-        IOS_checkbox.scroll_into_view_if_needed()
-        IOS_checkbox.wait_for(state="visible", timeout=5000)
-        IOS_checkbox.click(force=True)
-
-        IOS_apply_button = page.get_by_role("button", name="Apply")
-        IOS_apply_button.wait_for(state="visible", timeout=5000)
-        IOS_apply_button.scroll_into_view_if_needed()
-        IOS_apply_button.click()
-
-        page.wait_for_timeout(5000)
-
-        IOS_target_element = page.locator(target_filterbox)
-        IOS_target_element.wait_for(state="visible", timeout=5000)
-        assert IOS_target_element.is_visible(), "❌ IOS 필터 적용 실패"
-    except Exception as e:
-        assert False, f"❌ test device OS 필터 적용 실패: {e}"
+    apply_filter_checkbox_iOS(page)
 
 @pytest.mark.order(9)
 @pytest.mark.prod_widget
