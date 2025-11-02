@@ -20,7 +20,7 @@ project_title = "#content_box > div > main > div > div.sc-fTyFcS.hvAcvE > div.sc
 # prod_contentshome_preview : 
 # prod_viewer : 
 # prod_usersfile : 
-prod_shorcut= "#default-table > tbody > tr:nth-child(2) > td:nth-child(1) > div > div > div"
+prod_shortcut= "#default-table > tbody > tr:nth-child(2) > td:nth-child(1) > div > div > div"
 prod_widget= "#default-table > tbody > tr:nth-child(3) > td:nth-child(1) > div > div > div"
 
 # stg_start_app : 
@@ -45,7 +45,8 @@ target_filterbox = (
             "div.sc-hhmtaI.haUgqN > div > div:nth-child(2)"
         )
 
-first_testrun_id = "#default-table > tbody > tr:nth-child(1) > td:nth-child(2) > a"
+
+testrun_first = "#default-table > tbody > tr > td:nth-child(3) > a div.sc-eBMEME.jQHsJX > div"
 testrun_id_section = "#result-wrapper > div.sc-jzlYRg.iFEPPT > div.sc-gCRolh.juzXdM > div.sc-kxZkPw.czOSqk"
 testrun_status = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div > div.sc-hXaAvY.dQtrlU > div.sc-hIsoIq.cxofZo > div > div.sc-esPSxW.cbzDGM > div > div > div > div:nth-child(9) > div.sc-iCbVgq.jWTVER > div > div > span"
 testrun_result_message_AOS = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div > div.sc-bJoeBu.hdBAkC"

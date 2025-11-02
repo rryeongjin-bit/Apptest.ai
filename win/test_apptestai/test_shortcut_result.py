@@ -1,6 +1,6 @@
 import pytest
 import re
-from element_copy import *
+from element_total import *
 from common_utils import *
 from conftest import *
 
@@ -24,7 +24,7 @@ def test_project_widget(main_homepage):
     page = main_homepage
     page.click(prod_shortcut)
 
-    target_project = page.locator(project_title).get_by_text("위젯")
+    target_project = page.locator(project_title).get_by_text("[Prod] 숏컷")
     try:
         target_project.wait_for(state="visible", timeout=5000)
     except TimeoutError:
@@ -108,8 +108,8 @@ copy_map = {
     "R": "L",
 }
 
-@pytest.mark.prod_widget
-@pytest.mark.stg_widget
+@pytest.mark.prod_shortcut
+@pytest.mark.stg_shortcut
 @pytest.mark.order(12)
 @pytest.mark.parametrize("row1,row2", row_pairs)
 def test_copy_cell_if_match(sheet, row1, row2):
@@ -130,5 +130,3 @@ def test_copy_cell_if_match(sheet, row1, row2):
         print(f"❌ {row1}행 ↔ {row2}행: 값 불일치 → 복사 안 함")
 
     print("🏁 결과 복사 완료!")
-
-

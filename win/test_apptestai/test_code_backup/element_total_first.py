@@ -3,7 +3,7 @@
 # -------------------------------
 account_section = "#root > header > div.sc-empnci.jgzAsH > div.sc-ePDLzJ.rrOtd > div > div > div"
 btn_changeaccount = "#root > header > div.sc-empnci.jgzAsH > div.sc-ePDLzJ.rrOtd > div > img"
-qa_account = "text=RIDI 시나리오 수정"
+qa_account = "text=QA part"
 
 # -------------------------------
 # mobile app 폴더
@@ -20,9 +20,8 @@ project_title = "#content_box > div > main > div > div.sc-fTyFcS.hvAcvE > div.sc
 # prod_contentshome_preview : 
 # prod_viewer : 
 # prod_usersfile : 
-prod_shortcut = "#default-table > tbody > tr:nth-child(11) > td:nth-child(1) > div > div > div"
-prod_widget= "#default-table > tbody > tr:nth-child(5) > td:nth-child(1) > div > div > div"
-
+prod_shortcut= "#default-table > tbody > tr:nth-child(2) > td:nth-child(1) > div > div > div"
+prod_widget= "#default-table > tbody > tr:nth-child(3) > td:nth-child(1) > div > div > div"
 
 # stg_start_app : 
 # stg_tabbar : 
@@ -32,7 +31,7 @@ prod_widget= "#default-table > tbody > tr:nth-child(5) > td:nth-child(1) > div >
 # stg_viewer : 
 # stg_usersfile : 
 # stg_shorcut : 
-# stg_widget
+stg_widget ="#default-table > tbody > tr:nth-child(3) > td:nth-child(1) > div > div > div"
 
 btn_test_run = "#content_box > div > main > div > div.sc-fDinKg.fneeqI > div > div.sc-goDuUA.bbgRRK > div.sc-libkiD.bnTBaE"
 title_recent_result = "#content_box > div > main > div > div.sc-fDinKg.fneeqI > div > div.sc-fPQgqs.dnSSIZ > div.sc-fhzFiK.khqNog.title-name"
@@ -46,7 +45,7 @@ target_filterbox = (
             "div.sc-hhmtaI.haUgqN > div > div:nth-child(2)"
         )
 
-testrun_first = "#default-table > tbody > tr > td:nth-child(3) > a div.sc-eBMEME.jQHsJX > div"
+first_testrun_id = "#default-table > tbody > tr:nth-child(1) > td:nth-child(2) > a"
 testrun_id_section = "#result-wrapper > div.sc-jzlYRg.iFEPPT > div.sc-gCRolh.juzXdM > div.sc-kxZkPw.czOSqk"
 testrun_status = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div > div.sc-hXaAvY.dQtrlU > div.sc-hIsoIq.cxofZo > div > div.sc-esPSxW.cbzDGM > div > div > div > div:nth-child(9) > div.sc-iCbVgq.jWTVER > div > div > span"
 testrun_result_message_AOS = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div > div.sc-bJoeBu.hdBAkC"
@@ -54,5 +53,3 @@ testrun_result_message_IOS = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div
 
 return_to_testrun = "#result-wrapper > div.sc-jzlYRg.iFEPPT > div.sc-gCRolh.juzXdM > div.sc-gGTSdS.jEcUBr > div.sc-jOoWRn.hDHbSV"
 reset_filter = "#content_box > div > main > div > div.sc-fDinKg.fneeqI > div > div.sc-fPQgqs.dnSSIZ > div.sc-fwrIAP.gLQXoJ > div.sc-hhmtaI.haUgqN > div > div.sc-gMZepy.sc-dgcZxp.eXopMv.kvchiA"
-
-

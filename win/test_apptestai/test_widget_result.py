@@ -1,4 +1,5 @@
 import pytest
+import re
 from element_total import *
 from common_utils import *
 from conftest import *
@@ -51,9 +52,15 @@ def test_checkresult_AOS(main_homepage):
 @pytest.mark.prod_widget
 def test_testrun_info_AOS(main_homepage, write_result,aos_flag):
     page = main_homepage
+    AOS_testrun_widget = page.locator(testrun_first).filter(
+        has_text=re.compile(r"숏컷_위젯", re.IGNORECASE)
+    ).first
 
     try:
-        page.click(first_testrun_id)
+        AOS_testrun_widget.wait_for(state="visible", timeout=10000)
+        AOS_testrun_widget.scroll_into_view_if_needed()
+        AOS_testrun_widget.click()
+
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
         write_result("S478", AOS_testrun_info)
         write_result("S477", AOS_testrun_info)
@@ -75,7 +82,7 @@ def test_check_testresult_AOS(main_homepage, write_result, aos_flag):
     page = main_homepage
     App_CheckList_478_AOS= get_testrun_status_AOS(page, testrun_status, testrun_result_message_AOS)
     write_result("P478", App_CheckList_478_AOS)
-    write_result("P477", "Passed")
+    write_result("P477", App_CheckList_478_AOS)
 
 @pytest.mark.order(7)
 @pytest.mark.prod_widget
@@ -92,9 +99,15 @@ def test_checkresult_IOS(main_homepage):
 @pytest.mark.prod_widget
 def test_testrun_info_IOS(main_homepage,write_result, ios_flag):
     page = main_homepage
+    IOS_testrun_widget = page.locator(testrun_first).filter(
+        has_text=re.compile(r"숏컷_위젯", re.IGNORECASE)
+    ).first
 
     try:
-        page.click(first_testrun_id)
+        IOS_testrun_widget.wait_for(state="visible", timeout=10000)
+        IOS_testrun_widget.scroll_into_view_if_needed()
+        IOS_testrun_widget.click()
+    
         IOS_testrun_info = get_testrun_info(page, testrun_id_section)
         write_result("T479", IOS_testrun_info)
         write_result("T477", IOS_testrun_info)
@@ -115,7 +128,7 @@ def test_check_testresult_IOS(main_homepage, write_result,ios_flag):
     page = main_homepage
     App_CheckList_479_iOS = get_testrun_status_IOS(page, testrun_status, testrun_result_message_IOS)
     write_result("R479", App_CheckList_479_iOS)
-    write_result("R477", "Passed")
+    write_result("R477", App_CheckList_479_iOS)
 
 @pytest.mark.order(11)
 @pytest.mark.prod_widget
@@ -142,9 +155,9 @@ row_pairs = [
 col1 = "E"  # 1번시트 비교 열
 col2 = "B"  # 2번시트 비교 열
 copy_map = {
-    "P": "R",
-    "Q": "S",
-    "R": "T",
+    "P": "J",
+    "Q": "K",
+    "R": "L",
 }
 
 @pytest.mark.prod_widget

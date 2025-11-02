@@ -1,14 +1,14 @@
 
 import os
 import pytest
-from element_total import *
-# from element_copy import *
+# from element_total import *
+from element_copy import *
 from playwright.sync_api import Page
 from playwright.sync_api import sync_playwright
 from playwright.sync_api import TimeoutError
 
 # 테로 로그인/계정변경 & 프로젝트 폴더 진입
-def login_and_select_project(page, target_account_name="QA part", folder_name="Mobile App"):
+def login_and_select_project(page, target_account_name="RIDI 시나리오 수정", folder_name="Mobile App"):
     try:
         page.goto("https://app.apptest.ai")
         if "Dashboard" not in page.inner_text("body"):
