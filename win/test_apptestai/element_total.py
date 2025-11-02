@@ -19,7 +19,7 @@ project_title = "#content_box > div > main > div > div.sc-fTyFcS.hvAcvE > div.sc
 # prod_contentshome : 
 # prod_contentshome_preview : 
 # prod_viewer : 
-# prod_usersfile : 
+prod_usersfile = "#default-table > tbody > tr:nth-child(4) > td:nth-child(1) > div > div > div"
 prod_shortcut= "#default-table > tbody > tr:nth-child(2) > td:nth-child(1) > div > div > div"
 prod_widget= "#default-table > tbody > tr:nth-child(3) > td:nth-child(1) > div > div > div"
 
@@ -31,7 +31,7 @@ prod_widget= "#default-table > tbody > tr:nth-child(3) > td:nth-child(1) > div >
 # stg_viewer : 
 # stg_usersfile : 
 # stg_shorcut : 
-stg_widget ="#default-table > tbody > tr:nth-child(3) > td:nth-child(1) > div > div > div"
+# stg_widget :
 
 btn_test_run = "#content_box > div > main > div > div.sc-fDinKg.fneeqI > div > div.sc-goDuUA.bbgRRK > div.sc-libkiD.bnTBaE"
 title_recent_result = "#content_box > div > main > div > div.sc-fDinKg.fneeqI > div > div.sc-fPQgqs.dnSSIZ > div.sc-fhzFiK.khqNog.title-name"

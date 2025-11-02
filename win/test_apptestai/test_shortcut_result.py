@@ -15,12 +15,12 @@ def test_login_enter_project(main_homepage):
     login_and_select_project(page)
 
 # -------------------------------
-# [Prod] 위젯 프로젝트
+# [Prod] 숏컷 프로젝트
 # -------------------------------
 
 @pytest.mark.order(2)
 @pytest.mark.prod_shortcut
-def test_project_widget(main_homepage):
+def test_project_shorcut(main_homepage):
     page = main_homepage
     page.click(prod_shortcut)
 
@@ -86,7 +86,7 @@ def test_back_testrun_list_AOS(main_homepage, aos_flag):
     back_and_or_reset_AOS(main_homepage, aos_flag.get("run", False))
 
 # -------------------------------
-# ⌛ [Stage] 위젯 프로젝트 ⌛
+# ⌛ [Stage] 숏컷 프로젝트 ⌛
 # ------------------------------
 
 
