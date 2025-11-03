@@ -4,3 +4,4 @@
 # Google API credentials
 credentials.json
 token.json
+storageState.json
