@@ -53,7 +53,7 @@ def test_checkresult_AOS1(main_homepage):
 """
 @pytest.mark.order(5)
 @pytest.mark.prod_usersfile
-def test_testrun_info_AOS1(main_homepage, write_result,aos_flag):
+def test_testrun_info_AOS_txt1(main_homepage, write_result,aos_flag):
     page = main_homepage
     AOS_testrun_usersfile_txt1 = page.locator(testrun_first).filter(
         has_text=re.compile(r"TXT_상단\s*컨트롤러", re.IGNORECASE)
@@ -76,7 +76,7 @@ def test_testrun_info_AOS1(main_homepage, write_result,aos_flag):
 
 @pytest.mark.order(6)
 @pytest.mark.prod_usersfile
-def test_check_testresult_AOS1(main_homepage, write_result, aos_flag):
+def test_check_testresult_AOS_txt1(main_homepage, write_result, aos_flag):
     if not aos_flag["run"]:
         write_result("P473", "N/T")
         write_result("P474", "N/T")
@@ -89,18 +89,18 @@ def test_check_testresult_AOS1(main_homepage, write_result, aos_flag):
 
 @pytest.mark.order(7)
 @pytest.mark.prod_usersfile
-def test_back_testrun_list_AOS1(main_homepage, aos_flag):
+def test_back_testrun_list_AOS_txt1(main_homepage, aos_flag):
     back_and_or_reset_AOS(main_homepage, aos_flag.get("run", False))
 
 @pytest.mark.order(8)
 @pytest.mark.prod_usersfile
-def test_checkresult_IOS1(main_homepage):
+def test_checkresult_IOS_txt1(main_homepage):
     page = main_homepage
     apply_filter_checkbox_iOS(page)
 
 @pytest.mark.order(9)
 @pytest.mark.prod_usersfile
-def test_testrun_info_IOS1(main_homepage,write_result, ios_flag):
+def test_testrun_info_IOS_txt1(main_homepage,write_result, ios_flag):
     page = main_homepage
     IOS_testrun_usersfile_txt1= page.locator(testrun_first).filter(
         has_text=re.compile(r"TXT_상단\s*컨트롤러", re.IGNORECASE)
@@ -122,7 +122,7 @@ def test_testrun_info_IOS1(main_homepage,write_result, ios_flag):
 
 @pytest.mark.order(10)
 @pytest.mark.prod_usersfile
-def test_check_testresult_IOS1(main_homepage, write_result,ios_flag):
+def test_check_testresult_txt1(main_homepage, write_result,ios_flag):
     if not ios_flag["run"]:
         write_result("R473", "N/T")
         write_result("R474", "N/T")
@@ -135,7 +135,7 @@ def test_check_testresult_IOS1(main_homepage, write_result,ios_flag):
 
 @pytest.mark.order(11)
 @pytest.mark.prod_usersfile
-def test_back_testrun_list_IOS1(main_homepage, ios_flag):
+def test_back_testrun_list_IOS_txt1(main_homepage, ios_flag):
     back_and_or_reset_IOS(main_homepage, ios_flag.get("run", False))
 
 """
@@ -143,13 +143,13 @@ def test_back_testrun_list_IOS1(main_homepage, ios_flag):
 """
 @pytest.mark.order(12)
 @pytest.mark.prod_usersfile
-def test_checkresult_AOS2(main_homepage):
+def test_checkresult_AOS_txt2(main_homepage):
     page = main_homepage
     apply_filter_checkbox_AOS(page)
 
 @pytest.mark.order(13)
 @pytest.mark.prod_usersfile
-def test_testrun_info_AOS2(main_homepage, write_result,aos_flag):
+def test_testrun_info_AOS_txt2(main_homepage, write_result,aos_flag):
     page = main_homepage
     AOS_testrun_usersfile_txt2 = page.locator(testrun_first).filter(
         has_text=re.compile(r"TXT_하단\s*컨트롤러", re.IGNORECASE)
@@ -170,7 +170,7 @@ def test_testrun_info_AOS2(main_homepage, write_result,aos_flag):
 
 @pytest.mark.order(14)
 @pytest.mark.prod_usersfile
-def test_check_testresult_AOS2(main_homepage, write_result, aos_flag):
+def test_check_testresult_AOS_txt2(main_homepage, write_result, aos_flag):
     if not aos_flag["run"]:
         write_result("P475", "N/T")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
@@ -181,18 +181,18 @@ def test_check_testresult_AOS2(main_homepage, write_result, aos_flag):
 
 @pytest.mark.order(15)
 @pytest.mark.prod_usersfile
-def test_back_testrun_list_AOS2(main_homepage, aos_flag):
+def test_back_testrun_list_AOS_txt2(main_homepage, aos_flag):
     back_and_or_reset_AOS(main_homepage, aos_flag.get("run", False))
 
 @pytest.mark.order(16)
 @pytest.mark.prod_usersfile
-def test_checkresult_IOS2(main_homepage):
+def test_checkresult_IOS_txt2(main_homepage):
     page = main_homepage
     apply_filter_checkbox_iOS(page)
 
 @pytest.mark.order(17)
 @pytest.mark.prod_usersfile
-def test_testrun_info_IOS2(main_homepage,write_result, ios_flag):
+def test_testrun_info_IOS_txt2(main_homepage,write_result, ios_flag):
     page = main_homepage
     IOS_testrun_usersfile_txt2 = page.locator(testrun_first).filter(
         has_text=re.compile(r"TXT_하단\s*컨트롤러", re.IGNORECASE)
@@ -212,7 +212,7 @@ def test_testrun_info_IOS2(main_homepage,write_result, ios_flag):
 
 @pytest.mark.order(18)
 @pytest.mark.prod_usersfile
-def test_check_testresult_IOS2(main_homepage, write_result,ios_flag):
+def test_check_testresult_IOS_txt2(main_homepage, write_result,ios_flag):
     if not ios_flag["run"]:
         write_result("R475", "N/T")
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 결과 확인 skip")
@@ -223,7 +223,7 @@ def test_check_testresult_IOS2(main_homepage, write_result,ios_flag):
 
 @pytest.mark.order(19)
 @pytest.mark.prod_usersfile
-def test_back_testrun_list_IOS2(main_homepage, ios_flag):
+def test_back_testrun_list_IOS_txt2(main_homepage, ios_flag):
     back_and_or_reset_IOS(main_homepage, ios_flag.get("run", False))
 
 
@@ -238,7 +238,7 @@ def test_back_testrun_list_IOS2(main_homepage, ios_flag):
 # 자동화 테스트 결과 비교
 # -------------------------------
 
-# # 비교 (1번시트 row, 2번시트 row)
+# 비교 (1번시트 row, 2번시트 row)
 row_pairs = [
     (473, 444),
     (474, 445),
