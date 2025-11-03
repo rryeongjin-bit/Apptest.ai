@@ -77,8 +77,8 @@ def test_check_testresult_AOS(main_homepage, write_result, aos_flag):
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_477_AOS= get_testrun_status_AOS(page, testrun_status, testrun_result_message_AOS)
-    write_result("Q476", App_CheckList_477_AOS)
+    App_CheckList_420_AOS= get_testrun_status_AOS(page, testrun_status)
+    write_result("Q476", App_CheckList_420_AOS)
 
 @pytest.mark.order(7)
 @pytest.mark.prod_shortcut
@@ -96,7 +96,7 @@ def test_back_testrun_list_AOS(main_homepage, aos_flag):
 
 # # 비교 (1번시트 row, 2번시트 row)
 row_pairs = [
-    (476, 448)
+    (476, 449)
 ]
 
 # 열 매핑 및 비교 열
@@ -110,7 +110,7 @@ copy_map = {
 
 @pytest.mark.prod_shortcut
 @pytest.mark.stg_shortcut
-@pytest.mark.order(12)
+@pytest.mark.order(8)
 @pytest.mark.parametrize("row1,row2", row_pairs)
 def test_copy_cell_if_match(sheet, row1, row2):
     sheet1 = sheet

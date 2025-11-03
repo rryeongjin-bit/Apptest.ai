@@ -49,8 +49,12 @@ target_filterbox = (
 testrun_first = "#default-table > tbody > tr > td:nth-child(3) > a div.sc-eBMEME.jQHsJX > div"
 testrun_id_section = "#result-wrapper > div.sc-jzlYRg.iFEPPT > div.sc-gCRolh.juzXdM > div.sc-kxZkPw.czOSqk"
 testrun_status = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div > div.sc-hXaAvY.dQtrlU > div.sc-hIsoIq.cxofZo > div > div.sc-esPSxW.cbzDGM > div > div > div > div:nth-child(9) > div.sc-iCbVgq.jWTVER > div > div > span"
-testrun_result_message_AOS = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div > div.sc-bJoeBu.hdBAkC"
-testrun_result_message_IOS = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div > div.sc-bJoeBu.fGzRwu"
+
+testrun_passmessage_AOS = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div > div.sc-bJoeBu.hdBAkC"
+testrun_warningmessage_AOS = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div > div.sc-bJoeBu.fGzRwu > div > div"
+testrun_passmessage_IOS = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div > div.sc-bJoeBu.hdBAkC"
+tesrtrun_warningmessage_IOS = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div > div.sc-bJoeBu.fGzRwu > div > div"
 
 return_to_testrun = "#result-wrapper > div.sc-jzlYRg.iFEPPT > div.sc-gCRolh.juzXdM > div.sc-gGTSdS.jEcUBr > div.sc-jOoWRn.hDHbSV"
 reset_filter = "#content_box > div > main > div > div.sc-fDinKg.fneeqI > div > div.sc-fPQgqs.dnSSIZ > div.sc-fwrIAP.gLQXoJ > div.sc-hhmtaI.haUgqN > div > div.sc-gMZepy.sc-dgcZxp.eXopMv.kvchiA"
+

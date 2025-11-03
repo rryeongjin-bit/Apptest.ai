@@ -80,9 +80,9 @@ def test_check_testresult_AOS(main_homepage, write_result, aos_flag):
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_478_AOS= get_testrun_status_AOS(page, testrun_status, testrun_result_message_AOS)
-    write_result("P478", App_CheckList_478_AOS)
-    write_result("P477", App_CheckList_478_AOS)
+    App_CheckList_421_AOS= get_testrun_status_AOS(page, testrun_status)
+    write_result("P478", App_CheckList_421_AOS)
+    write_result("P477", App_CheckList_421_AOS)
 
 @pytest.mark.order(7)
 @pytest.mark.prod_widget
@@ -126,9 +126,9 @@ def test_check_testresult_IOS(main_homepage, write_result,ios_flag):
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_479_iOS = get_testrun_status_IOS(page, testrun_status, testrun_result_message_IOS)
-    write_result("R479", App_CheckList_479_iOS)
-    write_result("R477", App_CheckList_479_iOS)
+    App_CheckList_422_iOS = get_testrun_status_IOS(page, testrun_status)
+    write_result("R479", App_CheckList_422_iOS)
+    write_result("R477", App_CheckList_422_iOS)
 
 @pytest.mark.order(11)
 @pytest.mark.prod_widget
@@ -146,7 +146,7 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 
 # 비교 (1번시트 row, 2번시트 row)
 row_pairs = [
-    (477, 449),
+    (477, 448),
     (478, 450),
     (479, 451),
 ]

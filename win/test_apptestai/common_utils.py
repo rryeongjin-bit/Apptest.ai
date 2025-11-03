@@ -39,42 +39,66 @@ def get_testrun_info(page: Page, testrun_id_section: str) -> str:
     return testrun_info
 
 # 테스트 결과 출력_AOS
-def get_testrun_status_AOS(page: Page, testrun_status: str, testrun_result_message: str):
+def get_testrun_status_AOS(page: Page, testrun_status: str):
+    target_passmessage_AOS = testrun_passmessage_AOS
+    target_warningmessage_AOS = testrun_warningmessage_AOS
+
     target_status_AOS = page.locator(testrun_status)
-    result_testrun_status_AOS = target_status_AOS.inner_text()
-    
-    if result_testrun_status_AOS in ["Warning", "Failed", "Passed"]:
-        test_message_AOS = page.locator(f"{testrun_result_message_AOS} span")
-        count = test_message_AOS.count()
-        if count == 0:
-            print("⚠️ 테스트 실행 결과 메시지를 찾을 수 없습니다.")
-        else:
-            for i in range(count):
-                text = test_message_AOS.nth(i).inner_text().strip()
-                if text:
-                    print(f"💡 테스트 결과 출력 : {text}")
-                else:
-                    raise ValueError("⚠️ 테스트 실행 결과 메시지를 찾을 수 없습니다.")
+    result_testrun_status_AOS = target_status_AOS.inner_text().strip()
+ 
+    # testrun status에 따른 결과메시지 확인
+    if result_testrun_status_AOS == "Passed":
+        message_selector = f"{target_passmessage_AOS} span"
+    elif result_testrun_status_AOS in ["Warning", "Failed"]:
+        message_selector = f"{target_warningmessage_AOS} span"
+    else:
+        print("⚠️ 테스트 실행 결과 메시지를 찾을 수 없습니다.")
+        return result_testrun_status_AOS
+
+    # 테스트 결과메시지 출력
+    test_message_AOS = page.locator(message_selector)
+    count = test_message_AOS.count()
+    if count == 0:
+        print("⚠️ 테스트 실행 결과 메시지를 찾을 수 없습니다.")
+    else:
+        for i in range(count):
+            text = test_message_AOS.nth(i).inner_text().strip()
+            if text:
+                print(f"💡 테스트 결과 출력 : {text}")
+            else:
+                raise ValueError("⚠️ 테스트 실행 결과 메시지를 찾을 수 없습니다.")
 
     return result_testrun_status_AOS
 
 # 테스트 결과 출력_IOS
-def get_testrun_status_IOS(page: Page, testrun_status: str, testrun_result_message: str):
+def get_testrun_status_IOS(page: Page, testrun_status: str):
+    target_passmessage_IOS = testrun_passmessage_IOS
+    target_warningmessage_IOS = tesrtrun_warningmessage_IOS
+
     target_status_IOS = page.locator(testrun_status)
-    result_testrun_status_IOS = target_status_IOS.inner_text()
-    
-    if result_testrun_status_IOS in ["Warning", "Failed", "Passed"]:
-        test_message_IOS = page.locator(f"{testrun_result_message_IOS} span")
-        count = test_message_IOS.count()
-        if count == 0:
-            print("⚠️ 테스트 실행 결과 메시지를 찾을 수 없습니다.")
-        else:
-            for i in range(count):
-                text = test_message_IOS.nth(i).inner_text().strip()
-                if text:
-                    print(f"💡 테스트 결과 출력 : {text}")
-                else:
-                    raise ValueError("⚠️ 테스트 실행 결과 메시지를 찾을 수 없습니다.")
+    result_testrun_status_IOS = target_status_IOS.inner_text().strip()
+
+    # testrun status에 따른 결과메시지 확인
+    if result_testrun_status_IOS == "Passed":
+        message_selector = f"{target_passmessage_IOS} span"
+    elif result_testrun_status_IOS in ["Warning", "Failed"]:
+        message_selector = f"{target_warningmessage_IOS} span"
+    else:
+        print("⚠️ 테스트 실행 결과 메시지를 찾을 수 없습니다.")
+        return result_testrun_status_IOS
+
+    # 테스트 결과메시지 출력
+    test_message_IOS = page.locator(message_selector)
+    count = test_message_IOS.count()
+    if count == 0:
+        print("⚠️ 테스트 실행 결과 메시지를 찾을 수 없습니다.")
+    else:
+        for i in range(count):
+            text = test_message_IOS.nth(i).inner_text().strip()
+            if text:
+                print(f"💡 테스트 결과 출력 : {text}")
+            else:
+                raise ValueError("⚠️ 테스트 실행 결과 메시지를 찾을 수 없습니다.")
 
     return result_testrun_status_IOS
  
