@@ -8,32 +8,32 @@ from conftest import *
 # 로그인&계정전환 + 프로젝트 폴더 진입
 # -------------------------------
 @pytest.mark.order(1)
-@pytest.mark.prod_launchapp
-@pytest.mark.stg_launchapp
+@pytest.mark.prod_genrehome
+@pytest.mark.stg_genrehome
 def test_login_enter_project(main_homepage):
     page = main_homepage
     login_and_select_project(page)
 
 # -------------------------------
-# [Prod] 앱실행 프로젝트
+# [Prod] 장르홈 프로젝트
 # -------------------------------
 
 @pytest.mark.order(2)
-@pytest.mark.prod_launchapp
-def test_project_launchapp(main_homepage):
+@pytest.mark.prod_genrehome
+def test_project_genrehome(main_homepage):
     page = main_homepage
-    page.click(prod_launchapp)
+    page.click(prod_genrehome)
 
-    target_project = page.locator(project_title).get_by_text("앱실행")
+    target_project = page.locator(project_title).get_by_text("장르홈")
     try:
         target_project.wait_for(state="visible", timeout=5000)
     except TimeoutError:
-        assert False, f"❌ {prod_launchapp} 폴더 진입 실패"
+        assert False, f"❌ {prod_genrehome} 폴더 진입 실패"
 
-    assert target_project.is_visible(), f"❌ {prod_launchapp} 폴더 진입 실패"
+    assert target_project.is_visible(), f"❌ {prod_genrehome} 폴더 진입 실패"
 
 @pytest.mark.order(3)
-@pytest.mark.prod_launchapp
+@pytest.mark.prod_genrehome
 def test_checkresult(main_homepage):
     page = main_homepage
     targets = [
@@ -41,19 +41,22 @@ def test_checkresult(main_homepage):
         ]
 
     click_and_verify(page, btn_test_run, targets)
-    
+
+"""
+📍 장르홈_공통_무료충전소/카트/ISP
+"""    
 @pytest.mark.order(4)
-@pytest.mark.prod_launchapp
+@pytest.mark.prod_genrehome
 def test_checkresult_AOS(main_homepage):
     page = main_homepage
     apply_filter_checkbox_AOS(page)
 
 @pytest.mark.order(5)
-@pytest.mark.prod_launchapp
+@pytest.mark.prod_genrehome
 def test_testrun_info_AOS(main_homepage, write_result,aos_flag):
     page = main_homepage
     AOS_testrun_launchapp = page.locator(testrun_first).filter(
-        has_text=re.compile(r"앱\s*실행_설치실행", re.IGNORECASE)
+        has_text=re.compile(r"장르홈_공통_무료충전소/", re.IGNORECASE)   >>>>>>
     ).first
 
     try:

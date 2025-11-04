@@ -15,7 +15,7 @@ project_title = "#content_box > div > main > div > div.sc-fTyFcS.hvAcvE > div.sc
 
 prod_launchapp = "#default-table > tbody > tr:nth-child(6) > td:nth-child(1) > div > div > div"
 # prod_tabbar : 
-# prod_genrehome : 
+prod_genrehome = "#default-table > tbody > tr:nth-child(8) > td:nth-child(1) > div > div > div"
 # prod_contentshome : 
 # prod_contentshome_preview : 
 # prod_viewer : 
