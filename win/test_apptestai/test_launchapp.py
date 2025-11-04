@@ -24,7 +24,7 @@ def test_project_launchapp(main_homepage):
     page = main_homepage
     page.click(prod_launchapp)
 
-    target_project = page.locator(project_title).get_by_text("앱실행")
+    target_project = page.locator(project_title).get_by_text("[Prod] 앱실행")
     try:
         target_project.wait_for(state="visible", timeout=5000)
     except TimeoutError:
