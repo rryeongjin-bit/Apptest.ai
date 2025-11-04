@@ -1,6 +1,6 @@
 import pytest
 import re
-from element_copy import *
+from element_total import *
 from common_utils import *
 from conftest import *
 
@@ -24,7 +24,7 @@ def test_project_genrehome(main_homepage):
     page = main_homepage
     page.click(prod_genrehome)
 
-    target_project = page.locator(project_title).get_by_text("장르홈")
+    target_project = page.locator(project_title).get_by_text("[Prod] 장르홈")
     try:
         target_project.wait_for(state="visible", timeout=5000)
     except TimeoutError:
@@ -67,11 +67,11 @@ def test_testrun_info_AOS(main_homepage, write_result,aos_flag):
 
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
         for step in ["S86", "S87", "S88", "S89", "S90","S91","S92"]:
-          write_result(step, AOS_testrun_info)
+            write_result(step, AOS_testrun_info)
 
     except Exception as e:
         for step in ["S86", "S87", "S88", "S89", "S90","S91","S92"]:
-                write_result(step, "No Info")
+            write_result(step, "No Info")
         aos_flag["run"] = False
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
@@ -115,7 +115,7 @@ def test_testrun_info_IOS(main_homepage,write_result, ios_flag):
     
         IOS_testrun_info = get_testrun_info(page, testrun_id_section)
         for step in ["T86", "T87", "T88", "T89", "T90","T91","T92"]:
-          write_result(step, IOS_testrun_info)
+            write_result(step, IOS_testrun_info)
 
     except Exception as e:
         for step in ["T86", "T87", "T88", "T89", "T90","T91","T92"]:
@@ -144,7 +144,7 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 
 
 # -------------------------------
-# ⌛ [Stage] 앱실행 프로젝트 ⌛
+# ⌛ [Stage] 장르홈 프로젝트 ⌛
 # ------------------------------
 
 

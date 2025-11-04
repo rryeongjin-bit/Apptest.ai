@@ -28,6 +28,122 @@ def login_and_select_project(page, target_account_name="RIDI 시나리오 수정
     except Exception as e:
         pytest.fail(f"로그인 & 프로젝트 폴더 선택 실패: {e}")
 
+# 테스트 결과 목록 600개 보기
+def select_rows(page):
+    page.wait_for_selector("#rows")
+    page.select_option("#rows", "600")
+    
+    page.wait_for_timeout(5000)
+
+    selected_value = page.eval_on_selector("#rows", "el => el.value")
+    assert selected_value == "600", f"테스트 결과 목록 600개 보기 실패 — rows : {selected_value}"
+    print("✅ 테스트 결과 목록 600개 정렬 완료")
+        
+# 스크롤
+def scroll_until_element_found(page: Page, selector: str, max_attempts: int = 10, wait_time: int = 500) -> bool:
+    element = page.locator(selector)
+
+    for _ in range(max_attempts):
+        if element.count() > 0 and element.is_visible():
+            return True
+        element.scroll_into_view_if_needed()
+        page.wait_for_timeout(wait_time)
+
+    return False
+
+# 요소 선택 
+def click_and_verify(page: Page, button_selector: str, targets: list[tuple[str, str]]):
+    page.click(button_selector)
+
+    for sel, expected_text in targets:
+        found = scroll_until_element_found(page, sel)
+        assert found, f"❌ 요소를 찾지 못했습니다: {sel}"
+
+        element = page.locator(sel)
+        if expected_text:
+            text_found = expected_text in element.inner_text()
+            assert text_found, f"❌ '{expected_text}' 발견 실패: {sel}"
+
+# test run_AOS 필터적용
+def apply_filter_checkbox_AOS(page: Page):
+    page.click(btn_test_filter)
+
+    filter_container = page.locator(filter_os_section)
+    checkbox = filter_container.locator("img[data-testid='checkBox']").nth(0)
+
+    checkbox.scroll_into_view_if_needed()
+    checkbox.wait_for(state="visible", timeout=5000)
+    checkbox.click(force=True)
+
+    apply_button = page.get_by_role("button", name="Apply")
+    apply_button.scroll_into_view_if_needed()
+    apply_button.wait_for(state="visible", timeout=5000)
+    apply_button.click()
+
+    page.wait_for_timeout(5000)
+
+    target_elem = page.locator(target_filterbox)
+    target_elem.wait_for(state="visible", timeout=5000)
+    assert target_elem.is_visible(), "❌ Android 필터 적용 실패"
+
+# test run_IOS 필터 적용
+def apply_filter_checkbox_iOS(page: Page):
+    page.click(btn_test_filter)
+
+    filter_container = page.locator(filter_os_section)
+    checkbox = filter_container.locator("img[data-testid='checkBox']").nth(1)
+
+    checkbox.scroll_into_view_if_needed()
+    checkbox.wait_for(state="visible", timeout=5000)
+    checkbox.click(force=True)
+
+    apply_button = page.get_by_role("button", name="Apply")
+    apply_button.scroll_into_view_if_needed()
+    apply_button.wait_for(state="visible", timeout=5000)
+    apply_button.click()
+
+    page.wait_for_timeout(5000)
+
+    target_elem = page.locator(target_filterbox)
+    target_elem.wait_for(state="visible", timeout=5000)
+    assert target_elem.is_visible(), "❌ iOS 필터 적용 실패"
+
+def back_and_or_reset_AOS(page: Page, run_flag: bool):
+    try:
+        if run_flag:
+            # test run 목록 복귀
+            back_button = page.locator(return_to_testrun)
+            back_button.wait_for(state="visible", timeout=5000)
+            back_button.click()
+
+        #테스트 기기 OS 필터 초기화
+        reset_button = page.locator(reset_filter)
+        reset_button.wait_for(state="visible", timeout=5000)
+        reset_button.scroll_into_view_if_needed()
+        reset_button.click()
+        page.wait_for_timeout(5000)
+
+    except Exception as e:
+        raise RuntimeError(f"⚠️ AOS test run 목록 복귀/필터 초기화 실패: {e}")
+
+# test run 목록 복귀
+def back_and_or_reset_IOS(page: Page, run_flag: bool):
+    try:
+        if run_flag:
+            back_button = page.locator(return_to_testrun)
+            back_button.wait_for(state="visible", timeout=5000)
+            back_button.click()
+
+        #테스트 기기 OS 필터 초기화
+        reset_button = page.locator(reset_filter)
+        reset_button.wait_for(state="visible", timeout=5000)
+        reset_button.scroll_into_view_if_needed()
+        reset_button.click()
+        page.wait_for_timeout(5000)
+
+    except Exception as e:
+        raise RuntimeError(f"⚠️ IOS test run 목록 복귀/필터 초기화 실패: {e}")
+
 # 테스트 정보 출력
 def get_testrun_info(page: Page, testrun_id_section: str) -> str:
     target_testrun_id = page.locator(testrun_id_section)
@@ -116,110 +232,7 @@ def back_to_testrun_list(page: Page, return_to_testrun: str, reset_filter: str):
         page.wait_for_timeout(5000)
     except Exception as e:
         raise RuntimeError(f"❌ testrun 목록 복귀 & os 필터 초기화 실패: {e}")
-
-# 스크롤
-def scroll_until_element_found(page: Page, selector: str, max_attempts: int = 10, wait_time: int = 500) -> bool:
-    element = page.locator(selector)
-
-    for _ in range(max_attempts):
-        if element.count() > 0 and element.is_visible():
-            return True
-        element.scroll_into_view_if_needed()
-        page.wait_for_timeout(wait_time)
-
-    return False
-
-def click_and_verify(page: Page, button_selector: str, targets: list[tuple[str, str]]):
-    page.click(button_selector)
-
-    for sel, expected_text in targets:
-        found = scroll_until_element_found(page, sel)
-        assert found, f"❌ 요소를 찾지 못했습니다: {sel}"
-
-        element = page.locator(sel)
-        if expected_text:
-            text_found = expected_text in element.inner_text()
-            assert text_found, f"❌ '{expected_text}' 발견 실패: {sel}"
-
-# test run_AOS 필터적용
-def apply_filter_checkbox_AOS(page: Page):
-    page.click(btn_test_filter)
-
-    filter_container = page.locator(filter_os_section)
-    checkbox = filter_container.locator("img[data-testid='checkBox']").nth(0)
-
-    checkbox.scroll_into_view_if_needed()
-    checkbox.wait_for(state="visible", timeout=5000)
-    checkbox.click(force=True)
-
-    apply_button = page.get_by_role("button", name="Apply")
-    apply_button.scroll_into_view_if_needed()
-    apply_button.wait_for(state="visible", timeout=5000)
-    apply_button.click()
-
-    page.wait_for_timeout(5000)
-
-    target_elem = page.locator(target_filterbox)
-    target_elem.wait_for(state="visible", timeout=5000)
-    assert target_elem.is_visible(), "❌ Android 필터 적용 실패"
-
-# test run_IOS 필터 적용
-def apply_filter_checkbox_iOS(page: Page):
-    page.click(btn_test_filter)
-
-    filter_container = page.locator(filter_os_section)
-    checkbox = filter_container.locator("img[data-testid='checkBox']").nth(1)
-
-    checkbox.scroll_into_view_if_needed()
-    checkbox.wait_for(state="visible", timeout=5000)
-    checkbox.click(force=True)
-
-    apply_button = page.get_by_role("button", name="Apply")
-    apply_button.scroll_into_view_if_needed()
-    apply_button.wait_for(state="visible", timeout=5000)
-    apply_button.click()
-
-    page.wait_for_timeout(5000)
-
-    target_elem = page.locator(target_filterbox)
-    target_elem.wait_for(state="visible", timeout=5000)
-    assert target_elem.is_visible(), "❌ iOS 필터 적용 실패"
-
-def back_and_or_reset_AOS(page: Page, run_flag: bool):
-    try:
-        if run_flag:
-            # test run 목록 복귀
-            back_button = page.locator(return_to_testrun)
-            back_button.wait_for(state="visible", timeout=5000)
-            back_button.click()
-
-        #테스트 기기 OS 필터 초기화
-        reset_button = page.locator(reset_filter)
-        reset_button.wait_for(state="visible", timeout=5000)
-        reset_button.scroll_into_view_if_needed()
-        reset_button.click()
-        page.wait_for_timeout(5000)
-
-    except Exception as e:
-        raise RuntimeError(f"⚠️ AOS test run 목록 복귀/필터 초기화 실패: {e}")
-
-def back_and_or_reset_IOS(page: Page, run_flag: bool):
-    try:
-        if run_flag:
-            # test run 목록 복귀
-            back_button = page.locator(return_to_testrun)
-            back_button.wait_for(state="visible", timeout=5000)
-            back_button.click()
-
-        #테스트 기기 OS 필터 초기화
-        reset_button = page.locator(reset_filter)
-        reset_button.wait_for(state="visible", timeout=5000)
-        reset_button.scroll_into_view_if_needed()
-        reset_button.click()
-        page.wait_for_timeout(5000)
-
-    except Exception as e:
-        raise RuntimeError(f"⚠️ IOS test run 목록 복귀/필터 초기화 실패: {e}")
+        
     
 # google sheet update
 def write_to_sheet(auto_test_sheet, cell: str, value: str):
