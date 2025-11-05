@@ -13,15 +13,15 @@ folder_mobileapp = "#root > div.sc-bJBgwP.cukmPM > div.sc-fThUAz.izgTQR > div.sc
 folder_title_section = "#content_box"
 project_title = "#content_box > div > main > div > div.sc-fTyFcS.hvAcvE > div.sc-hsUFQk.eifibf > div.sc-dNckAz.gGfvGa > div"
 
-prod_launchapp = "#default-table > tbody > tr:nth-child(8) > td:nth-child(1) > div > div > div"
+prod_launchapp = "#default-table > tbody > tr:nth-child(26) > td:nth-child(1) > div > div > div"
 # prod_tabbar : 
-# prod_genrehome : 
+prod_genrehome = "#default-table > tbody > tr:nth-child(27) > td:nth-child(1) > div > div > div"
 # prod_contentshome : 
 # prod_contentshome_preview : 
 # prod_viewer : 
-prod_usersfile = "#default-table > tbody > tr:nth-child(4) > td:nth-child(1) > div > div > div"
-prod_shortcut= "#default-table > tbody > tr:nth-child(2) > td:nth-child(1) > div > div > div"
-prod_widget= "#default-table > tbody > tr:nth-child(3) > td:nth-child(1) > div > div > div"
+prod_usersfile = "#default-table > tbody > tr:nth-child(22) > td:nth-child(1) > div > div > div"
+prod_shortcut= "#default-table > tbody > tr:nth-child(20) > td:nth-child(1) > div > div > div"
+prod_widget= "#default-table > tbody > tr:nth-child(21) > td:nth-child(1) > div > div > div"
 
 # stg_launchapp : 
 # stg_tabbar : 

@@ -41,7 +41,8 @@ def test_checkresult(main_homepage):
         ]
 
     click_and_verify(page, btn_test_run, targets)
-    
+    select_rows(page)
+
 @pytest.mark.order(4)
 @pytest.mark.prod_shortcut
 def test_checkresult_AOS(main_homepage):

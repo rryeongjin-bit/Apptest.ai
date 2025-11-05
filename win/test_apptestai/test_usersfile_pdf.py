@@ -41,6 +41,7 @@ def test_checkresult(main_homepage):
         ]
 
     click_and_verify(page, btn_test_run, targets)
+    select_rows(page)
 
 """
 📍[사용자파일] PDF_상단 컨트롤러/본문
@@ -66,12 +67,12 @@ def test_testrun_info_AOS_PDF1(main_homepage, write_result,aos_flag):
         AOS_testrun_usersfile_PDF1.click()
 
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        write_result("S470", AOS_testrun_info)
-        write_result("S471", AOS_testrun_info)
-    except Exception as e:
+        for step in ["S470", "S471"]:
+            write_result(step, AOS_testrun_info)
 
-        write_result("S470", "No Info")
-        write_result("S471", "No Info")
+    except Exception as e:
+        for step in ["S470", "S471"]:
+            write_result(step, "No Info")
         aos_flag["run"] = False
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
@@ -79,14 +80,15 @@ def test_testrun_info_AOS_PDF1(main_homepage, write_result,aos_flag):
 @pytest.mark.prod_usersfile
 def test_check_testresult_AOS_PDF1(main_homepage, write_result, aos_flag):
     if not aos_flag["run"]:
-        write_result("P470", "N/T")
-        write_result("P471", "N/T")
+        for step in ["P470", "P471"]:
+            write_result(step, "N/T")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
     App_CheckList_412_AOS= get_testrun_status_AOS(page, testrun_status)
-    write_result("P470", App_CheckList_412_AOS)
-    write_result("P471", App_CheckList_412_AOS)
+   
+    for step in ["P470", "P471"]:
+        write_result(step, App_CheckList_412_AOS)
 
 @pytest.mark.order(7)
 @pytest.mark.prod_usersfile
@@ -113,11 +115,12 @@ def test_testrun_info_IOS_PDF1(main_homepage,write_result, ios_flag):
         IOS_testrun_usersfile_PDF1.click()
     
         IOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        write_result("T470", IOS_testrun_info)
-        write_result("T471", IOS_testrun_info)
+        for step in ["T470", "T471"]:
+            write_result(step, IOS_testrun_info)
+
     except Exception as e:
-        write_result("T470", "No Info")
-        write_result("T471", "No Info")
+        for step in ["T470", "T471"]:
+            write_result(step, "No Info")
         ios_flag["run"] = False
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
@@ -125,14 +128,15 @@ def test_testrun_info_IOS_PDF1(main_homepage,write_result, ios_flag):
 @pytest.mark.prod_usersfile
 def test_check_testresult_PDF1(main_homepage, write_result,ios_flag):
     if not ios_flag["run"]:
-        write_result("R470", "N/T")
-        write_result("R471", "N/T")
+        for step in ["R470", "R471"]:
+            write_result(step, "N/T")
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
     App_CheckList_412_iOS = get_testrun_status_IOS(page, testrun_status)
-    write_result("R470", App_CheckList_412_iOS)
-    write_result("R471", App_CheckList_412_iOS)
+
+    for step in ["R470", "R471"]:
+            write_result(step, App_CheckList_412_iOS)
 
 @pytest.mark.order(11)
 @pytest.mark.prod_usersfile
