@@ -53,7 +53,7 @@ testrun_status = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div > div.sc-hX
 testrun_passmessage_AOS = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div > div.sc-bJoeBu.hdBAkC"
 testrun_warningmessage_AOS = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div > div.sc-bJoeBu.fGzRwu > div > div"
 testrun_passmessage_IOS = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div > div.sc-bJoeBu.hdBAkC"
-tesrtrun_warningmessage_IOS = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div > div.sc-bJoeBu.fGzRwu > div > div"
+testrun_warningmessage_IOS = "#result-wrapper > div.sc-iCunDJ.dCBIrN > div > div > div.sc-bJoeBu.fGzRwu > div > div"
 
 return_to_testrun = "#result-wrapper > div.sc-jzlYRg.iFEPPT > div.sc-gCRolh.juzXdM > div.sc-gGTSdS.jEcUBr > div.sc-jOoWRn.hDHbSV"
 reset_filter = "#content_box > div > main > div > div.sc-fDinKg.fneeqI > div > div.sc-fPQgqs.dnSSIZ > div.sc-fwrIAP.gLQXoJ > div.sc-hhmtaI.haUgqN > div > div.sc-gMZepy.sc-dgcZxp.eXopMv.kvchiA"

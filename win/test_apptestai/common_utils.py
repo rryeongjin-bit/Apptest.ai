@@ -1,14 +1,14 @@
 
 import os
 import pytest
-# from element_total import *
-from element_copy import *
+from element_total import *
+# from element_copy import *
 from playwright.sync_api import Page
 from playwright.sync_api import sync_playwright
 from playwright.sync_api import TimeoutError
 
 # 테로 로그인/계정변경 & 프로젝트 폴더 진입
-def login_and_select_project(page, target_account_name="RIDI 시나리오 수정", folder_name="Mobile App"):
+def login_and_select_project(page, target_account_name="QA part", folder_name="Mobile App"):
     try:
         page.goto("https://app.apptest.ai")
         if "Dashboard" not in page.inner_text("body"):
@@ -189,7 +189,7 @@ def get_testrun_status_AOS(page: Page, testrun_status: str):
 # 테스트 결과 출력_IOS
 def get_testrun_status_IOS(page: Page, testrun_status: str):
     target_passmessage_IOS = testrun_passmessage_IOS
-    target_warningmessage_IOS = tesrtrun_warningmessage_IOS
+    target_warningmessage_IOS = testrun_warningmessage_IOS
 
     target_status_IOS = page.locator(testrun_status)
     result_testrun_status_IOS = target_status_IOS.inner_text().strip()

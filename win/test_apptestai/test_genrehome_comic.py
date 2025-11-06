@@ -127,14 +127,14 @@ def test_testrun_info_IOS(main_homepage,write_result, ios_flag):
 @pytest.mark.prod_genrehome
 def test_check_testresult_IOS(main_homepage, write_result,ios_flag):
     if not ios_flag["run"]:
-        for step in ["R104","R105","R106","R107","R110","R111","R112","R113","R115","R116","R117","R118","R119","R120","R121","R122","R123"]:
+        for step in ["R104", "R105", "R106", "R107", "R110", "R111", "R112", "R113", "R115", "R116", "R117", "R118", "R119", "R120", "R121", "R122", "R123"]:
             write_result(step, "N/T")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
     App_CheckList_100_iOS = get_testrun_status_IOS(page, testrun_status)
    
-    for step in ["R104","R105","R106","R107","R110","R111","R112","R113","R115","R116","R117","R118","R119","R120","R121","R122","R123"]:
+    for step in ["R104", "R105", "R106", "R107", "R110", "R111", "R112", "R113", "R115", "R116", "R117", "R118", "R119", "R120", "R121", "R122", "R123"]:
         write_result(step, App_CheckList_100_iOS)
 
 @pytest.mark.order(11)
@@ -154,23 +154,23 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 
 # # 비교 (1번시트 row, 2번시트 row)
 row_pairs = [
-    (104, 128),
-    (105, 129),
-    (106, 130),
-    (107, 131),
-    (110, 143),
-    (111, 132),
-    (112, 133),
-    (113, 134),
-    (115, 135),
-    (116, 136),
-    (117, 137),
-    (118, 138),
-    (119, 139),
-    (120, 140),
-    (121, 141),
-    (122, 142),
-    (123, 144)
+    (104,128),
+    (105,129),
+    (106,130),
+    (107,131),
+    (110,143),
+    (111,132),
+    (112,133),
+    (113,134),
+    (115,135),
+    (116,136),
+    (117,137),
+    (118,138),
+    (119,139),
+    (120,140),
+    (121,141),
+    (122,142),
+    (123,144)
 ]
 
 # 열 매핑 및 비교 열

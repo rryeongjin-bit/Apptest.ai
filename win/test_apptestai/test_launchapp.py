@@ -53,7 +53,7 @@ def test_checkresult_AOS(main_homepage):
 def test_testrun_info_AOS(main_homepage, write_result,aos_flag):
     page = main_homepage
     AOS_testrun_launchapp = page.locator(testrun_first).filter(
-        has_text=re.compile(r"앱\s*실행_설치실행", re.IGNORECASE)
+        has_text=re.compile(r"앱실행", re.IGNORECASE)
     ).first
 
     try:
@@ -96,7 +96,7 @@ def test_checkresult_IOS(main_homepage):
 def test_testrun_info_IOS(main_homepage,write_result, ios_flag):
     page = main_homepage
     IOS_testrun_launchapp = page.locator(testrun_first).filter(
-        has_text=re.compile(r"앱\s*실행_설치실행", re.IGNORECASE)
+        has_text=re.compile(r"앱실행", re.IGNORECASE)
     ).first
 
     try:
