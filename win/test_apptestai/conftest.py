@@ -5,15 +5,31 @@ from common_utils import *
 from google.oauth2.service_account import Credentials
 from playwright.sync_api import sync_playwright
 
-STORAGE_STATE_PATH = ".vscode/storageState.json"
+# STORAGE_STATE_PATH = ".vscode/storageState.json"
 
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
 ]
 
+# conftest.py 기준 프로젝트 루트
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+# storageState.json 절대경로
+STORAGE_STATE_PATH = os.path.join(PROJECT_ROOT, ".vscode", "storageState.json")
+
+# creds = Credentials.from_service_account_file(
+#     ".vscode/credentials.json",
+#     scopes=SCOPES
+# )
+# client = gspread.authorize(creds)
+
+# conftest.py 위치 기준
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+creds_path = os.path.join(BASE_DIR, ".vscode", "credentials.json")
+
 creds = Credentials.from_service_account_file(
-    ".vscode/credentials.json",
+    creds_path,
     scopes=SCOPES
 )
 client = gspread.authorize(creds)

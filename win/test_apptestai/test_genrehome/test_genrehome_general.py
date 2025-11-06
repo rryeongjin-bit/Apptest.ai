@@ -1,8 +1,7 @@
 import pytest
 import re
-from test_apptestai.element_total import *
-from test_apptestai.common_utils import *
-from test_apptestai.conftest import *
+from common_utils import *
+from conftest import *
 
 # -------------------------------
 # 로그인&계정전환 + 프로젝트 폴더 진입
