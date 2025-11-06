@@ -1,6 +1,6 @@
 import pytest
 import re
-from element_copy import *
+from element_total import *
 from common_utils import *
 from conftest import *
 
@@ -158,18 +158,4 @@ copy_map = {
 def test_copy_cell_if_match(sheet, row1, row2):
     sheet1 = sheet
     sheet2 = sheet.spreadsheet.worksheet("App_Regression_Checklist v4.5")
-
-    val1 = sheet1.acell(f"{col1}{row1}").value
-    val2 = sheet2.acell(f"{col2}{row2}").value
-    print(f"🔎 비교: 1번시트 {col1}{row1}={val1!r}, 2번시트 {col2}{row2}={val2!r}")
-
-    if val1 == val2:
-        print(f"✅ 값 일치 → 1번시트(O,P,Q{row1}) → 2번시트(J,K,L{row2}) 복사 시작")
-        for c1, c2 in copy_map.items():
-            value = sheet1.acell(f"{c1}{row1}").value
-            sheet2.update_acell(f"{c2}{row2}", value)
-            print(f"📋 복사: {c1}{row1} → {c2}{row2} ({value})")
-    else:
-        print(f"❌ {row1}행 ↔ {row2}행: 값 불일치 → 복사 안 함")
-
-    print("🏁 결과 복사 완료!")
+    copy_if_match(sheet1, sheet2, row1, row2, col1, col2, copy_map)

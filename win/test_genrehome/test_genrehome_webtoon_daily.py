@@ -8,32 +8,32 @@ from conftest import *
 # 로그인&계정전환 + 프로젝트 폴더 진입
 # -------------------------------
 @pytest.mark.order(1)
-@pytest.mark.prod_widget
-@pytest.mark.stg_widget
+@pytest.mark.prod_genrehome
+@pytest.mark.stg_genrehome
 def test_login_enter_project(main_homepage):
     page = main_homepage
     login_and_select_project(page)
 
 # -------------------------------
-# [Prod] 위젯 프로젝트
+# [Prod] 장르홈 프로젝트
 # -------------------------------
 
 @pytest.mark.order(2)
-@pytest.mark.prod_widget
-def test_project_widget(main_homepage):
+@pytest.mark.prod_genrehome
+def test_project_genrehome(main_homepage):
     page = main_homepage
-    page.click(prod_widget)
+    page.click(prod_genrehome)
 
-    target_project = page.locator(project_title).get_by_text("[Prod] 위젯")
+    target_project = page.locator(project_title).get_by_text("[Prod] 장르홈")
     try:
         target_project.wait_for(state="visible", timeout=5000)
     except TimeoutError:
-        assert False, f"❌ {prod_widget} 폴더 진입 실패"
+        assert False, f"❌ {prod_genrehome} 폴더 진입 실패"
 
-    assert target_project.is_visible(), f"❌ {prod_widget} 폴더 진입 실패"
-    
+    assert target_project.is_visible(), f"❌ {prod_genrehome} 폴더 진입 실패"
+
 @pytest.mark.order(3)
-@pytest.mark.prod_widget
+@pytest.mark.prod_genrehome
 def test_checkresult(main_homepage):
     page = main_homepage
     targets = [
@@ -42,105 +42,109 @@ def test_checkresult(main_homepage):
 
     click_and_verify(page, btn_test_run, targets)
     select_rows(page)
-    
+
+"""
+📍 장르홈_웹툰_요일별섹션
+"""    
 @pytest.mark.order(4)
-@pytest.mark.prod_widget
+@pytest.mark.prod_genrehome
 def test_checkresult_AOS(main_homepage):
     page = main_homepage
     apply_filter_checkbox_AOS(page)
 
 @pytest.mark.order(5)
-@pytest.mark.prod_widget
+@pytest.mark.prod_genrehome
 def test_testrun_info_AOS(main_homepage, write_result,aos_flag):
     page = main_homepage
-    AOS_testrun_widget = page.locator(testrun_first).filter(
-        has_text=re.compile(r"숏컷_위젯", re.IGNORECASE)
+    AOS_testrun_webtoon_daily = page.locator(testrun_first).filter(
+        has_text=re.compile(r"장르홈_웹툰_요일별_섹션", re.IGNORECASE) 
     ).first
 
     try:
-        AOS_testrun_widget.wait_for(state="visible", timeout=10000)
-        AOS_testrun_widget.scroll_into_view_if_needed()
-        AOS_testrun_widget.click()
+        AOS_testrun_webtoon_daily.wait_for(state="visible", timeout=10000)
+        AOS_testrun_webtoon_daily.scroll_into_view_if_needed()
+        AOS_testrun_webtoon_daily.click()
 
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        for step in ["S478", "S477"]:
+        for step in ["S102", "S103"]:
             write_result(step, AOS_testrun_info)
 
     except Exception as e:
-        for step in ["S478", "S477"]:
+        for step in ["S102", "S103"]:
             write_result(step, "No Info")
         aos_flag["run"] = False
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
 @pytest.mark.order(6)
-@pytest.mark.prod_widget
+@pytest.mark.prod_genrehome
 def test_check_testresult_AOS(main_homepage, write_result, aos_flag):
     if not aos_flag["run"]:
-        for step in ["P478", "P477"]:
+        for step in ["P102", "P103"]:
             write_result(step, "N/T")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_421_AOS= get_testrun_status_AOS(page, testrun_status)
-
-    for step in ["P478", "P477"]:
-        write_result(step, App_CheckList_421_AOS)
+    App_CheckList_106_AOS = get_testrun_status_AOS(page, testrun_status)
+    
+    for step in ["P102", "P103"]:
+        write_result(step, App_CheckList_106_AOS)
 
 @pytest.mark.order(7)
-@pytest.mark.prod_widget
+@pytest.mark.prod_genrehome
 def test_back_testrun_list_AOS(main_homepage, aos_flag):
     back_and_or_reset_AOS(main_homepage, aos_flag.get("run", False))
 
 @pytest.mark.order(8)
-@pytest.mark.prod_widget
+@pytest.mark.prod_genrehome
 def test_checkresult_IOS(main_homepage):
     page = main_homepage
     apply_filter_checkbox_iOS(page)
 
 @pytest.mark.order(9)
-@pytest.mark.prod_widget
+@pytest.mark.prod_genrehome
 def test_testrun_info_IOS(main_homepage,write_result, ios_flag):
     page = main_homepage
-    IOS_testrun_widget = page.locator(testrun_first).filter(
-        has_text=re.compile(r"숏컷_위젯", re.IGNORECASE)
+    IOS_testrun_webtoon_daily = page.locator(testrun_first).filter(
+        has_text=re.compile(r"장르홈_웹툰_요일별_섹션", re.IGNORECASE) 
     ).first
 
     try:
-        IOS_testrun_widget.wait_for(state="visible", timeout=10000)
-        IOS_testrun_widget.scroll_into_view_if_needed()
-        IOS_testrun_widget.click()
+        IOS_testrun_webtoon_daily.wait_for(state="visible", timeout=10000)
+        IOS_testrun_webtoon_daily.scroll_into_view_if_needed()
+        IOS_testrun_webtoon_daily.click()
     
         IOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        for step in ["T479", "T477"]:
+        for step in ["T102", "T103"]:
             write_result(step, IOS_testrun_info)
 
     except Exception as e:
-        for step in ["T479", "T477"]:
+        for step in ["T102", "T103"]:
             write_result(step, "No Info")
         ios_flag["run"] = False
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
 @pytest.mark.order(10)
-@pytest.mark.prod_widget
+@pytest.mark.prod_genrehome
 def test_check_testresult_IOS(main_homepage, write_result,ios_flag):
     if not ios_flag["run"]:
-        for step in ["R479", "R477"]:
+        for step in ["R102", "R103"]:
             write_result(step, "N/T")
-        pytest.skip("⚠️ IOS 테스트 결과 없음 - 결과 확인 skip")
+        pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_422_iOS = get_testrun_status_IOS(page, testrun_status)
-    
-    for step in ["R479", "R477"]:
-        write_result(step, App_CheckList_422_iOS)
+    App_CheckList_106_iOS = get_testrun_status_IOS(page, testrun_status)
+   
+    for step in ["R102", "R103"]:
+        write_result(step, App_CheckList_106_iOS)
 
 @pytest.mark.order(11)
-@pytest.mark.prod_widget
+@pytest.mark.prod_genrehome
 def test_back_testrun_list_IOS(main_homepage, ios_flag):
     back_and_or_reset_IOS(main_homepage, ios_flag.get("run", False))
 
+
 # -------------------------------
-# ⌛ [Stage] 위젯 프로젝트 ⌛
+# ⌛ [Stage] 장르홈 프로젝트 ⌛
 # ------------------------------
 
 
@@ -148,11 +152,10 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # 자동화 테스트 결과 비교
 # -------------------------------
 
-# 비교 (1번시트 row, 2번시트 row)
+# # 비교 (1번시트 row, 2번시트 row)
 row_pairs = [
-    (477, 448),
-    (478, 450),
-    (479, 451),
+    (102, 122),
+    (103, 125)
 ]
 
 # 열 매핑 및 비교 열
@@ -164,8 +167,8 @@ copy_map = {
     "R": "L",
 }
 
-@pytest.mark.prod_widget
-@pytest.mark.stg_widget
+@pytest.mark.prod_genrehome
+@pytest.mark.stg_genrehome
 @pytest.mark.order(12)
 @pytest.mark.parametrize("row1,row2", row_pairs)
 def test_copy_cell_if_match(sheet, row1, row2):

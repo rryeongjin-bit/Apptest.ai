@@ -44,7 +44,7 @@ def test_checkresult(main_homepage):
     select_rows(page)
 
 """
-📍 장르홈_만화
+📍 장르홈_셀렉트_미구독
 """    
 @pytest.mark.order(4)
 @pytest.mark.prod_genrehome
@@ -56,21 +56,21 @@ def test_checkresult_AOS(main_homepage):
 @pytest.mark.prod_genrehome
 def test_testrun_info_AOS(main_homepage, write_result,aos_flag):
     page = main_homepage
-    AOS_testrun_comic = page.locator(testrun_first).filter(
-        has_text=re.compile(r"장르홈_만화", re.IGNORECASE) 
+    AOS_testrun_nonselect = page.locator(testrun_first).filter(
+        has_text=re.compile(r"장르홈_셀렉트_미구독", re.IGNORECASE) 
     ).first
 
     try:
-        AOS_testrun_comic.wait_for(state="visible", timeout=10000)
-        AOS_testrun_comic.scroll_into_view_if_needed()
-        AOS_testrun_comic.click()
+        AOS_testrun_nonselect.wait_for(state="visible", timeout=10000)
+        AOS_testrun_nonselect.scroll_into_view_if_needed()
+        AOS_testrun_nonselect.click()
 
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        for step in ["S104","S105","S106","S107","S110","S111","S112","S113","S115","S116","S117","S118","S119","S120","S121","S122","S123"]:
+        for step in ["S156","S157","S158","S159"]:
             write_result(step, AOS_testrun_info)
 
     except Exception as e:
-        for step in ["S104","S105","S106","S107","S110","S111","S112","S113","S115","S116","S117","S118","S119","S120","S121","S122","S123"]:
+        for step in ["S156","S157","S158","S159"]:
             write_result(step, "No Info")
         aos_flag["run"] = False
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
@@ -79,15 +79,15 @@ def test_testrun_info_AOS(main_homepage, write_result,aos_flag):
 @pytest.mark.prod_genrehome
 def test_check_testresult_AOS(main_homepage, write_result, aos_flag):
     if not aos_flag["run"]:
-        for step in ["P104","P105","P106","P107","P110","P111","P112","P113","P115","P116","P117","P118","P119","P120","P121","P122","P123"]:
+        for step in ["P156","P157","P158","P159"]:
             write_result(step, "N/T")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_112_AOS = get_testrun_status_AOS(page, testrun_status)
+    App_CheckList_155_AOS = get_testrun_status_AOS(page, testrun_status)
     
-    for step in ["P104","P105","P106","P107","P110","P111","P112","P113","P115","P116","P117","P118","P119","P120","P121","P122","P123"]:
-        write_result(step, App_CheckList_112_AOS)
+    for step in ["P156","P157","P158","P159"]:
+        write_result(step, App_CheckList_155_AOS)
 
 @pytest.mark.order(7)
 @pytest.mark.prod_genrehome
@@ -104,21 +104,21 @@ def test_checkresult_IOS(main_homepage):
 @pytest.mark.prod_genrehome
 def test_testrun_info_IOS(main_homepage,write_result, ios_flag):
     page = main_homepage
-    IOS_testrun_comic = page.locator(testrun_first).filter(
-        has_text=re.compile(r"장르홈_만화", re.IGNORECASE) 
+    IOS_testrun_nonselect = page.locator(testrun_first).filter(
+        has_text=re.compile(r"장르홈_셀렉트_미구독", re.IGNORECASE) 
     ).first
 
     try:
-        IOS_testrun_comic.wait_for(state="visible", timeout=10000)
-        IOS_testrun_comic.scroll_into_view_if_needed()
-        IOS_testrun_comic.click()
+        IOS_testrun_nonselect.wait_for(state="visible", timeout=10000)
+        IOS_testrun_nonselect.scroll_into_view_if_needed()
+        IOS_testrun_nonselect.click()
     
         IOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        for step in ["T104","T105","T106","T107","T110","T111","T112","T113","T115","T116","T117","T118","T119","T120","T121","T122","T123"]:
+        for step in ["T156","T157","T158","T159"]:
             write_result(step, IOS_testrun_info)
 
     except Exception as e:
-        for step in ["T104","T105","T106","T107","T110","T111","T112","T113","T115","T116","T117","T118","T119","T120","T121","T122","T123"]:
+        for step in ["T156","T157","T158","T159"]:
             write_result(step, "No Info")
         ios_flag["run"] = False
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 테스트 정보 확인 skip")
@@ -127,15 +127,15 @@ def test_testrun_info_IOS(main_homepage,write_result, ios_flag):
 @pytest.mark.prod_genrehome
 def test_check_testresult_IOS(main_homepage, write_result,ios_flag):
     if not ios_flag["run"]:
-        for step in ["R104", "R105", "R106", "R107", "R110", "R111", "R112", "R113", "R115", "R116", "R117", "R118", "R119", "R120", "R121", "R122", "R123"]:
+        for step in ["R156","R157","R158","R159"]:
             write_result(step, "N/T")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_100_iOS = get_testrun_status_IOS(page, testrun_status)
+    App_CheckList_155_iOS = get_testrun_status_IOS(page, testrun_status)
    
-    for step in ["R104", "R105", "R106", "R107", "R110", "R111", "R112", "R113", "R115", "R116", "R117", "R118", "R119", "R120", "R121", "R122", "R123"]:
-        write_result(step, App_CheckList_100_iOS)
+    for step in ["R156","R157","R158","R159"]:
+        write_result(step, App_CheckList_155_iOS)
 
 @pytest.mark.order(11)
 @pytest.mark.prod_genrehome
@@ -154,23 +154,10 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 
 # # 비교 (1번시트 row, 2번시트 row)
 row_pairs = [
-    (104,128),
-    (105,129),
-    (106,130),
-    (107,131),
-    (110,143),
-    (111,132),
-    (112,133),
-    (113,134),
-    (115,135),
-    (116,136),
-    (117,137),
-    (118,138),
-    (119,139),
-    (120,140),
-    (121,141),
-    (122,142),
-    (123,144)
+    (156, 171),
+    (157, 23),
+    (158, 88),
+    (159, 89)
 ]
 
 # 열 매핑 및 비교 열
@@ -189,18 +176,4 @@ copy_map = {
 def test_copy_cell_if_match(sheet, row1, row2):
     sheet1 = sheet
     sheet2 = sheet.spreadsheet.worksheet("App_Regression_Checklist v4.5")
-
-    val1 = sheet1.acell(f"{col1}{row1}").value
-    val2 = sheet2.acell(f"{col2}{row2}").value
-    print(f"🔎 비교: 1번시트 {col1}{row1}={val1!r}, 2번시트 {col2}{row2}={val2!r}")
-
-    if val1 == val2:
-        print(f"✅ 값 일치 → 1번시트(O,P,Q{row1}) → 2번시트(J,K,L{row2}) 복사 시작")
-        for c1, c2 in copy_map.items():
-            value = sheet1.acell(f"{c1}{row1}").value
-            sheet2.update_acell(f"{c2}{row2}", value)
-            print(f"📋 복사: {c1}{row1} → {c2}{row2} ({value})")
-    else:
-        print(f"❌ {row1}행 ↔ {row2}행: 값 불일치 → 복사 안 함")
-
-    print("🏁 결과 복사 완료!")
+    copy_if_match(sheet1, sheet2, row1, row2, col1, col2, copy_map)

@@ -1,6 +1,7 @@
 import pytest
+import time
 import re
-from element_copy import *
+from apptestAI.win.test_apptestai.test_code_backup.element_copy import *
 from common_utils import *
 from conftest import *
 
@@ -188,7 +189,10 @@ def test_copy_cell_if_match(sheet, row1, row2):
         print(f"✅ 값 일치 → 1번시트(O,P,Q{row1}) → 2번시트(J,K,L{row2}) 복사 시작")
         for c1, c2 in copy_map.items():
             value = sheet1.acell(f"{c1}{row1}").value
+            time.sleep(3) 
+
             sheet2.update_acell(f"{c2}{row2}", value)
+            time.sleep(3) 
             print(f"📋 복사: {c1}{row1} → {c2}{row2} ({value})")
     else:
         print(f"❌ {row1}행 ↔ {row2}행: 값 불일치 → 복사 안 함")
