@@ -17,7 +17,7 @@ prod_launchapp = "#default-table > tbody > tr:nth-child(26) > td:nth-child(1) > 
 # prod_tabbar : 
 prod_genrehome = "#default-table > tbody > tr:nth-child(27) > td:nth-child(1) > div > div > div"
 prod_cont_home = "#default-table > tbody > tr:nth-child(24) > td:nth-child(1) > div > div > div"
-# prod_cont_home_preview : 
+prod_preview = "#default-table > tbody > tr:nth-child(23) > td:nth-child(1) > div > div > div"
 prod_viewer = "#default-table > tbody > tr:nth-child(28) > td:nth-child(1) > div > div > div"
 prod_usersfile = "#default-table > tbody > tr:nth-child(22) > td:nth-child(1) > div > div > div"
 prod_shortcut= "#default-table > tbody > tr:nth-child(20) > td:nth-child(1) > div > div > div"
