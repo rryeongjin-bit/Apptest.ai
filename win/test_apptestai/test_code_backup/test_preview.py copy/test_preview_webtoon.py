@@ -16,9 +16,6 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 # [Prod] 작품홈 미리보기 프로젝트
 # -------------------------------
-TCID_free = [ "App_CheckList_259", "App_CheckList_260", "App_CheckList_262",
-        "App_CheckList_263","App_CheckList_264","App_CheckList_265","App_CheckList_266"]
-TCID_nonfree = ["App_CheckList_261" ]
 
 @pytest.mark.order(2)
 @pytest.mark.prod_preview
@@ -56,36 +53,39 @@ def test_checkresult_AOS(main_homepage):
 
 @pytest.mark.order(5)
 @pytest.mark.prod_preview
-def test_testrun_info_AOS(main_homepage, aos_flag, sheet):
+def test_testrun_info_AOS(main_homepage, write_result,aos_flag):
     page = main_homepage
     AOS_testrun_preview_webtoon1 = page.locator(testrun_first).filter(
         has_text=re.compile(r"^작품 홈_미리보기_webtoon-webnovel_webtoon_1화 무료$", re.IGNORECASE) 
     ).first
 
     try:
-        AOS_testrun_preview_webtoon1.wait_for(state="attatched", timeout=5000)
+        AOS_testrun_preview_webtoon1.wait_for(state="visible", timeout=10000)
         AOS_testrun_preview_webtoon1.scroll_into_view_if_needed()
-        AOS_testrun_preview_webtoon1.wait_for(state="visible", timeout=5000)
         AOS_testrun_preview_webtoon1.click()
-
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        write_result_by_key(sheet, TCID_free, AOS_testrun_info, column="S")
+        for step in ["S264","S265","S267","S268","S269","S270"]:
+            write_result(step, AOS_testrun_info)
 
     except Exception as e:
-        write_result_by_key(sheet, TCID_free, "No Info", column="S")
+        for step in ["S264","S265","S267","S268","S269","S270"]:
+            write_result(step, "No Info")
         aos_flag["run"] = False
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
 @pytest.mark.order(6)
 @pytest.mark.prod_preview
-def test_check_testresult_AOS(main_homepage, aos_flag, sheet):
+def test_check_testresult_AOS(main_homepage, write_result, aos_flag):
     if not aos_flag["run"]:
-        write_result_by_key(sheet, TCID_free, "N/T", column="P")
+        for step in ["P264","P265","P267","P268","P269","P270"]:
+            write_result(step, "N/T")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
     App_CheckList_259_AOS = get_testrun_status_AOS(page, testrun_status)
-    write_result_by_key(sheet,TCID_free, App_CheckList_259_AOS, column="P")
+    
+    for step in ["P264","P265","P267","P268","P269","P270"]:
+        write_result(step, App_CheckList_259_AOS)
 
 @pytest.mark.order(7)
 @pytest.mark.prod_preview
@@ -100,36 +100,40 @@ def test_checkresult_IOS(main_homepage):
 
 @pytest.mark.order(9)
 @pytest.mark.prod_preview
-def test_testrun_info_IOS(main_homepage, ios_flag, sheet):
+def test_testrun_info_IOS(main_homepage,write_result, ios_flag):
     page = main_homepage
     IOS_testrun_preview_webtoon1 = page.locator(testrun_first).filter(
         has_text=re.compile(r"^작품 홈_미리보기_webtoon-webnovel_webtoon_1화 무료$", re.IGNORECASE) 
     ).first
 
     try:
-        IOS_testrun_preview_webtoon1.wait_for(state="attached", timeout=5000)
+        IOS_testrun_preview_webtoon1.wait_for(state="visible", timeout=10000)
         IOS_testrun_preview_webtoon1.scroll_into_view_if_needed()
-        IOS_testrun_preview_webtoon1.wait_for(state="visible", timeout=5000)
         IOS_testrun_preview_webtoon1.click()
     
         IOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        write_result_by_key(sheet, TCID_free, IOS_testrun_info, column="T")
+        for step in ["T264","T265","T267","T268","T269","T270"]:
+            write_result(step, IOS_testrun_info)
 
     except Exception as e:
-        write_result_by_key(sheet, TCID_free, "No Info", column="T")
+        for step in ["T264","T265","T267","T268","T269","T270"]:
+            write_result(step, "No Info")
         ios_flag["run"] = False
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
 @pytest.mark.order(10)
 @pytest.mark.prod_preview
-def test_check_testresult_IOS(main_homepage, ios_flag, sheet):
+def test_check_testresult_IOS(main_homepage, write_result,ios_flag):
     if not ios_flag["run"]:
-        write_result_by_key(sheet, TCID_free, "N/T", column="R")
+        for step in ["R264","R265","R267","R268","R269","R270"]:
+            write_result(step, "N/T")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
     App_CheckList_259_iOS = get_testrun_status_IOS(page, testrun_status)
-    write_result_by_key(sheet,TCID_free, App_CheckList_259_iOS, column="R")
+   
+    for step in  ["R264","R265","R267","R268","R269","R270"]:
+        write_result(step, App_CheckList_259_iOS)
 
 @pytest.mark.order(11)
 @pytest.mark.prod_preview
@@ -147,36 +151,34 @@ def test_checkresult_AOS(main_homepage):
 
 @pytest.mark.order(13)
 @pytest.mark.prod_preview
-def test_testrun_info_AOS(main_homepage, aos_flag, sheet):
+def test_testrun_info_AOS(main_homepage, write_result,aos_flag):
     page = main_homepage
     AOS_testrun_preview_webtoon2 = page.locator(testrun_first).filter(
         has_text=re.compile(r"^작품 홈_미리보기_webtoon-webnovel_webtoon_1화 유료$", re.IGNORECASE) 
     ).first
 
     try:
-        AOS_testrun_preview_webtoon2.wait_for(state="attatched", timeout=5000)
+        AOS_testrun_preview_webtoon2.wait_for(state="visible", timeout=10000)
         AOS_testrun_preview_webtoon2.scroll_into_view_if_needed()
-        AOS_testrun_preview_webtoon2.wait_for(state="visible", timeout=5000)
         AOS_testrun_preview_webtoon2.click()
-
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        write_result_by_key(sheet, TCID_nonfree, AOS_testrun_info, column="S")
+        write_result("S266", AOS_testrun_info)
 
     except Exception as e:
-        write_result_by_key(sheet, TCID_nonfree, "No Info", column="S")
+        write_result("S266" "No Info")
         aos_flag["run"] = False
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
 @pytest.mark.order(14)
 @pytest.mark.prod_preview
-def test_check_testresult_AOS(main_homepage, aos_flag, sheet):
+def test_check_testresult_AOS(main_homepage, write_result, aos_flag):
     if not aos_flag["run"]:
-        write_result_by_key(sheet, TCID_nonfree, "N/T", column="P")
+        write_result("P266", "N/T")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
     App_CheckList_261_AOS = get_testrun_status_AOS(page, testrun_status)
-    write_result_by_key(sheet,TCID_nonfree, App_CheckList_261_AOS, column="P")
+    write_result("P266", App_CheckList_261_AOS)
 
 @pytest.mark.order(15)
 @pytest.mark.prod_preview
@@ -191,36 +193,35 @@ def test_checkresult_IOS(main_homepage):
 
 @pytest.mark.order(17)
 @pytest.mark.prod_preview
-def test_testrun_info_IOS(main_homepage, ios_flag, sheet):
+def test_testrun_info_IOS(main_homepage,write_result, ios_flag):
     page = main_homepage
     IOS_testrun_preview_webtoon2 = page.locator(testrun_first).filter(
         has_text=re.compile(r"^작품 홈_미리보기_webtoon-webnovel_webtoon_1화 유료$", re.IGNORECASE) 
     ).first
 
     try:
-        IOS_testrun_preview_webtoon2.wait_for(state="attached", timeout=5000)
+        IOS_testrun_preview_webtoon2.wait_for(state="visible", timeout=10000)
         IOS_testrun_preview_webtoon2.scroll_into_view_if_needed()
-        IOS_testrun_preview_webtoon2.wait_for(state="visible", timeout=5000)
         IOS_testrun_preview_webtoon2.click()
     
         IOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        write_result_by_key(sheet, TCID_free, IOS_testrun_info, column="T")
+        write_result("T266", IOS_testrun_info)
 
     except Exception as e:
-        write_result_by_key(sheet, TCID_free, "No Info", column="T")
+        write_result("T266", "No Info")
         ios_flag["run"] = False
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
 @pytest.mark.order(18)
 @pytest.mark.prod_preview
-def test_check_testresult_IOS(main_homepage, ios_flag, sheet):
+def test_check_testresult_IOS(main_homepage, write_result,ios_flag):
     if not ios_flag["run"]:
-        write_result_by_key(sheet, TCID_nonfree, "N/T", column="R")
+        write_result("R266", "N/T")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
     App_CheckList_261_iOS = get_testrun_status_IOS(page, testrun_status)
-    write_result_by_key(sheet, TCID_nonfree, App_CheckList_261_iOS, column="R")
+    write_result("R266", App_CheckList_261_iOS)
 
 @pytest.mark.order(19)
 @pytest.mark.prod_preview
@@ -236,28 +237,33 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # -------------------------------
 # 자동화 테스트 결과 비교
 # -------------------------------
-# 비교할 key 값 리스트
-keys_to_copy =   [ "App_CheckList_259", "App_CheckList_260", "App_CheckList_261","App_CheckList_262",
-        "App_CheckList_263","App_CheckList_264","App_CheckList_265","App_CheckList_266"]
+
+# # 비교 (1번시트 row, 2번시트 row)
+row_pairs = [
+    (264, 293),
+    (265, 294),
+    (266, 295),
+    (267, 296),
+    (268, 297),
+    (269, 298),
+    (270, 299),
+    (272, 300)
+]
+
+# 열 매핑 및 비교 열
+col1 = "E"  # 1번시트 비교 열
+col2 = "B"  # 2번시트 비교 열
+copy_map = {
+    "P": "J",
+    "Q": "K",
+    "R": "L",
+}
 
 @pytest.mark.prod_preview
 @pytest.mark.stg_preview
 @pytest.mark.order(20)
-def test_copy_cell_if_match(sheet):
+@pytest.mark.parametrize("row1,row2", row_pairs)
+def test_copy_cell_if_match(sheet, row1, row2):
     sheet1 = sheet
     sheet2 = sheet.spreadsheet.worksheet("App_Regression_Checklist v4.5")
-
-    # 특정 key 값만 비교/복사
-    for key in keys_to_copy:
-        copy_if_match_by_key(
-            sheet1,
-            sheet2,
-            key_col1="E",
-            key_col2="B",
-            copy_map={
-                "P": "J",
-                "Q": "K",
-                "R": "L",
-            },
-            key_value=key
-        )
+    copy_if_match(sheet1, sheet2, row1, row2, col1, col2, copy_map)

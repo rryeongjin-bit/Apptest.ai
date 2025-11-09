@@ -16,7 +16,7 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 # [Prod] 뷰어 프로젝트
 # -------------------------------
-TCID = [ "App_CheckList_349", "App_CheckList_350", "App_CheckList_351"]
+TCID = [ "App_CheckList_388", "App_CheckList_389", "App_CheckList_390", "App_CheckList_391", "App_CheckList_392"]
 
 @pytest.mark.order(2)
 @pytest.mark.prod_viewer
@@ -44,7 +44,7 @@ def test_checkresult(main_homepage):
     select_rows(page)
 
 """
-📍 뷰어_BOM_BOM_하단 컨트롤러(뷰어설정)
+📍 뷰어_webtoon_하단 컨트롤러
 """    
 @pytest.mark.order(4)
 @pytest.mark.prod_viewer
@@ -56,15 +56,15 @@ def test_checkresult_AOS(main_homepage):
 @pytest.mark.prod_viewer
 def test_testrun_info_AOS(main_homepage, aos_flag, sheet):
     page = main_homepage
-    AOS_testrun_bom_bottom2 = page.locator(testrun_first).filter(
-        has_text=re.compile(r"^\[뷰어\]\s*BOM_BOM_하단\s*컨트롤러\(뷰어설정\)$", re.IGNORECASE) 
+    AOS_testrun_webtoon_bottom = page.locator(testrun_first).filter(
+        has_text=re.compile(r"^\[뷰어\]\s*Webtoon_하단\s*컨트롤러", re.IGNORECASE) 
     ).first
 
     try:
-        AOS_testrun_bom_bottom2.wait_for(state="attached", timeout=5000)
-        AOS_testrun_bom_bottom2.scroll_into_view_if_needed()
-        AOS_testrun_bom_bottom2.wait_for(state="visible", timeout=5000)
-        AOS_testrun_bom_bottom2.click()
+        AOS_testrun_webtoon_bottom.wait_for(state="attached", timeout=5000)
+        AOS_testrun_webtoon_bottom.scroll_into_view_if_needed()
+        AOS_testrun_webtoon_bottom.wait_for(state="visible", timeout=5000)
+        AOS_testrun_webtoon_bottom.click()
 
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
         write_result_by_key(sheet, TCID, AOS_testrun_info, column="S")
@@ -82,8 +82,8 @@ def test_check_testresult_AOS(main_homepage, aos_flag, sheet):
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_349_AOS = get_testrun_status_AOS(page, testrun_status)
-    write_result_by_key(sheet, TCID, App_CheckList_349_AOS, column="P")
+    App_CheckList_388_AOS = get_testrun_status_AOS(page, testrun_status)
+    write_result_by_key(sheet, TCID, App_CheckList_388_AOS, column="P")
 
 @pytest.mark.order(7)
 @pytest.mark.prod_viewer
@@ -100,16 +100,16 @@ def test_checkresult_IOS(main_homepage):
 @pytest.mark.prod_viewer
 def test_testrun_info_IOS(main_homepage, ios_flag, sheet):
     page = main_homepage
-    IOS_testrun_bom_bottom2 = page.locator(testrun_first).filter(
-        has_text=re.compile(r"^\[뷰어\]\s*BOM_BOM_하단\s*컨트롤러\(뷰어설정\)$", re.IGNORECASE) 
+    IOS_testrun_webtoon_bottom = page.locator(testrun_first).filter(
+        has_text=re.compile(r"^\[뷰어\]\s*Webtoon_하단\s*컨트롤러", re.IGNORECASE) 
     ).first
 
     try:
-        IOS_testrun_bom_bottom2.wait_for(state="attached", timeout=5000)
-        IOS_testrun_bom_bottom2.scroll_into_view_if_needed()
-        IOS_testrun_bom_bottom2.wait_for(state="visible", timeout=5000)
-        IOS_testrun_bom_bottom2.click()
-
+        IOS_testrun_webtoon_bottom.wait_for(state="attached", timeout=5000)
+        IOS_testrun_webtoon_bottom.scroll_into_view_if_needed()
+        IOS_testrun_webtoon_bottom.wait_for(state="visible", timeout=5000)
+        IOS_testrun_webtoon_bottom.click()
+    
         IOS_testrun_info = get_testrun_info(page, testrun_id_section)
         write_result_by_key(sheet, TCID, IOS_testrun_info, column="T")
 
@@ -126,8 +126,8 @@ def test_check_testresult_IOS(main_homepage, ios_flag, sheet):
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_349_iOS = get_testrun_status_IOS(page, testrun_status)
-    write_result_by_key(sheet, TCID, App_CheckList_349_iOS, column="R")
+    App_CheckList_388_iOS = get_testrun_status_IOS(page, testrun_status)
+    write_result_by_key(sheet, TCID, App_CheckList_388_iOS, column="R")
 
 @pytest.mark.order(11)
 @pytest.mark.prod_viewer
@@ -144,7 +144,7 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # 자동화 테스트 결과 비교
 # -------------------------------
 # 비교할 key 값 리스트
-keys_to_copy =  [ "App_CheckList_349", "App_CheckList_350", "App_CheckList_351"]
+keys_to_copy = [ "App_CheckList_388","App_CheckList_389", "App_CheckList_390", "App_CheckList_391", "App_CheckList_392"]
 
 @pytest.mark.prod_viewer
 @pytest.mark.stg_viewer

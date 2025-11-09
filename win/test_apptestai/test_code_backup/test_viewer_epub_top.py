@@ -16,7 +16,6 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 # [Prod] 뷰어 프로젝트
 # -------------------------------
-TCID = [ "App_CheckList_349", "App_CheckList_350", "App_CheckList_351"]
 
 @pytest.mark.order(2)
 @pytest.mark.prod_viewer
@@ -44,7 +43,7 @@ def test_checkresult(main_homepage):
     select_rows(page)
 
 """
-📍 뷰어_BOM_BOM_하단 컨트롤러(뷰어설정)
+📍 [뷰어] Epub_연재형 webtoon-webnovel_상단 컨트롤러/본문
 """    
 @pytest.mark.order(4)
 @pytest.mark.prod_viewer
@@ -54,36 +53,40 @@ def test_checkresult_AOS(main_homepage):
 
 @pytest.mark.order(5)
 @pytest.mark.prod_viewer
-def test_testrun_info_AOS(main_homepage, aos_flag, sheet):
+def test_testrun_info_AOS(main_homepage, write_result,aos_flag):
     page = main_homepage
-    AOS_testrun_bom_bottom2 = page.locator(testrun_first).filter(
-        has_text=re.compile(r"^\[뷰어\]\s*BOM_BOM_하단\s*컨트롤러\(뷰어설정\)$", re.IGNORECASE) 
+    AOS_testrun_epub_top = page.locator(testrun_first).filter(
+        has_text = re.compile(r"^\[뷰어\]\s*Epub_연재형 webtoon-webnovel_상단\s*컨트롤러/본문$", re.IGNORECASE)
     ).first
 
     try:
-        AOS_testrun_bom_bottom2.wait_for(state="attached", timeout=5000)
-        AOS_testrun_bom_bottom2.scroll_into_view_if_needed()
-        AOS_testrun_bom_bottom2.wait_for(state="visible", timeout=5000)
-        AOS_testrun_bom_bottom2.click()
+        AOS_testrun_epub_top.wait_for(state="visible", timeout=10000)
+        AOS_testrun_epub_top.scroll_into_view_if_needed()
+        AOS_testrun_epub_top.click()
 
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        write_result_by_key(sheet, TCID, AOS_testrun_info, column="S")
+        for step in ["S294","S295","S296","S297","S298","S299"]:
+            write_result(step, AOS_testrun_info)
 
     except Exception as e:
-        write_result_by_key(sheet, TCID, "No Info", column="S")
+        for step in ["S294","S295","S296","S297","S298","S299"]:
+            write_result(step, "No Info")
         aos_flag["run"] = False
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
 @pytest.mark.order(6)
 @pytest.mark.prod_viewer
-def test_check_testresult_AOS(main_homepage, aos_flag, sheet):
+def test_check_testresult_AOS(main_homepage, write_result, aos_flag):
     if not aos_flag["run"]:
-        write_result_by_key(sheet, TCID, "N/T", column="P")
+        for step in ["P294","P295","P296","P297","P298","P299"]:
+            write_result(step, "N/T")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_349_AOS = get_testrun_status_AOS(page, testrun_status)
-    write_result_by_key(sheet, TCID, App_CheckList_349_AOS, column="P")
+    App_CheckList_288_AOS = get_testrun_status_AOS(page, testrun_status)
+    
+    for step in ["P294","P295","P296","P297","P298","P299"]:
+        write_result(step, App_CheckList_288_AOS)
 
 @pytest.mark.order(7)
 @pytest.mark.prod_viewer
@@ -98,42 +101,45 @@ def test_checkresult_IOS(main_homepage):
 
 @pytest.mark.order(9)
 @pytest.mark.prod_viewer
-def test_testrun_info_IOS(main_homepage, ios_flag, sheet):
+def test_testrun_info_IOS(main_homepage,write_result, ios_flag):
     page = main_homepage
-    IOS_testrun_bom_bottom2 = page.locator(testrun_first).filter(
-        has_text=re.compile(r"^\[뷰어\]\s*BOM_BOM_하단\s*컨트롤러\(뷰어설정\)$", re.IGNORECASE) 
+    IOS_testrun_epub_top = page.locator(testrun_first).filter(
+        has_text = re.compile(r"^\[뷰어\]\s*Epub_연재형 webtoon-webnovel_상단\s*컨트롤러/본문$", re.IGNORECASE)
     ).first
 
     try:
-        IOS_testrun_bom_bottom2.wait_for(state="attached", timeout=5000)
-        IOS_testrun_bom_bottom2.scroll_into_view_if_needed()
-        IOS_testrun_bom_bottom2.wait_for(state="visible", timeout=5000)
-        IOS_testrun_bom_bottom2.click()
-
+        IOS_testrun_epub_top.wait_for(state="visible", timeout=10000)
+        IOS_testrun_epub_top.scroll_into_view_if_needed()
+        IOS_testrun_epub_top.click()
+    
         IOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        write_result_by_key(sheet, TCID, IOS_testrun_info, column="T")
+        for step in ["T294","T295","T296","T297","T298","T299"]:
+            write_result(step, IOS_testrun_info)
 
     except Exception as e:
-        write_result_by_key(sheet, TCID, "No Info", column="T")
+        for step in ["T294","T295","T296","T297","T298","T299"]:
+            write_result(step, "No Info")
         ios_flag["run"] = False
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
 @pytest.mark.order(10)
 @pytest.mark.prod_viewer
-def test_check_testresult_IOS(main_homepage, ios_flag, sheet):
+def test_check_testresult_IOS(main_homepage, write_result,ios_flag):
     if not ios_flag["run"]:
-        write_result_by_key(sheet, TCID, "N/T", column="R")
+        for step in ["R294","R295","R296","R297","R298","R299"]:
+            write_result(step, "N/T")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_349_iOS = get_testrun_status_IOS(page, testrun_status)
-    write_result_by_key(sheet, TCID, App_CheckList_349_iOS, column="R")
+    App_CheckList_288_iOS = get_testrun_status_IOS(page, testrun_status)
+   
+    for step in ["R294","R295","R296","R297","R298","R299"]:
+        write_result(step, App_CheckList_288_iOS)
 
 @pytest.mark.order(11)
 @pytest.mark.prod_viewer
 def test_back_testrun_list_IOS(main_homepage, ios_flag):
     back_and_or_reset_IOS(main_homepage, ios_flag.get("run", False))
-
 
 # -------------------------------
 # ⌛ [Stage] 뷰어 프로젝트 ⌛
@@ -143,27 +149,32 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # -------------------------------
 # 자동화 테스트 결과 비교
 # -------------------------------
-# 비교할 key 값 리스트
-keys_to_copy =  [ "App_CheckList_349", "App_CheckList_350", "App_CheckList_351"]
+
+# # 비교 (1번시트 row, 2번시트 row)
+row_pairs = [
+    (294, 315),
+    (295, 316),
+    (296, 317),
+    (297, 318),
+    (298, 319),
+    (299, 320)
+]
+
+
+# 열 매핑 및 비교 열
+col1 = "E"  # 1번시트 비교 열
+col2 = "B"  # 2번시트 비교 열
+copy_map = {
+    "P": "J",
+    "Q": "K",
+    "R": "L",
+}
 
 @pytest.mark.prod_viewer
 @pytest.mark.stg_viewer
 @pytest.mark.order(12)
-def test_copy_cell_if_match(sheet):
+@pytest.mark.parametrize("row1,row2", row_pairs)
+def test_copy_cell_if_match(sheet, row1, row2):
     sheet1 = sheet
     sheet2 = sheet.spreadsheet.worksheet("App_Regression_Checklist v4.5")
-
-    # 특정 key 값만 비교/복사
-    for key in keys_to_copy:
-        copy_if_match_by_key(
-            sheet1,
-            sheet2,
-            key_col1="E",
-            key_col2="B",
-            copy_map={
-                "P": "J",
-                "Q": "K",
-                "R": "L",
-            },
-            key_value=key
-        )
+    copy_if_match(sheet1, sheet2, row1, row2, col1, col2, copy_map)

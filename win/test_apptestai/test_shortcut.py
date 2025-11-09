@@ -17,6 +17,7 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 # [Prod] 숏컷 프로젝트
 # -------------------------------
+TCID = [ "App_CheckList_420"]
 
 @pytest.mark.order(2)
 @pytest.mark.prod_shortcut
@@ -51,35 +52,36 @@ def test_checkresult_AOS(main_homepage):
 
 @pytest.mark.order(5)
 @pytest.mark.prod_shortcut
-def test_testrun_info_AOS(main_homepage, write_result,aos_flag):
+def test_testrun_info_AOS(main_homepage, aos_flag, sheet):
     page = main_homepage
     AOS_testrun_shortcut = page.locator(testrun_first).filter(
         has_text=re.compile(r"리디웹\s*바로가기", re.IGNORECASE)
     ).first
 
     try:
-        AOS_testrun_shortcut.wait_for(state="visible", timeout=10000)
+        AOS_testrun_shortcut.wait_for(state="attached", timeout=5000)
         AOS_testrun_shortcut.scroll_into_view_if_needed()
+        AOS_testrun_shortcut.wait_for(state="visible", timeout=5000)
         AOS_testrun_shortcut.click()
 
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        write_result("S476", AOS_testrun_info)
-    except Exception as e:
+        write_result_by_key(sheet, TCID, AOS_testrun_info, column="S")
 
-        write_result("S476", "No Info")
+    except Exception as e:
+        write_result_by_key(sheet, TCID, "No Info", column="S")
         aos_flag["run"] = False
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
 @pytest.mark.order(6)
 @pytest.mark.prod_shortcut
-def test_check_testresult_AOS(main_homepage, write_result, aos_flag):
+def test_check_testresult_AOS(main_homepage, aos_flag, sheet):
     if not aos_flag["run"]:
-        write_result("Q476", "N/T")
+        write_result_by_key(sheet, TCID, "N/T", column="Q")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
     App_CheckList_420_AOS= get_testrun_status_AOS(page, testrun_status)
-    write_result("Q476", App_CheckList_420_AOS)
+    write_result_by_key(sheet,TCID, App_CheckList_420_AOS, column="Q")
 
 @pytest.mark.order(7)
 @pytest.mark.prod_shortcut
@@ -95,25 +97,27 @@ def test_back_testrun_list_AOS(main_homepage, aos_flag):
 # 자동화 테스트 결과 비교
 # -------------------------------
 
-# # 비교 (1번시트 row, 2번시트 row)
-row_pairs = [
-    (476, 449)
-]
-
-# 열 매핑 및 비교 열
-col1 = "E"  # 1번시트 비교 열
-col2 = "B"  # 2번시트 비교 열
-copy_map = {
-    "P": "J",
-    "Q": "K",
-    "R": "L",
-}
+# 비교할 key 값 리스트
+keys_to_copy = ["App_CheckList_420"]
 
 @pytest.mark.prod_shortcut
 @pytest.mark.stg_shortcut
 @pytest.mark.order(8)
-@pytest.mark.parametrize("row1,row2", row_pairs)
-def test_copy_cell_if_match(sheet, row1, row2):
+def test_copy_cell_if_match(sheet):
     sheet1 = sheet
     sheet2 = sheet.spreadsheet.worksheet("App_Regression_Checklist v4.5")
-    copy_if_match(sheet1, sheet2, row1, row2, col1, col2, copy_map)
+
+    # 특정 key 값만 비교/복사
+    for key in keys_to_copy:
+        copy_if_match_by_key(
+            sheet1,
+            sheet2,
+            key_col1="E",
+            key_col2="B",
+            copy_map={
+                "P": "J",
+                "Q": "K",
+                "R": "L",
+            },
+            key_value=key
+        )
