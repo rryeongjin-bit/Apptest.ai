@@ -25,7 +25,7 @@ def test_project_preview(main_homepage):
     page = main_homepage
     page.click(prod_preview)
 
-    target_project = page.locator(project_title).get_by_text("[Prod] 작품홈_미리보기")
+    target_project = page.locator(project_title).get_by_text("[Prod] 작품 홈_미리보기")
     try:
         target_project.wait_for(state="visible", timeout=5000)
     except TimeoutError:
@@ -92,7 +92,7 @@ def test_back_testrun_list_AOS(main_homepage, aos_flag):
     back_and_or_reset_AOS(main_homepage, aos_flag.get("run", False))
 
 @pytest.mark.order(8)
-@pytest.mark.prod_viewer
+@pytest.mark.prod_preview
 def test_checkresult_IOS(main_homepage):
     page = main_homepage
     apply_filter_checkbox_iOS(page)
