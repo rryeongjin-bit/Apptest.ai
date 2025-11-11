@@ -16,7 +16,8 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 # [Prod] 작품홈 미리보기 프로젝트
 # -------------------------------
-TCID_webnovel = [ "App_CheckList_267", "App_CheckList_268"]
+TCID_general_set = [ "App_CheckList_280"]
+
 
 @pytest.mark.order(2)
 @pytest.mark.prod_preview
@@ -44,7 +45,7 @@ def test_checkresult(main_homepage):
     select_rows(page)
 
 """
-📍 작품 홈_미리보기_webtoon-webnovel_webnovel_연재
+📍작품 홈_미리보기_default-ebook_일반도서_세트
 """    
 @pytest.mark.order(4)
 @pytest.mark.prod_preview
@@ -56,21 +57,21 @@ def test_checkresult_AOS(main_homepage):
 @pytest.mark.prod_preview
 def test_testrun_info_AOS(main_homepage, aos_flag, sheet):
     page = main_homepage
-    AOS_testrun_preview_webnovel= page.locator(testrun_first).filter(
-        has_text=re.compile(r"^작품 홈_미리보기_webtoon-webnovel_webnovel_연재$", re.IGNORECASE) 
+    AOS_testrun_preview_default_general_set= page.locator(testrun_first).filter(
+        has_text=re.compile(r"^작품 홈_미리보기_default-ebook_일반도서_세트$", re.IGNORECASE) 
     ).first
 
     try:
-        AOS_testrun_preview_webnovel.wait_for(state="attached", timeout=5000)
-        AOS_testrun_preview_webnovel.scroll_into_view_if_needed()
-        AOS_testrun_preview_webnovel.wait_for(state="visible", timeout=5000)
-        AOS_testrun_preview_webnovel.click()
+        AOS_testrun_preview_default_general_set.wait_for(state="attached", timeout=5000)
+        AOS_testrun_preview_default_general_set.scroll_into_view_if_needed()
+        AOS_testrun_preview_default_general_set.wait_for(state="visible", timeout=5000)
+        AOS_testrun_preview_default_general_set.click()
 
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        write_result_by_key(sheet, TCID_webnovel, AOS_testrun_info, column="S")
+        write_result_by_key(sheet, TCID_general_set, AOS_testrun_info, column="S")
 
     except Exception as e:
-        write_result_by_key(sheet, TCID_webnovel, "No Info", column="S")
+        write_result_by_key(sheet, TCID_general_set, "No Info", column="S")
         aos_flag["run"] = False
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
@@ -78,12 +79,12 @@ def test_testrun_info_AOS(main_homepage, aos_flag, sheet):
 @pytest.mark.prod_preview
 def test_check_testresult_AOS(main_homepage, aos_flag, sheet):
     if not aos_flag["run"]:
-        write_result_by_key(sheet, TCID_webnovel, "N/T", column="P")
+        write_result_by_key(sheet, TCID_general_set, "N/T", column="P")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_267_AOS = get_testrun_status_AOS(page, testrun_status)
-    write_result_by_key(sheet, TCID_webnovel, App_CheckList_267_AOS, column="P")
+    App_CheckList_280_AOS = get_testrun_status_AOS(page, testrun_status)
+    write_result_by_key(sheet, TCID_general_set, App_CheckList_280_AOS, column="P")
 
 @pytest.mark.order(7)
 @pytest.mark.prod_preview
@@ -100,21 +101,21 @@ def test_checkresult_IOS(main_homepage):
 @pytest.mark.prod_preview
 def test_testrun_info_IOS(main_homepage, ios_flag, sheet):
     page = main_homepage
-    IOS_testrun_preview_webnovel = page.locator(testrun_first).filter(
-        has_text=re.compile(r"^작품 홈_미리보기_webtoon-webnovel_webnovel_연재$", re.IGNORECASE) 
+    IOS_testrun_preview_default_general_set = page.locator(testrun_first).filter(
+        has_text=re.compile(r"^작품 홈_미리보기_default-ebook_일반도서_세트$", re.IGNORECASE) 
     ).first
 
     try:
-        IOS_testrun_preview_webnovel.wait_for(state="attached", timeout=5000)
-        IOS_testrun_preview_webnovel.scroll_into_view_if_needed()
-        IOS_testrun_preview_webnovel.wait_for(state="visible", timeout=5000)
-        IOS_testrun_preview_webnovel.click()
+        IOS_testrun_preview_default_general_set.wait_for(state="attached", timeout=5000)
+        IOS_testrun_preview_default_general_set.scroll_into_view_if_needed()
+        IOS_testrun_preview_default_general_set.wait_for(state="visible", timeout=5000)
+        IOS_testrun_preview_default_general_set.click()
 
         IOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        write_result_by_key(sheet, TCID_webnovel, IOS_testrun_info, column="T")
+        write_result_by_key(sheet, TCID_general_set, IOS_testrun_info, column="T")
 
     except Exception as e:
-        write_result_by_key(sheet, TCID_webnovel, "No Info", column="T")
+        write_result_by_key(sheet, TCID_general_set, "No Info", column="T")
         ios_flag["run"] = False
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
@@ -122,12 +123,12 @@ def test_testrun_info_IOS(main_homepage, ios_flag, sheet):
 @pytest.mark.prod_preview
 def test_check_testresult_IOS(main_homepage, ios_flag, sheet):
     if not ios_flag["run"]:
-        write_result_by_key(sheet, TCID_webnovel, "N/T", column="R")
+        write_result_by_key(sheet, TCID_general_set, "N/T", column="R")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_267_iOS = get_testrun_status_IOS(page, testrun_status)
-    write_result_by_key(sheet, TCID_webnovel, App_CheckList_267_iOS, column="R")
+    App_CheckList_280_iOS = get_testrun_status_IOS(page, testrun_status)
+    write_result_by_key(sheet, TCID_general_set, App_CheckList_280_iOS, column="R")
 
 @pytest.mark.order(11)
 @pytest.mark.prod_preview
@@ -144,7 +145,7 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # 자동화 테스트 결과 비교
 # -------------------------------
 # 비교할 key 값 리스트
-keys_to_copy = [ "App_CheckList_267", "App_CheckList_268" ]
+keys_to_copy = [ "App_CheckList_280"]
 
 @pytest.mark.prod_preview
 @pytest.mark.stg_preview

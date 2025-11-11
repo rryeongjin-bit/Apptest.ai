@@ -17,6 +17,7 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 # [Prod] 사용자파일 프로젝트
 # -------------------------------
+TCID = [ ]
 
 @pytest.mark.order(2)
 @pytest.mark.prod_usersfile
