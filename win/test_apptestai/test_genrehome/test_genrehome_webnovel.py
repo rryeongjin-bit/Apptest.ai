@@ -17,6 +17,10 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 # [Prod] 장르홈 프로젝트
 # -------------------------------
+TCID = [ "App_CheckList_129", "App_CheckList_130", "App_CheckList_131", "App_CheckList_132", 
+        "App_CheckList_133", "App_CheckList_134", "App_CheckList_135", "App_CheckList_136",
+        "App_CheckList_137", "App_CheckList_138", "App_CheckList_139", "App_CheckList_140",
+        "App_CheckList_141", "App_CheckList_142", "App_CheckList_143", "App_CheckList_144", "App_CheckList_145" ]
 
 @pytest.mark.order(2)
 @pytest.mark.prod_genrehome
@@ -54,40 +58,36 @@ def test_checkresult_AOS(main_homepage):
 
 @pytest.mark.order(5)
 @pytest.mark.prod_genrehome
-def test_testrun_info_AOS(main_homepage, write_result,aos_flag):
+def test_testrun_info_AOS(main_homepage, aos_flag, sheet):
     page = main_homepage
     AOS_testrun_webnovel = page.locator(testrun_first).filter(
         has_text=re.compile(r"장르홈_웹소설", re.IGNORECASE) 
     ).first
 
     try:
-        AOS_testrun_webnovel.wait_for(state="visible", timeout=10000)
+        AOS_testrun_webnovel.wait_for(state="attached", timeout=5000)
         AOS_testrun_webnovel.scroll_into_view_if_needed()
+        AOS_testrun_webnovel.wait_for(state="visible", timeout=5000)
         AOS_testrun_webnovel.click()
 
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        for step in ["S124","S125","S126","S127","S128","S129","S130","S131","S132","S133","S134","S135","S136","S137","S138","S139","S140"]:
-            write_result(step, AOS_testrun_info)
+        write_result_by_key(sheet, TCID, AOS_testrun_info, column="S")
 
     except Exception as e:
-        for step in ["S124","S125","S126","S127","S128","S129","S130","S131","S132","S133","S134","S135","S136","S137","S138","S139","S140"]:
-            write_result(step, "No Info")
+        write_result_by_key(sheet, TCID, "No Info", column="S")
         aos_flag["run"] = False
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
 @pytest.mark.order(6)
 @pytest.mark.prod_genrehome
-def test_check_testresult_AOS(main_homepage, write_result, aos_flag):
+def test_check_testresult_AOS(main_homepage, aos_flag, sheet):
     if not aos_flag["run"]:
-        for step in ["P124","P125","P126","P127","P128","P129","P130","P131","P132","P133","P134","P135","P136","P137","P138","P139","P140"]:
-            write_result(step, "N/T")
+        write_result_by_key(sheet, TCID, "N/T", column="P")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
     App_CheckList_129_AOS = get_testrun_status_AOS(page, testrun_status)
-    
-    for step in ["P124","P125","P126","P127","P128","P129","P130","P131","P132","P133","P134","P135","P136","P137","P138","P139","P140"]:
-        write_result(step, App_CheckList_129_AOS)
+    write_result_by_key(sheet, TCID, App_CheckList_129_AOS, column="P")
 
 @pytest.mark.order(7)
 @pytest.mark.prod_genrehome
@@ -102,40 +102,36 @@ def test_checkresult_IOS(main_homepage):
 
 @pytest.mark.order(9)
 @pytest.mark.prod_genrehome
-def test_testrun_info_IOS(main_homepage,write_result, ios_flag):
+def test_testrun_info_IOS(main_homepage, ios_flag, sheet):
     page = main_homepage
     IOS_testrun_webnovel = page.locator(testrun_first).filter(
         has_text=re.compile(r"장르홈_웹소설", re.IGNORECASE) 
     ).first
 
     try:
-        IOS_testrun_webnovel.wait_for(state="visible", timeout=10000)
+        IOS_testrun_webnovel.wait_for(state="attached", timeout=5000)
         IOS_testrun_webnovel.scroll_into_view_if_needed()
+        IOS_testrun_webnovel.wait_for(state="visible", timeout=5000)
         IOS_testrun_webnovel.click()
     
         IOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        for step in ["T124","T125","T126","T127","T128","T129","T130","T131","T132","T133","T134","T135","T136","T137","T138","T139","T140"]:
-            write_result(step, IOS_testrun_info)
+        write_result_by_key(sheet, TCID, IOS_testrun_info, column="T")
 
     except Exception as e:
-        for step in ["T124","T125","T126","T127","T128","T129","T130","T131","T132","T133","T134","T135","T136","T137","T138","T139","T140"]:
-            write_result(step, "No Info")
+        write_result_by_key(sheet, TCID, "No Info", column="T")
         ios_flag["run"] = False
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
 @pytest.mark.order(10)
 @pytest.mark.prod_genrehome
-def test_check_testresult_IOS(main_homepage, write_result,ios_flag):
+def test_check_testresult_IOS(main_homepage, ios_flag, sheet):
     if not ios_flag["run"]:
-        for step in ["R124","R125","R126","R127","R128","R129","R130","R131","R132","R133","R134","R135","R136","R137","R138","R139","R140"]:
-            write_result(step, "N/T")
+        write_result_by_key(sheet, TCID, "N/T", column="R")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
     App_CheckList_129_iOS = get_testrun_status_IOS(page, testrun_status)
-   
-    for step in ["R124","R125","R126","R127","R128","R129","R130","R131","R132","R133","R134","R135","R136","R137","R138","R139","R140"]:
-        write_result(step, App_CheckList_129_iOS)
+    write_result_by_key(sheet,TCID, App_CheckList_129_iOS, column="R")
 
 @pytest.mark.order(11)
 @pytest.mark.prod_genrehome
@@ -152,41 +148,31 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # 자동화 테스트 결과 비교
 # -------------------------------
 
-# # 비교 (1번시트 row, 2번시트 row)
-row_pairs = [
-    (124,145),
-    (125,146),
-    (126,147),
-    (127,148),
-    (128,149),
-    (129,150),
-    (130,151),
-    (131,152),
-    (132,153),
-    (133,154),
-    (134,155),
-    (135,156),
-    (136,157),
-    (137,158),
-    (138,159),
-    (139,160),
-    (140,161)
-]
-
-# 열 매핑 및 비교 열
-col1 = "E"  # 1번시트 비교 열
-col2 = "B"  # 2번시트 비교 열
-copy_map = {
-    "P": "J",
-    "Q": "K",
-    "R": "L",
-}
+# 비교할 key 값 리스트
+keys_to_copy =  [ "App_CheckList_129", "App_CheckList_130", "App_CheckList_131", "App_CheckList_132", 
+        "App_CheckList_133", "App_CheckList_134", "App_CheckList_135", "App_CheckList_136",
+        "App_CheckList_137", "App_CheckList_138", "App_CheckList_139", "App_CheckList_140",
+        "App_CheckList_141", "App_CheckList_142", "App_CheckList_143", "App_CheckList_144", "App_CheckList_145" ]
 
 @pytest.mark.prod_genrehome
 @pytest.mark.stg_genrehome
 @pytest.mark.order(12)
-@pytest.mark.parametrize("row1,row2", row_pairs)
-def test_copy_cell_if_match(sheet, row1, row2):
+def test_copy_cell_if_match(sheet):
     sheet1 = sheet
     sheet2 = sheet.spreadsheet.worksheet("App_Regression_Checklist v4.5")
-    copy_if_match(sheet1, sheet2, row1, row2, col1, col2, copy_map)
+
+    # 특정 key 값만 비교/복사
+    for key in keys_to_copy:
+        copy_if_match_by_key(
+            sheet1,
+            sheet2,
+            key_col1="E",
+            key_col2="B",
+            copy_map={
+                "P": "J",
+                "Q": "K",
+                "R": "L",
+            },
+            key_value=key
+        )
+
