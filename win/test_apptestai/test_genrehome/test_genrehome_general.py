@@ -18,6 +18,10 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 TCID = [ "App_CheckList_146", "App_CheckList_147", "App_CheckList_148", "App_CheckList_149", 
         "App_CheckList_151", "App_CheckList_152", "App_CheckList_153" ]
+<<<<<<< HEAD
+=======
+
+>>>>>>> b1636a3f7c209b867ebdce3c9269293bdce040b0
 
 @pytest.mark.order(2)
 @pytest.mark.prod_genrehome
