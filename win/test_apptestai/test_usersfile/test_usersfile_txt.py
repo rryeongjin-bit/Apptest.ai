@@ -17,7 +17,8 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 # [Prod] 사용자파일 프로젝트
 # -------------------------------
-TCID = [ ]
+TCID1 = ["App_CheckList_415", "App_CheckList_416" ]
+TCID2 = ["App_CheckList_417"]
 
 @pytest.mark.order(2)
 @pytest.mark.prod_usersfile
@@ -56,40 +57,36 @@ def test_checkresult_AOS_txt1(main_homepage):
 
 @pytest.mark.order(5)
 @pytest.mark.prod_usersfile
-def test_testrun_info_AOS_txt1(main_homepage, write_result,aos_flag):
+def test_testrun_info_AOS_txt1(main_homepage, aos_flag, sheet):
     page = main_homepage
     AOS_testrun_usersfile_txt1 = page.locator(testrun_first).filter(
         has_text=re.compile(r"TXT_상단\s*컨트롤러", re.IGNORECASE)
     ).first
 
     try:
-        AOS_testrun_usersfile_txt1.wait_for(state="visible", timeout=10000)
+        AOS_testrun_usersfile_txt1.wait_for(state="attached", timeout=5000)
         AOS_testrun_usersfile_txt1.scroll_into_view_if_needed()
+        AOS_testrun_usersfile_txt1.wait_for(state="visible", timeout=5000)
         AOS_testrun_usersfile_txt1.click()
 
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        for step in ["S483", "S484"]:
-            write_result(step, AOS_testrun_info)
+        write_result_by_key(sheet, TCID1, AOS_testrun_info, column="S")
 
     except Exception as e:
-        for step in ["S483", "S484"]:
-            write_result(step, "No Info")
+        write_result_by_key(sheet, TCID1, "No Info", column="S")
         aos_flag["run"] = False
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
 @pytest.mark.order(6)
 @pytest.mark.prod_usersfile
-def test_check_testresult_AOS_txt1(main_homepage, write_result, aos_flag):
+def test_check_testresult_AOS_txt1(main_homepage, aos_flag, sheet):
     if not aos_flag["run"]:
-        for step in ["P483", "P484"]:
-            write_result(step, "N/T")
+        write_result_by_key(sheet, TCID1, "N/T", column="P")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
     App_CheckList_415_AOS= get_testrun_status_AOS(page, testrun_status)
-   
-    for step in ["P483", "P484"]:
-        write_result(step, App_CheckList_415_AOS)
+    write_result_by_key(sheet, TCID1, App_CheckList_415_AOS, column="P")
 
 @pytest.mark.order(7)
 @pytest.mark.prod_usersfile
@@ -104,40 +101,36 @@ def test_checkresult_IOS_txt1(main_homepage):
 
 @pytest.mark.order(9)
 @pytest.mark.prod_usersfile
-def test_testrun_info_IOS_txt1(main_homepage,write_result, ios_flag):
+def test_testrun_info_IOS_txt1(main_homepage, ios_flag, sheet):
     page = main_homepage
     IOS_testrun_usersfile_txt1= page.locator(testrun_first).filter(
         has_text=re.compile(r"TXT_상단\s*컨트롤러", re.IGNORECASE)
     ).first
 
     try:
-        IOS_testrun_usersfile_txt1.wait_for(state="visible", timeout=10000)
+        IOS_testrun_usersfile_txt1.wait_for(state="attached", timeout=5000)
         IOS_testrun_usersfile_txt1.scroll_into_view_if_needed()
+        IOS_testrun_usersfile_txt1.wait_for(state="visible", timeout=5000)
         IOS_testrun_usersfile_txt1.click()
     
         IOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        for step in ["T483", "T484"]:
-            write_result(step, IOS_testrun_info)
+        write_result_by_key(sheet, TCID1, IOS_testrun_info, column="T")
 
     except Exception as e:
-        for step in ["T483", "T484"]:
-            write_result(step, "No Info")
+        write_result_by_key(sheet, TCID1, "No Info", column="T")
         ios_flag["run"] = False
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
 @pytest.mark.order(10)
 @pytest.mark.prod_usersfile
-def test_check_testresult_txt1(main_homepage, write_result,ios_flag):
+def test_check_testresult_txt1(main_homepage, ios_flag, sheet):
     if not ios_flag["run"]:
-        for step in ["R483", "R484"]:
-            write_result(step, "N/T")
+        write_result_by_key(sheet, TCID1, "N/T", column="R")
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
     App_CheckList_415_iOS = get_testrun_status_IOS(page, testrun_status)
-
-    for step in ["R483", "R484"]:
-        write_result(step, App_CheckList_415_iOS)
+    write_result_by_key(sheet,TCID1, App_CheckList_415_iOS, column="R")
 
 @pytest.mark.order(11)
 @pytest.mark.prod_usersfile
@@ -155,35 +148,36 @@ def test_checkresult_AOS_txt2(main_homepage):
 
 @pytest.mark.order(13)
 @pytest.mark.prod_usersfile
-def test_testrun_info_AOS_txt2(main_homepage, write_result,aos_flag):
+def test_testrun_info_AOS_txt2(main_homepage, aos_flag, sheet):
     page = main_homepage
     AOS_testrun_usersfile_txt2 = page.locator(testrun_first).filter(
         has_text=re.compile(r"TXT_하단\s*컨트롤러", re.IGNORECASE)
     ).first
 
     try:
-        AOS_testrun_usersfile_txt2.wait_for(state="visible", timeout=10000)
+        AOS_testrun_usersfile_txt2.wait_for(state="attached", timeout=5000)
         AOS_testrun_usersfile_txt2.scroll_into_view_if_needed()
+        AOS_testrun_usersfile_txt2.wait_for(state="visible", timeout=5000)
         AOS_testrun_usersfile_txt2.click()
 
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        write_result("S485", AOS_testrun_info)
-    except Exception as e:
+        write_result_by_key(sheet, TCID2, AOS_testrun_info, column="S")
 
-        write_result("S485", "No Info")
+    except Exception as e:
+        write_result_by_key(sheet, TCID2, "No Info", column="S")
         aos_flag["run"] = False
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
 @pytest.mark.order(14)
 @pytest.mark.prod_usersfile
-def test_check_testresult_AOS_txt2(main_homepage, write_result, aos_flag):
+def test_check_testresult_AOS_txt2(main_homepage, aos_flag, sheet):
     if not aos_flag["run"]:
-        write_result("P485", "N/T")
+        write_result_by_key(sheet, TCID2, "N/T", column="P")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
     App_CheckList_417_AOS= get_testrun_status_AOS(page, testrun_status)
-    write_result("P485", App_CheckList_417_AOS)
+    write_result_by_key(sheet, TCID2, App_CheckList_417_AOS, column="P")
 
 @pytest.mark.order(15)
 @pytest.mark.prod_usersfile
@@ -198,34 +192,36 @@ def test_checkresult_IOS_txt2(main_homepage):
 
 @pytest.mark.order(17)
 @pytest.mark.prod_usersfile
-def test_testrun_info_IOS_txt2(main_homepage,write_result, ios_flag):
+def test_testrun_info_IOS_txt2(main_homepage, ios_flag, sheet):
     page = main_homepage
     IOS_testrun_usersfile_txt2 = page.locator(testrun_first).filter(
         has_text=re.compile(r"TXT_하단\s*컨트롤러", re.IGNORECASE)
     ).first
 
     try:
-        IOS_testrun_usersfile_txt2.wait_for(state="visible", timeout=10000)
+        IOS_testrun_usersfile_txt2.wait_for(state="attached", timeout=5000)
         IOS_testrun_usersfile_txt2.scroll_into_view_if_needed()
+        IOS_testrun_usersfile_txt2.wait_for(state="visible", timeout=5000)
         IOS_testrun_usersfile_txt2.click()
     
         IOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        write_result("T485", IOS_testrun_info)
+        write_result_by_key(sheet, TCID2, IOS_testrun_info, column="T")
+
     except Exception as e:
-        write_result("T485", "No Info")
+        write_result_by_key(sheet, TCID2, "No Info", column="T")
         ios_flag["run"] = False
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
 @pytest.mark.order(18)
 @pytest.mark.prod_usersfile
-def test_check_testresult_IOS_txt2(main_homepage, write_result,ios_flag):
+def test_check_testresult_IOS_txt2(main_homepage, ios_flag, sheet):
     if not ios_flag["run"]:
-        write_result("R485", "N/T")
+        write_result_by_key(sheet, TCID2, "N/T", column="R")
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
     App_CheckList_417_iOS = get_testrun_status_IOS(page, testrun_status)
-    write_result("R485", App_CheckList_417_iOS)
+    write_result_by_key(sheet, TCID2, App_CheckList_417_iOS, column="R")
 
 @pytest.mark.order(19)
 @pytest.mark.prod_usersfile
@@ -241,29 +237,28 @@ def test_back_testrun_list_IOS_txt2(main_homepage, ios_flag):
 # 자동화 테스트 결과 비교
 # -------------------------------
 
-# 비교 (1번시트 row, 2번시트 row)
-row_pairs = [
-    (483, 444),
-    (484, 445),
-    (485, 446)
-]
-
-# 열 매핑 및 비교 열
-col1 = "E"  # 1번시트 비교 열
-col2 = "B"  # 2번시트 비교 열
-copy_map = {
-    "P": "J",
-    "Q": "K",
-    "R": "L",
-}
+# 비교할 key 값 리스트
+keys_to_copy = ["App_CheckList_415", "App_CheckList_416", "App_CheckList_417"]
 
 @pytest.mark.prod_usersfile
 @pytest.mark.stg_usersfile
-@pytest.mark.order(20)
-@pytest.mark.parametrize("row1,row2", row_pairs)
-def test_copy_cell_if_match(sheet, row1, row2):
+@pytest.mark.order(12)
+def test_copy_cell_if_match(sheet):
     sheet1 = sheet
     sheet2 = sheet.spreadsheet.worksheet("App_Regression_Checklist v4.5")
-    copy_if_match(sheet1, sheet2, row1, row2, col1, col2, copy_map)
 
+    # 특정 key 값만 비교/복사
+    for key in keys_to_copy:
+        copy_if_match_by_key(
+            sheet1,
+            sheet2,
+            key_col1="E",
+            key_col2="B",
+            copy_map={
+                "P": "J",
+                "Q": "K",
+                "R": "L",
+            },
+            key_value=key
+        )
 
