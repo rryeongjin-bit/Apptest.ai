@@ -148,7 +148,7 @@ keys_to_copy = [ "App_CheckList_273", "App_CheckList_274"]
 
 @pytest.mark.prod_preview
 @pytest.mark.stg_preview
-@pytest.mark.order(20)
+@pytest.mark.order(12)
 def test_copy_cell_if_match(sheet):
     sheet1 = sheet
     sheet2 = sheet.spreadsheet.worksheet(f"App_Regression_Checklist {CHECKLIST_VERSION}")

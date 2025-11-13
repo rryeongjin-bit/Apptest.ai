@@ -6,9 +6,7 @@ from google.oauth2.service_account import Credentials
 from playwright.sync_api import sync_playwright
 
 
-# -------------------------------
 # App_Regression_checklist
-# -------------------------------
 CHECKLIST_VERSION = "v4.6"
 checklist_sheet = "[자동화] App_Regression_결과확인_v1.2"
 

@@ -16,7 +16,7 @@ folder_title_section = "#content_box"
 project_title = "#content_box > div > main > div > div.sc-fTyFcS.hvAcvE > div.sc-hsUFQk.eifibf > div.sc-dNckAz.gGfvGa > div"
 
 prod_launchapp = "#default-table > tbody > tr:nth-child(26) > td:nth-child(1) > div > div > div"
-# prod_tabbar : 
+prod_tabbar = "#default-table > tbody > tr:nth-child(25) > td:nth-child(1) > div > div > div"
 prod_genrehome = "#default-table > tbody > tr:nth-child(27) > td:nth-child(1) > div > div > div"
 prod_contentshome = "#default-table > tbody > tr:nth-child(24) > td:nth-child(1) > div > div > div"
 prod_preview = "#default-table > tbody > tr:nth-child(23) > td:nth-child(1) > div > div > div"
