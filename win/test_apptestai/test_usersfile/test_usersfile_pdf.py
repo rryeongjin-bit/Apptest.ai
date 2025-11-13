@@ -245,7 +245,7 @@ keys_to_copy = ["App_CheckList_412", "App_CheckList_413", "App_CheckList_414"]
 @pytest.mark.order(12)
 def test_copy_cell_if_match(sheet):
     sheet1 = sheet
-    sheet2 = sheet.spreadsheet.worksheet("App_Regression_Checklist v4.5")
+    sheet2 = sheet.spreadsheet.worksheet(f"App_Regression_Checklist {CHECKLIST_VERSION}")
 
     # 특정 key 값만 비교/복사
     for key in keys_to_copy:

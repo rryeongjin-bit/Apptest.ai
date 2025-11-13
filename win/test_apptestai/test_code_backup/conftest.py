@@ -5,12 +5,7 @@ from common_utils import *
 from google.oauth2.service_account import Credentials
 from playwright.sync_api import sync_playwright
 
-
-# -------------------------------
-# App_Regression_checklist
-# -------------------------------
-CHECKLIST_VERSION = "v4.6"
-checklist_sheet = "[자동화] App_Regression_결과확인_v1.2"
+# STORAGE_STATE_PATH = ".vscode/storageState.json"
 
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -23,6 +18,11 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # storageState.json 절대경로
 STORAGE_STATE_PATH = os.path.join(PROJECT_ROOT, ".vscode", "storageState.json")
 
+# creds = Credentials.from_service_account_file(
+#     ".vscode/credentials.json",
+#     scopes=SCOPES
+# )
+# client = gspread.authorize(creds)
 
 # conftest.py 위치 기준
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -116,7 +116,7 @@ def sheet(gsheet_client):
     spreadsheet_key = "1NpZVVopxJCrQXqv9c-A83PozWufznzr9mbT4NTpFKOc"
     spreadsheet = gsheet_client.open_by_key(spreadsheet_key)
     
-    sheet_name = checklist_sheet
+    sheet_name = "[자동화] App_Regression_결과확인_v1.2"
     return spreadsheet.worksheet(sheet_name)
 
 # 테스트 진행 및 구글sheet 기록 wrapper fixture

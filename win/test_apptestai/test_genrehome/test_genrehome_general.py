@@ -18,10 +18,6 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 TCID = [ "App_CheckList_146", "App_CheckList_147", "App_CheckList_148", "App_CheckList_149", 
         "App_CheckList_151", "App_CheckList_152", "App_CheckList_153" ]
-<<<<<<< HEAD
-=======
-
->>>>>>> b1636a3f7c209b867ebdce3c9269293bdce040b0
 
 @pytest.mark.order(2)
 @pytest.mark.prod_genrehome
@@ -158,7 +154,7 @@ keys_to_copy = [ "App_CheckList_146", "App_CheckList_147", "App_CheckList_148", 
 @pytest.mark.order(12)
 def test_copy_cell_if_match(sheet):
     sheet1 = sheet
-    sheet2 = sheet.spreadsheet.worksheet("App_Regression_Checklist v4.5")
+    sheet2 = sheet.spreadsheet.worksheet(f"App_Regression_Checklist {CHECKLIST_VERSION}")
 
     # 특정 key 값만 비교/복사
     for key in keys_to_copy:
