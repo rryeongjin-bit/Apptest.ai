@@ -17,9 +17,7 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 # [Prod] Tab bar 프로젝트
 # -------------------------------
-TCID = ["App_CheckList_050", "App_CheckList_051", "App_CheckList_052",
-        "App_CheckList_053", "App_CheckList_055", "App_CheckList_056",
-        "App_CheckList_057", "App_CheckList_062", "App_CheckList_063", "App_CheckList_064"]
+TCID = [ "App_CheckList_079", "App_CheckList_091"]
 
 @pytest.mark.order(2)
 @pytest.mark.prod_tabbar
@@ -47,7 +45,7 @@ def test_checkresult(main_homepage):
     select_rows(page)
 
 """
-📍Tab Bar_검색_SLP/SRP/STP
+📍Tab bar_마이리디_Onestore
 """
 @pytest.mark.order(4)
 @pytest.mark.prod_tabbar
@@ -59,15 +57,15 @@ def test_checkresult_AOS(main_homepage):
 @pytest.mark.prod_tabbar
 def test_testrun_info_AOS(main_homepage, aos_flag, sheet):
     page = main_homepage
-    AOS_testrun_search1 = page.locator(testrun_first).filter(
-        has_text=re.compile(r"^Tab Bar_검색_SLP/SRP/STP$", re.IGNORECASE)
+    AOS_testrun_myridi3 = page.locator(testrun_first).filter(
+        has_text=re.compile(r"^Tab bar_마이리디_Onestore$", re.IGNORECASE)
     ).first
 
     try:
-        AOS_testrun_search1.wait_for(state="attached", timeout=5000)
-        AOS_testrun_search1.scroll_into_view_if_needed()
-        AOS_testrun_search1.wait_for(state="visible", timeout=5000)
-        AOS_testrun_search1.click()
+        AOS_testrun_myridi3.wait_for(state="attached", timeout=5000)
+        AOS_testrun_myridi3.scroll_into_view_if_needed()
+        AOS_testrun_myridi3.wait_for(state="visible", timeout=5000)
+        AOS_testrun_myridi3.click()
 
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
         write_result_by_key(sheet, TCID, AOS_testrun_info, column="S")
@@ -81,61 +79,18 @@ def test_testrun_info_AOS(main_homepage, aos_flag, sheet):
 @pytest.mark.prod_tabbar
 def test_check_testresult_AOS(main_homepage, aos_flag, sheet):
     if not aos_flag["run"]:
-        write_result_by_key(sheet, TCID, "N/T", column="P")
+        write_result_by_key(sheet, TCID, "N/T", column="Q")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_050_AOS= get_testrun_status_AOS(page, testrun_status)
-    write_result_by_key(sheet, TCID, App_CheckList_050_AOS, column="P")
+    App_CheckList_079_AOS= get_testrun_status_AOS(page, testrun_status)
+    write_result_by_key(sheet, TCID, App_CheckList_079_AOS, column="Q")
 
 @pytest.mark.order(7)
 @pytest.mark.prod_tabbar
 def test_back_testrun_list_AOS(main_homepage, aos_flag):
     back_and_or_reset_AOS(main_homepage, aos_flag.get("run", False))
 
-@pytest.mark.order(8)
-@pytest.mark.prod_tabbar
-def test_checkresult_IOS(main_homepage):
-    page = main_homepage
-    apply_filter_checkbox_iOS(page)
-
-@pytest.mark.order(9)
-@pytest.mark.prod_tabbar
-def test_testrun_info_IOS(main_homepage, ios_flag, sheet):
-    page = main_homepage
-    IOS_testrun_search1= page.locator(testrun_first).filter(
-        has_text=re.compile(r"^Tab Bar_검색_SLP/SRP/STP$", re.IGNORECASE)
-    ).first
-
-    try:
-        IOS_testrun_search1.wait_for(state="attached", timeout=5000)
-        IOS_testrun_search1.scroll_into_view_if_needed()
-        IOS_testrun_search1.wait_for(state="visible", timeout=5000)
-        IOS_testrun_search1.click()
-    
-        IOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        write_result_by_key(sheet, TCID, IOS_testrun_info, column="T")
-
-    except Exception as e:
-        write_result_by_key(sheet, TCID, "No Info", column="T")
-        ios_flag["run"] = False
-        pytest.skip("⚠️ IOS 테스트 결과 없음 - 테스트 정보 확인 skip")
-
-@pytest.mark.order(10)
-@pytest.mark.prod_tabbar
-def test_check_testresult_IOS(main_homepage, ios_flag, sheet):
-    if not ios_flag["run"]:
-        write_result_by_key(sheet, TCID, "N/T", column="R")
-        pytest.skip("⚠️ IOS 테스트 결과 없음 - 결과 확인 skip")
-
-    page = main_homepage
-    App_CheckList_050_iOS = get_testrun_status_IOS(page, testrun_status)
-    write_result_by_key(sheet,TCID, App_CheckList_050_iOS, column="R")
-
-@pytest.mark.order(11)
-@pytest.mark.prod_tabbar
-def test_back_testrun_list_IOS(main_homepage, ios_flag):
-    back_and_or_reset_IOS(main_homepage, ios_flag.get("run", False))
 
 # -------------------------------
 # ⌛ [Stage] Tab bar 프로젝트 ⌛
@@ -147,15 +102,11 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # -------------------------------
 
 # 비교할 key 값 리스트
-keys_to_copy = ["App_CheckList_050", "App_CheckList_051", "App_CheckList_052",
-        "App_CheckList_053", "App_CheckList_055", "App_CheckList_056",
-        "App_CheckList_057","App_CheckList_058", "App_CheckList_059",
-        "App_CheckList_060", "App_CheckList_061","App_CheckList_062",
-        "App_CheckList_063", "App_CheckList_064"]
+keys_to_copy = [ "App_CheckList_079", "App_CheckList_091"]
 
 @pytest.mark.prod_tabbar
 @pytest.mark.stg_tabbar
-@pytest.mark.order(12)
+@pytest.mark.order(8)
 def test_copy_cell_if_match(sheet):
     sheet1 = sheet
     sheet2 = sheet.spreadsheet.worksheet(f"App_Regression_Checklist {CHECKLIST_VERSION}")
