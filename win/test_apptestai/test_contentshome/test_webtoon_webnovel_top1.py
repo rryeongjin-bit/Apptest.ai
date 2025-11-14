@@ -17,6 +17,10 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 # [Prod] 작품홈 프로젝트
 # -------------------------------
+TCID = [ "App_CheckList_161", "App_CheckList_163", "App_CheckList_164",
+        "App_CheckList_165", "App_CheckList_166", "App_CheckList_167",
+        "App_CheckList_168", "App_CheckList_169", "App_CheckList_171",
+        "App_CheckList_172",  "App_CheckList_442", "App_CheckList_443"] 
 
 @pytest.mark.order(2)
 @pytest.mark.prod_contentshome
@@ -54,44 +58,36 @@ def test_checkresult_AOS(main_homepage):
 
 @pytest.mark.order(5)
 @pytest.mark.prod_contentshome
-def test_testrun_info_AOS(main_homepage, write_result,aos_flag):
+def test_testrun_info_AOS(main_homepage,aos_flag, sheet):
     page = main_homepage
     AOS_testrun_webtoon_webnovel = page.locator(testrun_first).filter(
-        has_text=re.compile(r"작품 홈_webtoon-webnovel_상단 영역", re.IGNORECASE) 
+        has_text=re.compile(r"작품 홈_webtoon-webnovel_상단 영역$", re.IGNORECASE) 
     ).first
 
     try:
-        AOS_testrun_webtoon_webnovel.wait_for(state="visible", timeout=10000)
+        AOS_testrun_webtoon_webnovel.wait_for(state="attached", timeout=5000)
         AOS_testrun_webtoon_webnovel.scroll_into_view_if_needed()
+        AOS_testrun_webtoon_webnovel.wait_for(state="visible", timeout=5000)
         AOS_testrun_webtoon_webnovel.click()
 
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        for step in ["S167","S168","S169","S170","S171","S172","S173",
-                     "S174","S175","S176","S177","S178"]:
-            write_result(step, AOS_testrun_info)
+        write_result_by_key(sheet, TCID, AOS_testrun_info, column="S")
 
     except Exception as e:
-        for step in ["S167","S168","S169","S170","S171","S172","S173",
-                     "S174","S175","S176","S177","S178"]:
-            write_result(step, "No Info")
+        write_result_by_key(sheet, TCID, "No Info", column="S")
         aos_flag["run"] = False
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
 @pytest.mark.order(6)
 @pytest.mark.prod_contentshome
-def test_check_testresult_AOS(main_homepage, write_result, aos_flag):
+def test_check_testresult_AOS(main_homepage, aos_flag, sheet):
     if not aos_flag["run"]:
-        for step in ["P167","P168","P169","P170","P171","P172","P173",
-                     "P174","P175","P176","P177","P178"]:
-            write_result(step, "N/T")
+        write_result_by_key(sheet, TCID, "N/T", column="P")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
     App_CheckList_161_AOS = get_testrun_status_AOS(page, testrun_status)
-    
-    for step in ["P167","P168","P169","P170","P171","P172","P173",
-                     "P174","P175","P176","P177","P178"]:
-        write_result(step, App_CheckList_161_AOS)
+    write_result_by_key(sheet, TCID, App_CheckList_161_AOS, column="P")
 
 @pytest.mark.order(7)
 @pytest.mark.prod_contentshome
@@ -106,44 +102,36 @@ def test_checkresult_IOS(main_homepage):
 
 @pytest.mark.order(9)
 @pytest.mark.prod_contentshome
-def test_testrun_info_IOS(main_homepage,write_result, ios_flag):
+def test_testrun_info_IOS(main_homepage, ios_flag, sheet):
     page = main_homepage
     IOS_testrun_webtoon_webnovel= page.locator(testrun_first).filter(
-        has_text=re.compile(r"작품 홈_webtoon-webnovel_상단 영역", re.IGNORECASE) 
+        has_text=re.compile(r"작품 홈_webtoon-webnovel_상단 영역$", re.IGNORECASE) 
     ).first
 
     try:
-        IOS_testrun_webtoon_webnovel.wait_for(state="visible", timeout=10000)
+        IOS_testrun_webtoon_webnovel.wait_for(state="attached", timeout=5000)
         IOS_testrun_webtoon_webnovel.scroll_into_view_if_needed()
+        IOS_testrun_webtoon_webnovel.wait_for(state="visible", timeout=5000)
         IOS_testrun_webtoon_webnovel.click()
     
         IOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        for step in ["T167","T168","T169","T170","T171","T172","T173",
-                     "T174","T175","T176","T177","T178"]:
-            write_result(step, IOS_testrun_info)
+        write_result_by_key(sheet, TCID, IOS_testrun_info, column="T")
 
     except Exception as e:
-        for step in ["T167","T168","T169","T170","T171","T172","T173",
-                     "T174","T175","T176","T177","T178"]:
-            write_result(step, "No Info")
+        write_result_by_key(sheet, TCID, "No Info", column="T")
         ios_flag["run"] = False
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
 @pytest.mark.order(10)
 @pytest.mark.prod_contentshome
-def test_check_testresult_IOS(main_homepage, write_result,ios_flag):
+def test_check_testresult_IOS(main_homepage, ios_flag, sheet):
     if not ios_flag["run"]:
-        for step in ["R167","R168","R169","R170","R171","R172","R173",
-                     "R174","R175","R176","R177","R178"]:
-            write_result(step, "N/T")
+        write_result_by_key(sheet, TCID, "N/T", column="R")
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
     App_CheckList_161_iOS = get_testrun_status_IOS(page, testrun_status)
-   
-    for step in ["R167","R168","R169","R170","R171","R172","R173",
-                     "R174","R175","R176","R177","R178"]:
-        write_result(step, App_CheckList_161_iOS)
+    write_result_by_key(sheet,TCID, App_CheckList_161_iOS, column="R")
 
 @pytest.mark.order(11)
 @pytest.mark.prod_contentshome
@@ -160,36 +148,32 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # 자동화 테스트 결과 비교
 # -------------------------------
 
-# # 비교 (1번시트 row, 2번시트 row)
-row_pairs = [
-    (167, 177),
-    (168, 179),
-    (169, 180),
-    (170, 181),
-    (171, 182),
-    (172, 183),
-    (173, 184),
-    (174, 185),
-    (175, 189),
-    (176, 190),
-    (177, 191),
-    (178, 193)
-]
+# 비교할 key 값 리스트
+keys_to_copy =  [ "App_CheckList_161", "App_CheckList_163", "App_CheckList_164",
+        "App_CheckList_165", "App_CheckList_166", "App_CheckList_167",
+        "App_CheckList_168", "App_CheckList_169", "App_CheckList_171",
+        "App_CheckList_172",  "App_CheckList_442", "App_CheckList_443"] 
 
-# 열 매핑 및 비교 열
-col1 = "E"  # 1번시트 비교 열
-col2 = "B"  # 2번시트 비교 열
-copy_map = {
-    "P": "J",
-    "Q": "K",
-    "R": "L",
-}
 
-@pytest.mark.prod_genrehome
-@pytest.mark.stg_genrehome
+@pytest.mark.prod_contentshome
+@pytest.mark.stg_contentshome
 @pytest.mark.order(12)
-@pytest.mark.parametrize("row1,row2", row_pairs)
-def test_copy_cell_if_match(sheet, row1, row2):
+def test_copy_cell_if_match(sheet):
     sheet1 = sheet
-    sheet2 = sheet.spreadsheet.worksheet("App_Regression_Checklist v4.5")
-    copy_if_match(sheet1, sheet2, row1, row2, col1, col2, copy_map)
+    sheet2 = sheet.spreadsheet.worksheet(f"App_Regression_Checklist {CHECKLIST_VERSION}")
+
+    # 특정 key 값만 비교/복사
+    for key in keys_to_copy:
+        copy_if_match_by_key(
+            sheet1,
+            sheet2,
+            key_col1="E",
+            key_col2="B",
+            copy_map={
+                "P": "J",
+                "Q": "K",
+                "R": "L",
+            },
+            key_value=key
+        )
+

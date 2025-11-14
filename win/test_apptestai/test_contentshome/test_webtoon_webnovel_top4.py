@@ -17,7 +17,7 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 # [Prod] 작품홈 프로젝트
 # -------------------------------
-TCID = [ "App_CheckList_162", "App_CheckList_170"] 
+TCID = [ "App_CheckList_174"] 
 
 @pytest.mark.order(2)
 @pytest.mark.prod_contentshome
@@ -45,7 +45,7 @@ def test_checkresult(main_homepage):
     select_rows(page)
 
 """
-📍 작품 홈_webtoon-webnovel_상단 영역_noticeList/공유	
+📍 작품 홈_webtoon-webnovel_상단 영역_리다무
 """    
 @pytest.mark.order(4)
 @pytest.mark.prod_contentshome
@@ -58,7 +58,7 @@ def test_checkresult_AOS(main_homepage):
 def test_testrun_info_AOS(main_homepage,aos_flag, sheet):
     page = main_homepage
     AOS_testrun_webtoon_webnovel = page.locator(testrun_first).filter(
-        has_text=re.compile(r"작품 홈_webtoon-webnovel_상단 영역_noticeList/공유$", re.IGNORECASE) 
+        has_text=re.compile(r"작품 홈_webtoon-webnovel_상단 영역_리다무$", re.IGNORECASE) 
     ).first
 
     try:
@@ -83,8 +83,8 @@ def test_check_testresult_AOS(main_homepage, aos_flag, sheet):
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_162_AOS = get_testrun_status_AOS(page, testrun_status)
-    write_result_by_key(sheet, TCID, App_CheckList_162_AOS, column="P")
+    App_CheckList_174_AOS = get_testrun_status_AOS(page, testrun_status)
+    write_result_by_key(sheet, TCID, App_CheckList_174_AOS, column="P")
 
 @pytest.mark.order(7)
 @pytest.mark.prod_contentshome
@@ -102,7 +102,7 @@ def test_checkresult_IOS(main_homepage):
 def test_testrun_info_IOS(main_homepage, ios_flag, sheet):
     page = main_homepage
     IOS_testrun_webtoon_webnovel= page.locator(testrun_first).filter(
-        has_text=re.compile(r"작품 홈_webtoon-webnovel_상단 영역_noticeList/공유$", re.IGNORECASE) 
+         has_text=re.compile(r"작품 홈_webtoon-webnovel_상단 영역_리다무$", re.IGNORECASE) 
     ).first
 
     try:
@@ -127,14 +127,13 @@ def test_check_testresult_IOS(main_homepage, ios_flag, sheet):
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_162_iOS = get_testrun_status_IOS(page, testrun_status)
-    write_result_by_key(sheet,TCID, App_CheckList_162_iOS, column="R")
+    App_CheckList_174_iOS = get_testrun_status_IOS(page, testrun_status)
+    write_result_by_key(sheet,TCID, App_CheckList_174_iOS, column="R")
 
 @pytest.mark.order(11)
 @pytest.mark.prod_contentshome
 def test_back_testrun_list_IOS(main_homepage, ios_flag):
     back_and_or_reset_IOS(main_homepage, ios_flag.get("run", False))
-
 
 # -------------------------------
 # ⌛ [Stage] 작품홈 프로젝트 ⌛
@@ -146,7 +145,7 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # -------------------------------
 
 # 비교할 key 값 리스트
-keys_to_copy =  [ "App_CheckList_162", "App_CheckList_170"] 
+keys_to_copy =  [ "App_CheckList_174"] 
 
 @pytest.mark.prod_contentshome
 @pytest.mark.stg_contentshome
