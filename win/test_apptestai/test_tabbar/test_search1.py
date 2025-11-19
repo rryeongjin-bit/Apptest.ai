@@ -19,7 +19,9 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 TCID = ["App_CheckList_050", "App_CheckList_051", "App_CheckList_052",
         "App_CheckList_053", "App_CheckList_055", "App_CheckList_056",
-        "App_CheckList_057", "App_CheckList_062", "App_CheckList_063", "App_CheckList_064"]
+        "App_CheckList_057", "App_CheckList_058", "App_CheckList_059",
+        "App_CheckList_060", "App_CheckList_061", "App_CheckList_062", 
+        "App_CheckList_063", "App_CheckList_064"]
 
 @pytest.mark.order(2)
 @pytest.mark.prod_tabbar
@@ -149,8 +151,8 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # 비교할 key 값 리스트
 keys_to_copy = ["App_CheckList_050", "App_CheckList_051", "App_CheckList_052",
         "App_CheckList_053", "App_CheckList_055", "App_CheckList_056",
-        "App_CheckList_057","App_CheckList_058", "App_CheckList_059",
-        "App_CheckList_060", "App_CheckList_061","App_CheckList_062",
+        "App_CheckList_057", "App_CheckList_058", "App_CheckList_059",
+        "App_CheckList_060", "App_CheckList_061", "App_CheckList_062", 
         "App_CheckList_063", "App_CheckList_064"]
 
 @pytest.mark.prod_tabbar
