@@ -159,6 +159,7 @@ def get_testrun_info(page: Page, testrun_id_section: str) -> str:
 def get_testrun_status_AOS(page: Page, testrun_status: str):
     target_passmessage_AOS = testrun_passmessage_AOS
     target_warningmessage_AOS = testrun_warningmessage_AOS
+    target_failmessage_AOS = testrun_failmessage_AOS
 
     target_status_AOS = page.locator(testrun_status)
     result_testrun_status_AOS = target_status_AOS.inner_text().strip()
@@ -166,8 +167,10 @@ def get_testrun_status_AOS(page: Page, testrun_status: str):
     # testrun status에 따른 결과메시지 확인
     if result_testrun_status_AOS == "Passed":
         message_selector = f"{target_passmessage_AOS} span"
-    elif result_testrun_status_AOS in ["Warning", "Failed"]:
+    elif result_testrun_status_AOS == "Warning":
         message_selector = f"{target_warningmessage_AOS} span"
+    elif result_testrun_status_AOS == "Failed":
+        message_selector = f"{target_failmessage_AOS} span"
     else:
         print("⚠️ 테스트 실행 결과 메시지를 찾을 수 없습니다.")
         return result_testrun_status_AOS
@@ -191,6 +194,7 @@ def get_testrun_status_AOS(page: Page, testrun_status: str):
 def get_testrun_status_IOS(page: Page, testrun_status: str):
     target_passmessage_IOS = testrun_passmessage_IOS
     target_warningmessage_IOS = testrun_warningmessage_IOS
+    target_failmessage_IOS = testrun_failmessage_IOS
 
     target_status_IOS = page.locator(testrun_status)
     result_testrun_status_IOS = target_status_IOS.inner_text().strip()
@@ -198,8 +202,10 @@ def get_testrun_status_IOS(page: Page, testrun_status: str):
     # testrun status에 따른 결과메시지 확인
     if result_testrun_status_IOS == "Passed":
         message_selector = f"{target_passmessage_IOS} span"
-    elif result_testrun_status_IOS in ["Warning", "Failed"]:
+    elif result_testrun_status_IOS == "Warning":
         message_selector = f"{target_warningmessage_IOS} span"
+    elif result_testrun_status_IOS == "Failed":
+        message_selector = f"{target_failmessage_IOS} span"    
     else:
         print("⚠️ 테스트 실행 결과 메시지를 찾을 수 없습니다.")
         return result_testrun_status_IOS
