@@ -167,7 +167,7 @@ def get_testrun_status_AOS(page: Page, testrun_status: str):
     # testrun status에 따른 결과메시지 확인
     if result_testrun_status_AOS == "Passed":
         message_selector = f"{target_passmessage_AOS} span"
-    elif result_testrun_status_AOS == "Warning":
+    elif result_testrun_status_AOS in ["Warning", "Aborted"]:
         message_selector = f"{target_warningmessage_AOS} span"
     elif result_testrun_status_AOS == "Failed":
         message_selector = f"{target_failmessage_AOS} span"
@@ -202,7 +202,7 @@ def get_testrun_status_IOS(page: Page, testrun_status: str):
     # testrun status에 따른 결과메시지 확인
     if result_testrun_status_IOS == "Passed":
         message_selector = f"{target_passmessage_IOS} span"
-    elif result_testrun_status_IOS == "Warning":
+    elif result_testrun_status_IOS in ["Warning", "Aborted"]:
         message_selector = f"{target_warningmessage_IOS} span"
     elif result_testrun_status_IOS == "Failed":
         message_selector = f"{target_failmessage_IOS} span"    
@@ -284,7 +284,7 @@ def write_result_by_key(auto_test_sheet, check_keys, result_value, column="S"):
 
 
 # 테로결과 복사하기
-def copy_if_match_by_key(sheet1, sheet2, key_col1, key_col2, copy_map, key_value, sleep_sec=20):
+def copy_if_match_by_key(sheet1, sheet2, key_col1, key_col2, copy_map, key_value, sleep_sec=60):
     """
     sheet1[key_col1]의 값이 sheet2[key_col2]에 존재하면,
     copy_map에 따라 같은 행에 값 복사
