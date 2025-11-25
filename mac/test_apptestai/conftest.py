@@ -1,8 +1,36 @@
 import os
 import pytest
+import gspread
+from common_utils import *
+from google.oauth2.service_account import Credentials
 from playwright.sync_api import sync_playwright
 
-STORAGE_STATE_PATH = ".vscode/storageState.json"
+
+# App_Regression_checklist
+CHECKLIST_VERSION = "v4.6"
+checklist_sheet = "[자동화] App_Regression_결과확인_v1.2"
+
+SCOPES = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive"
+]
+
+# conftest.py 기준 프로젝트 루트
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+# storageState.json 절대경로
+STORAGE_STATE_PATH = os.path.join(PROJECT_ROOT, ".vscode", "storageState.json")
+
+
+# conftest.py 위치 기준
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+creds_path = os.path.join(BASE_DIR, ".vscode", "credentials.json")
+
+creds = Credentials.from_service_account_file(
+    creds_path,
+    scopes=SCOPES
+)
+client = gspread.authorize(creds)
 
 @pytest.fixture(scope="session")
 def storage_state_file():
@@ -36,7 +64,6 @@ def storage_state_file():
 
     return STORAGE_STATE_PATH
 
-
 @pytest.fixture(scope="session")
 def main_homepage(storage_state_file):
     """
@@ -64,3 +91,36 @@ def main_homepage(storage_state_file):
     #     print(f"✅ 로그인 세션 파일 삭제 완료: {storage_state_file}")
     # else:
     #     print("⚠️ 삭제할 세션 파일이 존재하지 않습니다.")
+
+
+@pytest.fixture(scope="module")
+def aos_flag():
+    return {"run": True}
+
+@pytest.fixture(scope="module")
+def ios_flag():
+    return {"run": True}
+
+# 구글계정 > 세션 단위로 인증, 시트 클라이언트 생성
+@pytest.fixture(scope="session")
+def gsheet_client():
+    client = gspread.authorize(creds)
+    return client
+
+# 자동화 결과확인 시트 객체를 fixture로 제공
+@pytest.fixture
+def sheet(gsheet_client):
+
+    spreadsheet_key = "1lMbpJ8P9sXUNkmICPNT9cbDzAXjfruBVUjGbopj2O64"
+    spreadsheet = gsheet_client.open_by_key(spreadsheet_key)
+    
+    sheet_name = checklist_sheet
+    return spreadsheet.worksheet(sheet_name)
+
+# 테스트 진행 및 구글sheet 기록 wrapper fixture
+@pytest.fixture
+def write_result(sheet):
+    # sheet 객체를 받아서 공통 함수 호출
+    def _write(cell: str, status: str):
+        write_to_sheet(sheet, cell, status)
+    return _write

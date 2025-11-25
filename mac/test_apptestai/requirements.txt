@@ -1,0 +1,6 @@
+playwright>=1.55.0
+pytest>=8.4.2
+gspread >=6.2.1
+
+pytest-order >= 2.1.7
+pytest-ordering >= 0.2.0
