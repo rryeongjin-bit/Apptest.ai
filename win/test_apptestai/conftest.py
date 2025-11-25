@@ -8,7 +8,7 @@ from playwright.sync_api import sync_playwright
 
 # App_Regression_checklist
 CHECKLIST_VERSION = "v4.6"
-checklist_sheet = "[자동화] App_Regression_결과확인_v1.2"
+checklist_sheet = "[자동화] App_Regression_결과확인_v1.3"
 
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -20,7 +20,6 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # storageState.json 절대경로
 STORAGE_STATE_PATH = os.path.join(PROJECT_ROOT, ".vscode", "storageState.json")
-
 
 # conftest.py 위치 기준
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -34,10 +33,6 @@ client = gspread.authorize(creds)
 
 @pytest.fixture(scope="session")
 def storage_state_file():
-    """
-    수동 로그인 후 로그인 세션 저장.
-    저장된 세션이 있으면 바로 사용.
-    """
     if not os.path.exists(STORAGE_STATE_PATH):
         print(">>> 로그인 세션 파일이 없습니다. 수동 로그인 필요 <<<")
         p = sync_playwright().start()
@@ -66,10 +61,6 @@ def storage_state_file():
 
 @pytest.fixture(scope="session")
 def main_homepage(storage_state_file):
-    """
-    저장된 로그인 세션을 사용하여 새로운 브라우저 페이지 생성.
-    테스트 함수 간 같은 브라우저 페이지 공유.
-    """
     p = sync_playwright().start()
     browser = p.chromium.launch(headless=False)
     context = browser.new_context(storage_state=storage_state_file)
@@ -101,13 +92,13 @@ def aos_flag():
 def ios_flag():
     return {"run": True}
 
-# 구글계정 > 세션 단위로 인증, 시트 클라이언트 생성
+# 구글계정 인증
 @pytest.fixture(scope="session")
 def gsheet_client():
     client = gspread.authorize(creds)
     return client
 
-# 자동화 결과확인 시트 객체를 fixture로 제공
+# 자동화 결과확인 시트
 @pytest.fixture
 def sheet(gsheet_client):
 
@@ -117,10 +108,9 @@ def sheet(gsheet_client):
     sheet_name = checklist_sheet
     return spreadsheet.worksheet(sheet_name)
 
-# 테스트 진행 및 구글sheet 기록 wrapper fixture
+# 테스트 진행 및 구글sheet 기록
 @pytest.fixture
 def write_result(sheet):
-    # sheet 객체를 받아서 공통 함수 호출
     def _write(cell: str, status: str):
         write_to_sheet(sheet, cell, status)
     return _write

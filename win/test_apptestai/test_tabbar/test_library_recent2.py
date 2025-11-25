@@ -58,7 +58,7 @@ def test_checkresult_AOS(main_homepage):
 def test_testrun_info_AOS(main_homepage, aos_flag, sheet):
     page = main_homepage
     AOS_testrun_recent2 = page.locator(testrun_first).filter(
-        has_text=re.compile(r"^내 서재_최근 본_대여 만료_21qa$", re.IGNORECASE)
+        has_text=re.compile(r"^내 서재_최근 본_대여 만료_AOS$", re.IGNORECASE)
     ).first
 
     try:
@@ -102,7 +102,7 @@ def test_checkresult_IOS(main_homepage):
 def test_testrun_info_IOS(main_homepage, ios_flag, sheet):
     page = main_homepage
     IOS_testrun_recent2 = page.locator(testrun_first).filter(
-        has_text=re.compile(r"^내 서재_최근 본_대여 만료_19qa$", re.IGNORECASE)
+        has_text=re.compile(r"^내 서재_최근 본_대여 만료_iOS$", re.IGNORECASE)
     ).first
 
 

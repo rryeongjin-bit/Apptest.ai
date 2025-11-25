@@ -57,8 +57,9 @@ def test_testrun_info_AOS(main_homepage,aos_flag, sheet):
         has_text=re.compile(r"앱실행", re.IGNORECASE)
     ).first
 
+
     try:
-        AOS_testrun_launchapp.wait_for(state="attatched", timeout=5000)
+        AOS_testrun_launchapp.wait_for(state="attached", timeout=5000)
         AOS_testrun_launchapp.scroll_into_view_if_needed()
         AOS_testrun_launchapp.wait_for(state="visible", timeout=5000)
         AOS_testrun_launchapp.click()
@@ -142,7 +143,7 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # -------------------------------
 
 # 비교할 key 값 리스트
-keys_to_copy = ["App_CheckList_001"]
+keys_to_copy = TCID
 
 @pytest.mark.prod_launchapp
 @pytest.mark.stg_launchapp
