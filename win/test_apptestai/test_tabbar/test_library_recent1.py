@@ -61,7 +61,7 @@ def test_checkresult_AOS(main_homepage):
 def test_testrun_info_AOS(main_homepage, aos_flag, sheet):
     page = main_homepage
     AOS_testrun_recent1 = page.locator(testrun_first).filter(
-        has_text=re.compile(r"^내 서재_최근 본/내 서재_뷰어 이동$", re.IGNORECASE)
+        has_text=re.compile(r"^내 서재_최근 본/내 서재_뷰어 이동_AOS$", re.IGNORECASE)
     ).first
 
     try:
@@ -105,7 +105,7 @@ def test_checkresult_IOS(main_homepage):
 def test_testrun_info_IOS(main_homepage, ios_flag, sheet):
     page = main_homepage
     IOS_testrun_recent1 = page.locator(testrun_first).filter(
-        has_text=re.compile(r"^내 서재_최근 본/내 서재_뷰어 이동$", re.IGNORECASE)
+        has_text=re.compile(r"^내 서재_최근 본/내 서재_뷰어 이동_iOS$", re.IGNORECASE)
     ).first
 
     try:
@@ -148,10 +148,7 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # -------------------------------
 
 # 비교할 key 값 리스트
-keys_to_copy = ["App_CheckList_006","App_CheckList_007","App_CheckList_008",
-        "App_CheckList_010","App_CheckList_011","App_CheckList_012",
-        "App_CheckList_013","App_CheckList_014","App_CheckList_015",
-        "App_CheckList_016","App_CheckList_019","App_CheckList_027","App_CheckList_032"]
+keys_to_copy = TCID
 
 @pytest.mark.prod_tabbar
 @pytest.mark.stg_tabbar

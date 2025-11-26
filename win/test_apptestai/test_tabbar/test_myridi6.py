@@ -58,7 +58,7 @@ def test_checkresult_AOS(main_homepage):
 def test_testrun_info_AOS(main_homepage, aos_flag, sheet):
     page = main_homepage
     AOS_testrun_myridi6 = page.locator(testrun_first).filter(
-        has_text=re.compile(r"^Tab bar_마이리디_설정_용량 확인$", re.IGNORECASE)
+        has_text=re.compile(r"^Tab bar_마이리디_설정_용량 확인_AOS$", re.IGNORECASE)
     ).first
 
     try:
@@ -102,7 +102,7 @@ def test_checkresult_IOS(main_homepage):
 def test_testrun_info_IOS(main_homepage, ios_flag, sheet):
     page = main_homepage
     IOS_testrun_myridi6= page.locator(testrun_first).filter(
-        has_text=re.compile(r"^Tab bar_마이리디_설정_용량 확인$", re.IGNORECASE)
+        has_text=re.compile(r"^Tab bar_마이리디_설정_용량 확인_iOS$", re.IGNORECASE)
     ).first
 
     try:
@@ -145,7 +145,7 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # -------------------------------
 
 # 비교할 key 값 리스트
-keys_to_copy = ["App_CheckList_084"]
+keys_to_copy = TCID
 
 @pytest.mark.prod_tabbar
 @pytest.mark.stg_tabbar

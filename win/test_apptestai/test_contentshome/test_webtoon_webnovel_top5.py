@@ -17,7 +17,7 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 # [Prod] 작품홈 프로젝트
 # -------------------------------
-TCID = [ "App_CheckList_coupon"] 
+TCID = [ "App_CheckList_425"] 
 
 @pytest.mark.order(2)
 @pytest.mark.prod_contentshome
@@ -25,7 +25,7 @@ def test_project_contentshome(main_homepage):
     page = main_homepage
     page.click(prod_contentshome)
 
-    target_project = page.locator(project_title).get_by_text("[Prod] 작품홈")
+    target_project = page.locator(project_title).get_by_text("[Prod] 작품 홈")
     try:
         target_project.wait_for(state="visible", timeout=5000)
     except TimeoutError:
@@ -145,7 +145,7 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # -------------------------------
 
 # 비교할 key 값 리스트
-keys_to_copy =  [ "App_CheckList_coupon"] 
+keys_to_copy = TCID
 
 @pytest.mark.prod_contentshome
 @pytest.mark.stg_contentshome

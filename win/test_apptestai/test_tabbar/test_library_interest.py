@@ -104,7 +104,7 @@ def test_checkresult_IOS(main_homepage):
 def test_testrun_info_IOS(main_homepage, ios_flag, sheet):
     page = main_homepage
     IOS_testrun_interest = page.locator(testrun_first).filter(
-        has_text=re.compile(r"^내 서재_관심작품_IOS$", re.IGNORECASE)
+        has_text=re.compile(r"^내 서재_관심작품_iOS$", re.IGNORECASE)
     ).first
 
     try:
@@ -147,8 +147,7 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # -------------------------------
 
 # 비교할 key 값 리스트
-keys_to_copy = [ "App_CheckList_041","App_CheckList_042","App_CheckList_043",
-        "App_CheckList_044","App_CheckList_045","App_CheckList_046","App_CheckList_047"]
+keys_to_copy = TCID
 
 @pytest.mark.prod_tabbar
 @pytest.mark.stg_tabbar

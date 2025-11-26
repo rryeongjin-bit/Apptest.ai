@@ -26,7 +26,7 @@ def test_project_contentshome(main_homepage):
     page = main_homepage
     page.click(prod_contentshome)
 
-    target_project = page.locator(project_title).get_by_text("[Prod] 작품홈")
+    target_project = page.locator(project_title).get_by_text("[Prod] 작품 홈")
     try:
         target_project.wait_for(state="visible", timeout=5000)
     except TimeoutError:

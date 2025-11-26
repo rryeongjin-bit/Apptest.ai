@@ -108,9 +108,10 @@ def sheet(gsheet_client):
     sheet_name = checklist_sheet
     return spreadsheet.worksheet(sheet_name)
 
-# 테스트 진행 및 구글sheet 기록
+# 테스트 진행 및 구글sheet 기록 wrapper fixture
 @pytest.fixture
 def write_result(sheet):
+    # sheet 객체를 받아서 공통 함수 호출
     def _write(cell: str, status: str):
         write_to_sheet(sheet, cell, status)
     return _write

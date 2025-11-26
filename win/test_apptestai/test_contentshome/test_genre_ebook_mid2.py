@@ -30,7 +30,7 @@ def test_project_contentshome(main_homepage):
     page = main_homepage
     page.click(prod_contentshome)
 
-    target_project = page.locator(project_title).get_by_text("[Prod] 작품홈")
+    target_project = page.locator(project_title).get_by_text("[Prod] 작품 홈")
     try:
         target_project.wait_for(state="visible", timeout=5000)
     except TimeoutError:
@@ -151,12 +151,7 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # -------------------------------
 
 # 비교할 key 값 리스트
-keys_to_copy =  [ "App_CheckList_213", "App_CheckList_214", "App_CheckList_216", 
-        "App_CheckList_217", "App_CheckList_218", "App_CheckList_219", 
-        "App_CheckList_221", "App_CheckList_222", "App_CheckList_223", 
-        "App_CheckList_224", "App_CheckList_226", "App_CheckList_227",
-        "App_CheckList_228", "App_CheckList_229", "App_CheckList_426", 
-        "App_CheckList_427", "App_CheckList_428", "App_CheckList_441"]
+keys_to_copy =  TCID
 
 @pytest.mark.prod_contentshome
 @pytest.mark.stg_contentshome

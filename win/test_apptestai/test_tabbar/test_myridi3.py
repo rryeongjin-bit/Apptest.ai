@@ -102,7 +102,7 @@ def test_back_testrun_list_AOS(main_homepage, aos_flag):
 # -------------------------------
 
 # 비교할 key 값 리스트
-keys_to_copy = [ "App_CheckList_079", "App_CheckList_091"]
+keys_to_copy = TCID
 
 @pytest.mark.prod_tabbar
 @pytest.mark.stg_tabbar

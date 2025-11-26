@@ -17,7 +17,9 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 # [Prod] Tab bar 프로젝트
 # -------------------------------
-TCID = ["App_CheckList_035","App_CheckList_038"]
+TCID = ["App_CheckList_467", "App_CheckList_468", "App_CheckList_469",
+        "App_CheckList_472", "App_CheckList_473", "App_CheckList_474",
+        "App_CheckList_475"]
 
 @pytest.mark.order(2)
 @pytest.mark.prod_tabbar
@@ -45,7 +47,7 @@ def test_checkresult(main_homepage):
     select_rows(page)
 
 """
-📍내 서재_구매 목록_오너십/작품 정보
+📍Tab bar_마이리디_상단정보/결제내역
 """
 @pytest.mark.order(4)
 @pytest.mark.prod_tabbar
@@ -57,15 +59,15 @@ def test_checkresult_AOS(main_homepage):
 @pytest.mark.prod_tabbar
 def test_testrun_info_AOS(main_homepage, aos_flag, sheet):
     page = main_homepage
-    AOS_testrun_purchase3 = page.locator(testrun_first).filter(
-        has_text=re.compile(r"^내 서재_구매 목록_오너십/작품 정보_AOS$", re.IGNORECASE)
+    AOS_testrun_myridi_purchase = page.locator(testrun_first).filter(
+        has_text=re.compile(r"^Tab bar_마이리디_상단정보/결제내역$", re.IGNORECASE)
     ).first
 
     try:
-        AOS_testrun_purchase3.wait_for(state="attached", timeout=5000)
-        AOS_testrun_purchase3.scroll_into_view_if_needed()
-        AOS_testrun_purchase3.wait_for(state="visible", timeout=5000)
-        AOS_testrun_purchase3.click()
+        AOS_testrun_myridi_purchase.wait_for(state="attached", timeout=5000)
+        AOS_testrun_myridi_purchase.scroll_into_view_if_needed()
+        AOS_testrun_myridi_purchase.wait_for(state="visible", timeout=5000)
+        AOS_testrun_myridi_purchase.click()
 
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
         write_result_by_key(sheet, TCID, AOS_testrun_info, column="S")
@@ -83,8 +85,8 @@ def test_check_testresult_AOS(main_homepage, aos_flag, sheet):
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_035_AOS= get_testrun_status_AOS(page, testrun_status)
-    write_result_by_key(sheet, TCID, App_CheckList_035_AOS, column="P")
+    App_CheckList_469_AOS= get_testrun_status_AOS(page, testrun_status)
+    write_result_by_key(sheet, TCID, App_CheckList_469_AOS, column="P")
 
 @pytest.mark.order(7)
 @pytest.mark.prod_tabbar
@@ -101,15 +103,15 @@ def test_checkresult_IOS(main_homepage):
 @pytest.mark.prod_tabbar
 def test_testrun_info_IOS(main_homepage, ios_flag, sheet):
     page = main_homepage
-    IOS_testrun_purchase3 = page.locator(testrun_first).filter(
-        has_text=re.compile(r"^내 서재_구매 목록_오너십/작품 정보_iOS$", re.IGNORECASE)
+    IOS_testrun_myridi_purchase= page.locator(testrun_first).filter(
+        has_text=re.compile(r"^Tab bar_마이리디_상단정보/결제내역$", re.IGNORECASE)
     ).first
 
     try:
-        IOS_testrun_purchase3.wait_for(state="attached", timeout=5000)
-        IOS_testrun_purchase3.scroll_into_view_if_needed()
-        IOS_testrun_purchase3.wait_for(state="visible", timeout=5000)
-        IOS_testrun_purchase3.click()
+        IOS_testrun_myridi_purchase.wait_for(state="attached", timeout=5000)
+        IOS_testrun_myridi_purchase.scroll_into_view_if_needed()
+        IOS_testrun_myridi_purchase.wait_for(state="visible", timeout=5000)
+        IOS_testrun_myridi_purchase.click()
     
         IOS_testrun_info = get_testrun_info(page, testrun_id_section)
         write_result_by_key(sheet, TCID, IOS_testrun_info, column="T")
@@ -127,8 +129,8 @@ def test_check_testresult_IOS(main_homepage, ios_flag, sheet):
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_035_iOS = get_testrun_status_IOS(page, testrun_status)
-    write_result_by_key(sheet,TCID, App_CheckList_035_iOS, column="R")
+    App_CheckList_469_iOS = get_testrun_status_IOS(page, testrun_status)
+    write_result_by_key(sheet,TCID, App_CheckList_469_iOS, column="R")
 
 @pytest.mark.order(11)
 @pytest.mark.prod_tabbar

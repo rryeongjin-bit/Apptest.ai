@@ -17,7 +17,7 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 # [Prod] Tab bar 프로젝트
 # -------------------------------
-TCID = ["App_CheckList_089"]
+TCID = ["App_CheckList_470"]
 
 @pytest.mark.order(2)
 @pytest.mark.prod_tabbar
@@ -84,8 +84,8 @@ def test_check_testresult_IOS2(main_homepage, ios_flag, sheet):
         pytest.skip("⚠️ IOS 테스트 결과 없음 - 결과 확인 skip")
 
     page = main_homepage
-    App_CheckList_089_iOS = get_testrun_status_IOS(page, testrun_status)
-    write_result_by_key(sheet,TCID, App_CheckList_089_iOS, column="R")
+    App_CheckList_470_iOS = get_testrun_status_IOS(page, testrun_status)
+    write_result_by_key(sheet,TCID, App_CheckList_470_iOS, column="R")
 
 
 @pytest.mark.order(7)

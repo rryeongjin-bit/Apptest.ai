@@ -145,14 +145,7 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # -------------------------------
 
 # 비교할 key 값 리스트
-keys_to_copy = [ "App_CheckList_444", "App_CheckList_445", "App_CheckList_446",
-        "App_CheckList_447", "App_CheckList_448", "App_CheckList_449",
-        "App_CheckList_450", "App_CheckList_451", "App_CheckList_452",
-        "App_CheckList_453", "App_CheckList_454", "App_CheckList_455", 
-        "App_CheckList_456", "App_CheckList_457", "App_CheckList_458", 
-        "App_CheckList_459", "App_CheckList_460", "App_CheckList_461", 
-        "App_CheckList_462", "App_CheckList_463", "App_CheckList_464", 
-        "App_CheckList_465", "App_CheckList_466" ]
+keys_to_copy = TCID
 
 @pytest.mark.prod_onboarding
 @pytest.mark.stg_onboarding

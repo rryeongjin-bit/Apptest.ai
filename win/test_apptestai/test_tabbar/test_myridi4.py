@@ -17,7 +17,7 @@ def test_login_enter_project(main_homepage):
 # -------------------------------
 # [Prod] Tab bar 프로젝트
 # -------------------------------
-TCID = ["App_CheckList_075","App_CheckList_076","App_CheckList_077"]
+TCID = ["App_CheckList_075","App_CheckList_076","App_CheckList_077", "App_CheckList_089"]
 
 @pytest.mark.order(2)
 @pytest.mark.prod_tabbar
