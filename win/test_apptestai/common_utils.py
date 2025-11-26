@@ -317,3 +317,17 @@ def copy_if_match_by_key(sheet1, sheet2, key_col1, key_col2, copy_map, key_value
             print(f"❌ {val1!r} sheet2에서 찾을 수 없음 → 복사 안 함")
 
     print("🏁 값 복사 완료!")
+
+
+#복사붙여넣기 429에러발생시 재시도
+def safe_update(sheet, cell, value, retry=3):
+    for i in range(retry):
+        try:
+            sheet.update(cell, [[value]])
+            return
+        except gspread.exceptions.APIError as e:
+            if "Quota exceeded" in str(e):
+                time.sleep(5)  # 대기
+            else:
+                raise
+    raise e

@@ -7,7 +7,7 @@ from playwright.sync_api import sync_playwright
 
 
 # App_Regression_checklist
-CHECKLIST_VERSION = "v4.6"
+CHECKLIST_VERSION = "v4.7"
 checklist_sheet = "[자동화] App_Regression_결과확인_v1.3"
 
 SCOPES = [
@@ -102,7 +102,7 @@ def gsheet_client():
 @pytest.fixture
 def sheet(gsheet_client):
 
-    spreadsheet_key = "1lMbpJ8P9sXUNkmICPNT9cbDzAXjfruBVUjGbopj2O64"
+    spreadsheet_key = "12eTHMQvtPrPihPaGNKUQTw3D2wVuomPKbhA0LJS61V4"
     spreadsheet = gsheet_client.open_by_key(spreadsheet_key)
     
     sheet_name = checklist_sheet
