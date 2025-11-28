@@ -137,3 +137,32 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 # ⌛ [Stage] 앱실행 프로젝트 ⌛
 # ------------------------------
 
+
+# -------------------------------
+# 자동화 테스트 결과 비교
+# -------------------------------
+
+# 비교할 key 값 리스트
+keys_to_copy = TCID
+
+@pytest.mark.prod_launchapp
+@pytest.mark.stg_launchapp
+@pytest.mark.order(12)
+def test_copy_cell_if_match(sheet):
+    sheet1 = sheet
+    sheet2 = sheet.spreadsheet.worksheet(f"App_Regression_Checklist {CHECKLIST_VERSION}")
+
+    # 특정 key 값만 비교/복사
+    for key in keys_to_copy:
+        copy_if_match_by_key(
+            sheet1,
+            sheet2,
+            key_col1="E",
+            key_col2="B",
+            copy_map={
+                "P": "J",
+                "Q": "K",
+                "R": "L",
+            },
+            key_value=key
+        )

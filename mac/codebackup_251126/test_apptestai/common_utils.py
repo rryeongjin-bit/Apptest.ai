@@ -8,6 +8,8 @@ from playwright.sync_api import Page
 from playwright.sync_api import sync_playwright
 from playwright.sync_api import TimeoutError
 
+# 시트별 batch queue 관리
+BATCH_WRITE_QUEUE = []
 
 # 테로 로그인/계정변경 & 프로젝트 폴더 진입
 def login_and_select_project(page, target_account_name="QA part", folder_name="Mobile App"):
@@ -243,11 +245,25 @@ def back_to_testrun_list(page: Page, return_to_testrun: str, reset_filter: str):
     
 # google sheet update
 def write_to_sheet(auto_test_sheet, cell: str, value: str):
+    """
+    sheet : gspread.models.Worksheet 객체
+    cell : "C3" 처럼 문자열로 지정
+    value : 기록할 값
+    """
     auto_test_sheet.update(range_name = cell, values = [[value]])
 
 # TCID 결과 매핑
 def write_result_by_key(auto_test_sheet, check_keys, result_value, column="S"):
+    """
+    E열에서 check_key를 찾아 해당 행의 지정한 column(S, T, P, Q, R 중 하나)에 result_value를 입력.
 
+    auto_test_sheet : gspread.models.Worksheet 객체
+    check_key : E열에서 찾을 텍스트 (예: 'checklist001')
+    result_value : 기록할 값
+    column : 결과를 기록할 열 문자 (예: 'S', 'T', 'P', 'Q', 'R')
+    """
+
+    # check_keys가 단일 문자열이라면 리스트로 변환
     if isinstance(check_keys, str):
         check_keys = [check_keys]
 
@@ -262,8 +278,56 @@ def write_result_by_key(auto_test_sheet, check_keys, result_value, column="S"):
         except ValueError:
             print(f"⚠️ '{check_key}' 를 E열에서 찾을 수 없습니다.")
             continue
-
+    # 셀 주소 만들기 (예: S5, Q8 등)
     target_cell = f"{column.upper()}{target_row}"
+
+    # 결과 입력
     write_to_sheet(auto_test_sheet, target_cell, result_value)
     print(f"✅ '{check_key}' ({target_cell}) → '{result_value}'테스트 결과 입력 성공")
 
+
+# 테로결과 복사하기
+def copy_if_match_by_key(sheet1, sheet2, key_col1, key_col2, copy_map, key_value, sleep_sec=60):
+    """
+    sheet1[key_col1]의 값이 sheet2[key_col2]에 존재하면,
+    copy_map에 따라 같은 행에 값 복사
+    """
+    # 1번 시트 key_col1 값 리스트
+    keys1 = sheet1.col_values(gspread.utils.a1_to_rowcol(f"{key_col1}1")[1])
+    # 2번 시트 key_col2 값 리스트
+    keys2 = sheet2.col_values(gspread.utils.a1_to_rowcol(f"{key_col2}1")[1])
+
+    for row1, val1 in enumerate(keys1, start=1):
+        # key_value가 지정되었으면 해당 값만 처리
+        if key_value is not None and val1 != key_value:
+            continue
+
+        if val1 in keys2:
+            row2 = keys2.index(val1) + 1  # 2번 시트에서 일치하는 행
+            print(f"🔎 값 일치: {val1!r} → sheet1:{row1}, sheet2:{row2}")
+
+            # copy_map에 따라 동일한 행에 복사
+            for c1, c2 in copy_map.items():
+                value = sheet1.acell(f"{c1}{row1}").value
+                time.sleep(sleep_sec)
+                sheet2.update_acell(f"{c2}{row2}", value)
+                time.sleep(sleep_sec)
+                print(f"📋 복사: {c1}{row1} → {c2}{row2} ({value})")
+        else:
+            print(f"❌ {val1!r} sheet2에서 찾을 수 없음 → 복사 안 함")
+
+    print("🏁 값 복사 완료!")
+
+
+#복사붙여넣기 429에러발생시 재시도
+def safe_update(sheet, cell, value, retry=3):
+    for i in range(retry):
+        try:
+            sheet.update(cell, [[value]])
+            return
+        except gspread.exceptions.APIError as e:
+            if "Quota exceeded" in str(e):
+                time.sleep(5)  # 대기
+            else:
+                raise
+    raise e

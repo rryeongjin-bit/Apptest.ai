@@ -4,6 +4,3 @@ gspread >=6.2.1
 
 pytest-order >= 2.1.7
 pytest-ordering >= 0.2.0
-
-flask
-ngrok
