@@ -136,7 +136,7 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
 
 
 # -------------------------------
-# ⌛ [Stage] 앱실행 프로젝트 ⌛
+# [Stage] 앱실행 프로젝트
 # ------------------------------
 
 @pytest.mark.order(2)

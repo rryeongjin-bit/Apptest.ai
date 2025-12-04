@@ -89,7 +89,7 @@ def test_back_testrun_list_AOS(main_homepage, aos_flag):
     back_and_or_reset_AOS(main_homepage, aos_flag.get("run", False))
 
 # -------------------------------
-# ⌛ [Stage] 숏컷 프로젝트 ⌛
+# [Stage] 숏컷 프로젝트
 # ------------------------------
 
 @pytest.mark.order(2)

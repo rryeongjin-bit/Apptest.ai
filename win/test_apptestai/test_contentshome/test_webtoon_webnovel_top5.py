@@ -136,7 +136,7 @@ def test_back_testrun_list_IOS(main_homepage, ios_flag):
     back_and_or_reset_IOS(main_homepage, ios_flag.get("run", False))
 
 # -------------------------------
-# ⌛ [Stage] 작품홈 프로젝트 ⌛
+# [Stage] 작품홈 프로젝트
 # ------------------------------
 @pytest.mark.order(2)
 @pytest.mark.stg_contentshome
