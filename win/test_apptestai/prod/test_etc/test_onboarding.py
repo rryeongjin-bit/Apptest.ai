@@ -9,9 +9,6 @@ TCID = [ "App_CheckList_444", "App_CheckList_445", "App_CheckList_447",
         "App_CheckList_453", "App_CheckList_456", "App_CheckList_457",
         "App_CheckList_458", "App_CheckList_459", "App_CheckList_462", "App_CheckList_465" ]
 
-# -------------------------------
-# [Prod] 앱실행 프로젝트
-# -------------------------------
 @pytest.mark.order(1)
 @pytest.mark.prod_onboarding
 def test_login_enter_project(main_homepage):

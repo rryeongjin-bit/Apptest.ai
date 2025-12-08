@@ -7,10 +7,6 @@ from conftest import *
 AOS_TCID = [ "App_CheckList_419", "App_CheckList_421"]
 IOS_TCID = [ "App_CheckList_419", "App_CheckList_422"]
 
-# -------------------------------
-# [Prod] 위젯 프로젝트
-# ------------------------------
-
 @pytest.mark.order(1)
 @pytest.mark.prod_widget
 def test_login_enter_project(main_homepage):

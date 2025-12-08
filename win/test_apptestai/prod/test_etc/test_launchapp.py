@@ -6,9 +6,6 @@ from conftest import *
 
 TCID = [ "App_CheckList_001"]
 
-# -------------------------------
-# [Prod] 앱실행 프로젝트
-# ------------------------------
 @pytest.mark.order(1)
 @pytest.mark.prod_launchapp
 def test_login_enter_project(main_homepage):
