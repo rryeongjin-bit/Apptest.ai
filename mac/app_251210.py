@@ -34,6 +34,7 @@ def run_pytest_and_send_output(marker, top_dir, sub_dir, test_file, channel=None
         return
     
     send_channel = TARGET_CHANNEL
+    # 슬랙전송안하고싶을때 주석처리 시작
     try:
         start_message = (
             f"- 프로젝트: `{top_dir}`\n"
@@ -43,6 +44,7 @@ def run_pytest_and_send_output(marker, top_dir, sub_dir, test_file, channel=None
         logging.info("테로 결과 자동화 시작알림 전송 성공")
     except SlackApiError as e:
         logging.error(f"Slack 시작 메시지 전송 실패: {e.response['error']}")
+    # 슬랙전송안하고싶을때 주석처리 끝
 
     cmd = ["pytest", "-s", test_path]
     if marker:
@@ -74,12 +76,13 @@ def run_pytest_and_send_output(marker, top_dir, sub_dir, test_file, channel=None
         if len(output_text) > 3000:
             output_text = output_text[:3000] + "\n...[중략]"
 
-        #send_channel = TARGET_CHANNEL
+        # 슬랙전송안하고싶을때 주석처리 시작
         try:
             client.chat_postMessage(channel=send_channel, text=f"```{output_text}```")
             logging.info(f"테스트 결과 전송 완료: {send_channel}")
         except SlackApiError as e:
             logging.error(f"Slack 메시지 전송 실패: {e.response['error']}")
+        # 슬랙전송안하고싶을때 주석처리 끝
 
     except Exception as e:
         logging.error(f"Pytest 실행 실패: {e}")
