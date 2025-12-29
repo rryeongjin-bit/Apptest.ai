@@ -38,12 +38,15 @@ def main_homepage(storage_state_file):
         page = context.new_page()
 
         yield page
-        page.wait_for_timeout(30000)  
+
+        page.wait_for_timeout(30000)  # optional
+
         context.close()
         browser.close()
 
-    # if os.path.exists(storage_state_file):
-    #     os.remove(storage_state_file)
+    # Playwright 종료 후 파일 삭제
+    if os.path.exists(storage_state_file):
+        os.remove(storage_state_file)
 
 
 @pytest.fixture(scope="module")
