@@ -22,7 +22,6 @@ signature_verifier = SignatureVerifier(SLACK_SIGNING_SECRET)
 def run_pytest_and_send_output(top_dir, sub_dir, test_file=None, channel=None):
     cwd_path = os.path.dirname(os.path.abspath(__file__))
 
-    # 폴더만 입력해도, 폴더+파일도 모두 지원
     if test_file and test_file.strip():
         test_path = os.path.join(cwd_path, top_dir, sub_dir, test_file.strip())
     else:
@@ -33,8 +32,6 @@ def run_pytest_and_send_output(top_dir, sub_dir, test_file=None, channel=None):
         return
 
     send_channel = TARGET_CHANNEL
-
-    # 🔹 기존 Slack 시작 메시지 주석 
     # try:
     #     start_message = (
     #         f"- 프로젝트: `{top_dir}`\n"
@@ -56,22 +53,19 @@ def run_pytest_and_send_output(top_dir, sub_dir, test_file=None, channel=None):
             capture_output=True,
         )
 
-        # ✅ 전체 로그 (터미널용, 글자수 제한 없음)
         output_text = result.stdout + "\n" + result.stderr
         remove_keywords = ["platform ", "rootdir:", "configfile:", "plugins:", "collected "]
         filtered_lines = [line for line in output_text.splitlines() if not any(key in line for key in remove_keywords)]
         output_text = "\n".join(filtered_lines)
 
         logging.info(f"Pytest returncode: {result.returncode}")
-        logging.info(f"Filtered Pytest output:\n{output_text}")  # ✅ 전체 로그 출력
+        logging.info(f"Filtered Pytest output:\n{output_text}")  
 
-        # ✅ Slack 전송용: 최대 500자 제한
         MAX_SLACK_LEN = 500
         slack_output_text = output_text
         if len(slack_output_text) > MAX_SLACK_LEN:
             slack_output_text = slack_output_text[:MAX_SLACK_LEN] + "\n...[중략]"
 
-        # 🔹 기존 Slack 결과 메시지 주석 
         # try:
         #     client.chat_postMessage(
         #         channel=send_channel,
@@ -95,7 +89,6 @@ def interact():
 
     logging.info(f"Received payload:\n{json.dumps(payload, indent=2, ensure_ascii=False)}")
 
-    # 🔹 메시지 액션 → 모달 오픈
     if ptype == "message_action" and payload.get("callback_id") == "run_apptest_result":
         trigger_id = payload["trigger_id"]
         channel_id = payload.get("channel", {}).get("id", TARGET_CHANNEL)
@@ -118,7 +111,7 @@ def interact():
                 {
                     "type": "input",
                     "block_id": "sub_dir_input",
-                    "label": {"type": "plain_text", "text": "하위 테스트 폴더"},
+                    "label": {"type": "plain_text", "text": "하위 프로젝트 폴더"},
                     "element": {
                         "type": "plain_text_input",
                         "action_id": "sub_dir",
@@ -147,7 +140,6 @@ def interact():
 
         return make_response("", 200)
 
-    # 🔹 모달 제출 → pytest 실행
     if ptype == "view_submission" and payload.get("view", {}).get("callback_id") == "run_apptest_result_modal":
         values = payload["view"]["state"]["values"]
         channel = payload["view"]["private_metadata"]
