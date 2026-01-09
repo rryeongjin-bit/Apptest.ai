@@ -7,6 +7,9 @@ account_section = "#root > header > div.sc-empnci.jgzAsH > div.sc-ePDLzJ.rrOtd >
 btn_changeaccount = "#root > header > div.sc-empnci.jgzAsH > div.sc-ePDLzJ.rrOtd > div > img"
 qa_account = "text=QA part"
 
+btn_collapse = "#root > div.sc-bJBgwP.cukmPM > div.sc-fThUAz.izgTQR > div.sc-SrznA.jxvbfe > div:nth-child(2) > div"
+container_scroll = ".sc-ckIfTa.kZEXWM > div"
+
 # -------------------------------
 # mobile app 폴더
 # -------------------------------
@@ -73,3 +76,9 @@ testrun_failmessage_IOS = "#result-wrapper > div.sc-ckIfTa.kZEXWM > div > div > 
 
 return_to_testrun = "#result-wrapper > div.sc-hiEoHn.jAfewu > div.sc-ixziMx.bFIyFm > div.sc-bXxnNr.ciVfYv > div.sc-fDpJdc.bHCtrn"
 reset_filter = "#content_box > div > main > div > div.sc-gytJtb.fnWbHz > div > div.sc-SqAfZ.YQrKg > div.sc-fPHcVk.CZLqG > div.sc-efFkwH.bjOcBl > div > div.sc-eXAmlR.sc-jtskMo.dNgBgM.jwNRkK"
+
+# scren
+btn_screen = "#result-wrapper > div.sc-hiEoHn.jAfewu > div.sc-gcmbcs.eCcAQ > div.sc-cwtFMH.hbzWud > div:nth-child(2) > span"
+step_name = ".sc-hBLBPu.eilAuJ"
+
+screenshot = "div.sc-bCosJw.kLLVqz"

@@ -36,8 +36,8 @@ def main_homepage(storage_state_file):
         browser = p.chromium.launch(headless=False)
         context = browser.new_context(
             storage_state=storage_state_file,
-            viewport={'width': 1920, 'height': 1080},  
-            screen={'width': 1920, 'height': 1080}
+            viewport={'width': 1280, 'height': 1024},  
+            screen={'width': 1280, 'height': 1024}
         )
 
         page = context.new_page()

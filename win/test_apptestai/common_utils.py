@@ -1,4 +1,4 @@
-
+import re
 import os
 import time
 import pytest
@@ -22,6 +22,8 @@ def login_and_select_project(page, target_account_name="QA part", folder_name="M
             raise RuntimeError(f"❌ {target_account_name} 계정 변경 실패")
 
         page.click(folder_mobileapp)
+        page.click(btn_collapse)
+        page.wait_for_timeout(3000)
         target_folder = page.locator(folder_title_section).get_by_text(folder_name)
         if not target_folder.is_visible():
             raise RuntimeError(f"❌ {folder_name} 프로젝트 폴더 선택 실패")
@@ -50,6 +52,61 @@ def scroll_until_element_found(page: Page, selector: str, max_attempts: int = 10
         page.wait_for_timeout(wait_time)
 
     return False
+
+def scroll_and_find_step_visible(
+    page: Page,
+    container_scroll_selector,
+    step_selector,
+    target_text,
+    scroll_step=300,
+    wait_ms=300
+):
+    """
+    브라우저 화면에서 실제 스크롤이 보이도록 하면서
+    target_text 요소까지 내려가서 찾아 반환하는 함수
+    """
+
+    # 스크롤 컨테이너 먼저 화면에 보이게
+    scroll_container = page.locator(container_scroll_selector).first
+    if not scroll_container:
+        raise Exception(f"컨테이너 요소를 찾을 수 없습니다: {container_scroll_selector}")
+    scroll_container.scroll_into_view_if_needed()
+    page.wait_for_timeout(200)
+
+    steps_locator = page.locator(step_selector)
+    prev_scroll_top = -1
+
+    while True:
+        # 모든 step 텍스트 확인
+        for step in steps_locator.all():
+            step_text = step.inner_text().strip()
+            print(f"🔍 step: {step_text}")
+
+            matched = False
+            if isinstance(target_text, re.Pattern):
+                matched = target_text.search(step_text)
+            elif isinstance(target_text, list):
+                matched = step_text in target_text
+            else:
+                matched = step_text == target_text
+
+            if matched:
+                step.scroll_into_view_if_needed()
+                page.wait_for_timeout(wait_ms)
+                return step, step_text
+
+        # 화면 스크롤
+        page.mouse.wheel(0, scroll_step)
+        page.wait_for_timeout(wait_ms)
+
+        # 최하단 도달 체크 (scrollTop 기준)
+        current_scroll_top = scroll_container.evaluate("el => el.scrollTop")
+        if current_scroll_top == prev_scroll_top:
+            print("✅ 컨테이너 최하단 도달, target_text 미발견")
+            break
+        prev_scroll_top = current_scroll_top
+
+    return None, None
 
 def click_and_verify(page: Page, button_selector: str, targets: list[tuple[str, str]]):
     page.click(button_selector)
