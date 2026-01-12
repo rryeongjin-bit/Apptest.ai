@@ -8,7 +8,7 @@ btn_changeaccount = "#root > header > div.sc-empnci.jgzAsH > div.sc-ePDLzJ.rrOtd
 qa_account = "text=QA part"
 
 btn_collapse = "#root > div.sc-bJBgwP.cukmPM > div.sc-fThUAz.izgTQR > div.sc-SrznA.jxvbfe > div:nth-child(2) > div"
-container_scroll = ".sc-ckIfTa.kZEXWM > div"
+#container_scroll = "#virtuoso-grid-wrapper > div"
 
 # -------------------------------
 # mobile app 폴더
@@ -79,6 +79,6 @@ reset_filter = "#content_box > div > main > div > div.sc-gytJtb.fnWbHz > div > d
 
 # scren
 btn_screen = "#result-wrapper > div.sc-hiEoHn.jAfewu > div.sc-gcmbcs.eCcAQ > div.sc-cwtFMH.hbzWud > div:nth-child(2) > span"
-step_name = ".sc-hBLBPu.eilAuJ"
+#step_name = ".sc-hBLBPu.eilAuJ"
 
 screenshot = "div.sc-bCosJw.kLLVqz"

@@ -61,22 +61,20 @@ def test_005_testrun_info_AOS_epub1(main_homepage, aos_flag, sheet):
 def test_006_enter_screenshot(main_homepage):
     page = main_homepage
 
-    # Screen 진입
     page.locator(btn_screen).filter(has_text="Screen").click()
+    page.wait_for_timeout(1000)
 
-    # 스크롤하면서 step 찾기
-    matched_step, step_text = scroll_and_find_step_visible(
+    matched_step, step_text = scroll_and_find_by_text(
         page=page,
-        container_scroll_selector=container_scroll,
-        step_selector=step_name,
-        target_text=re.compile(r"이름변경\s*노출대기", re.IGNORECASE),
-        scroll_step=300,
-        wait_ms=300
+        step_text_selector=".sc-hBLBPu.eilAuJ",
+        target_text="이름변경 노출대기",
+        debug=True
     )
 
     assert matched_step is not None, "❌ step 못 찾음"
-    print(f"✅ 찾은 step text: {step_text}")
-          
+
+    print("🎯 최종 발견:", step_text)
+
 # def test_007_check_stepresult(main_homepage):
 #     page = main_homepage
 

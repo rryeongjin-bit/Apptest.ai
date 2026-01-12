@@ -4,7 +4,7 @@ import time
 import pytest
 import gspread
 from element_total import *
-from playwright.sync_api import Page
+from playwright.sync_api import Page, Locator
 from playwright.sync_api import sync_playwright
 from playwright.sync_api import TimeoutError
 
@@ -53,60 +53,144 @@ def scroll_until_element_found(page: Page, selector: str, max_attempts: int = 10
 
     return False
 
-def scroll_and_find_step_visible(
+
+def scroll_and_find_by_text(
     page: Page,
-    container_scroll_selector,
-    step_selector,
-    target_text,
-    scroll_step=300,
-    wait_ms=300
+    step_text_selector: str,      # ".sc-hBLBPu.eilAuJ"
+    target_text: str,             # "이름변경 노출대기"
+    wait_ms: int = 200,
+    max_scroll_attempts: int = 80,
+    debug: bool = True,
 ):
     """
-    브라우저 화면에서 실제 스크롤이 보이도록 하면서
-    target_text 요소까지 내려가서 찾아 반환하는 함수
+    Virtuoso virtual scroll 대응
+    - 스크롤하면서 현재 DOM에 존재하는 step 텍스트를 전수 검사
+    - target_text가 포함된 순간 즉시 반환
     """
 
-    # 스크롤 컨테이너 먼저 화면에 보이게
-    scroll_container = page.locator(container_scroll_selector).first
-    if not scroll_container:
-        raise Exception(f"컨테이너 요소를 찾을 수 없습니다: {container_scroll_selector}")
-    scroll_container.scroll_into_view_if_needed()
-    page.wait_for_timeout(200)
+    scroller = page.locator('div[data-virtuoso-scroller="true"]').first
+    scroller.wait_for(state="attached")
 
-    steps_locator = page.locator(step_selector)
-    prev_scroll_top = -1
+    client_height = scroller.evaluate("el => el.clientHeight")
+    scroll_step = int(client_height * 0.9)
 
-    while True:
-        # 모든 step 텍스트 확인
-        for step in steps_locator.all():
-            step_text = step.inner_text().strip()
-            print(f"🔍 step: {step_text}")
+    seen_texts = set()
+    current_scroll = 0
 
-            matched = False
-            if isinstance(target_text, re.Pattern):
-                matched = target_text.search(step_text)
-            elif isinstance(target_text, list):
-                matched = step_text in target_text
-            else:
-                matched = step_text == target_text
+    target_norm = re.sub(r"\s+", "", target_text)
 
-            if matched:
-                step.scroll_into_view_if_needed()
-                page.wait_for_timeout(wait_ms)
-                return step, step_text
+    for attempt in range(max_scroll_attempts):
+        if debug:
+            print(f"\n🧪 Attempt {attempt + 1}, scrollTop={current_scroll}")
 
-        # 화면 스크롤
-        page.mouse.wheel(0, scroll_step)
+        steps = page.locator(step_text_selector)
+        count = steps.count()
+
+        if debug:
+            print(f"   steps in DOM: {count}")
+
+        for i in range(count):
+            step = steps.nth(i)
+            raw = step.inner_text()
+            norm = re.sub(r"\s+", "", raw)
+
+            if norm in seen_texts:
+                continue
+            seen_texts.add(norm)
+
+            if debug:
+                print(f"   🔍 check: {repr(raw)}")
+
+            if target_norm in norm:
+                if debug:
+                    print(f"   ✅ FOUND TARGET: {raw}")
+                return step, raw
+
+        # ⬇️ Virtuoso scroll
+        current_scroll += scroll_step
+        scroller.evaluate("(el, y) => el.scrollTop = y", current_scroll)
         page.wait_for_timeout(wait_ms)
 
-        # 최하단 도달 체크 (scrollTop 기준)
-        current_scroll_top = scroll_container.evaluate("el => el.scrollTop")
-        if current_scroll_top == prev_scroll_top:
-            print("✅ 컨테이너 최하단 도달, target_text 미발견")
+        max_scroll = scroller.evaluate("el => el.scrollHeight - el.clientHeight")
+        if current_scroll >= max_scroll:
+            if debug:
+                print("🛑 reached bottom")
             break
-        prev_scroll_top = current_scroll_top
+
+    if debug:
+        print("❌ target_text not found after scrolling")
 
     return None, None
+
+# def scroll_and_find_step_visible(
+#     page: Page,
+#     step_selector: str,
+#     target_text: str,
+#     wait_ms: int = 200,
+#     max_scroll_attempts: int = 80,
+#     debug: bool = True,
+# ):
+#     """
+#     Virtuoso virtual scroll 환경에서 step 텍스트를 찾는 공통 함수
+#     - 화면 스크롤이 안 보여도 정상
+#     - scrollTop 기반 점프 스크롤
+#     - 텍스트 정규화 후 부분 일치
+#     """
+
+#     # 🔴 Virtuoso 실제 스크롤러
+#     scroller = page.locator('div[data-virtuoso-scroller="true"]').first
+#     scroller.wait_for(state="attached")
+
+#     # 스크롤 정보
+#     scroll_height = scroller.evaluate("el => el.scrollHeight")
+#     client_height = scroller.evaluate("el => el.clientHeight")
+#     jump = int(client_height * 0.9)
+
+#     # target_text 정규화
+#     normalized_target = re.sub(r"\s+", " ", target_text).strip()
+
+#     if debug:
+#         print(f"🧪 scrollHeight={scroll_height}, clientHeight={client_height}")
+#         print(f"🧪 normalized target: {repr(normalized_target)}")
+
+#     current_scroll = 0
+
+#     for attempt in range(max_scroll_attempts):
+#         if debug:
+#             print(f"\n🧪 Attempt {attempt + 1}, scrollTop={current_scroll}")
+
+#         # 🔍 현재 DOM에 존재하는 step들
+#         steps = page.locator(step_selector).all()
+#         if debug:
+#             print(f"   steps in DOM: {len(steps)}")
+
+#         for step in steps:
+#             raw_text = step.inner_text()
+#             normalized_text = re.sub(r"\s+", " ", raw_text).strip()
+
+#             if debug:
+#                 print("   🔎 RAW :", repr(raw_text))
+#                 print("   🔎 NORM:", repr(normalized_text))
+
+#             if normalized_target in normalized_text:
+#                 step.scroll_into_view_if_needed()
+#                 page.wait_for_timeout(wait_ms)
+#                 print(f"✅ FOUND: {normalized_text}")
+#                 return step, normalized_text
+
+#         # ⬇️ Virtuoso 점프 스크롤
+#         current_scroll += jump
+#         scroller.evaluate("(el, y) => el.scrollTop = y", current_scroll)
+#         page.wait_for_timeout(wait_ms)
+
+#         max_scroll_top = scroller.evaluate("el => el.scrollHeight - el.clientHeight")
+#         if current_scroll >= max_scroll_top:
+#             if debug:
+#                 print("🛑 reached Virtuoso end")
+#             break
+
+#     print("❌ step 못 찾음")
+#     return None, None
 
 def click_and_verify(page: Page, button_selector: str, targets: list[tuple[str, str]]):
     page.click(button_selector)
