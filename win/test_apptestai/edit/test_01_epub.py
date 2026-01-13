@@ -4,7 +4,7 @@ from element_total import *
 from common_utils import *
 from conftest import *
 
-TCID1 = "이름변경 노출대기"
+TCID1 = "상단_책갈피"
 
 def test_001_login_enter_project(main_homepage):
     page = main_homepage
@@ -58,44 +58,57 @@ def test_005_testrun_info_AOS_epub1(main_homepage, aos_flag, sheet):
         aos_flag["run"] = False
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
-def test_006_enter_screenshot(main_homepage):
+def test_006_scroll_and_find(main_homepage):
     page = main_homepage
 
+    # 화면 열기
     page.locator(btn_screen).filter(has_text="Screen").click()
     page.wait_for_timeout(1000)
 
-    matched_step, step_text = scroll_and_find_by_text(
+    # 실제 스크롤 영역
+    content_box_selector = container_scroll
+
+    # ✅ step status (warning / assert / passed)
+    step_status_selectors = [
+        step_status_warning,
+        step_status_assert,
+        step_status_passed,
+    ]
+
+    # ✅ step 이름이 들어있는 요소
+    step_name_selector = step_name
+
+    # ✅ 리스트 최하단 판단용 요소
+    end_test_selector = end_test
+
+    target_text = TCID1
+
+    # 🔍 공통함수 호출
+    matched_status, found_text = scroll_and_find_step_status(
         page=page,
-        step_text_selector=".sc-hBLBPu.eilAuJ",
-        target_text="이름변경 노출대기",
-        debug=True
+        content_box_selector=content_box_selector,
+        step_status_selectors=step_status_selectors,
+        step_name_selector=step_name_selector,
+        end_test_selector=end_test_selector,
+        target_text=target_text,
+        debug=True,
     )
 
-    assert matched_step is not None, "❌ step 못 찾음"
+    # ✅ 결과 처리
+    if matched_status:
+        print("🎯 최종 발견:", found_text)
 
-    print("🎯 최종 발견:", step_text)
+        # (선택) 해당 status 클래스 출력
+        class_name = matched_status.get_attribute("class")
+        print("📌 status class:", class_name)
 
-# def test_007_check_stepresult(main_homepage):
-#     page = main_homepage
+        # (선택) 화면에 확실히 보이게
+        matched_status.scroll_into_view_if_needed()
 
-#     root = page.locator(screenshot)
-#     target_step = root.locator("div", has_text=TCID1).first
-#     target_step.scroll_into_view_if_needed()
-#     target_step.wait_for(state="visible", timeout=60000)
-
-#     # 하위 요소 중 assert / passed / warning 텍스트 가진 요소 선택
-#     status_element = target_step.locator("div", has_text=re.compile(r"assert|passed|warning", re.IGNORECASE)).first()
-#     status_element.wait_for(state="visible", timeout=60000)
-
-#     # 실제 텍스트 가져오기
-#     status_text = status_element.inner_text().strip().lower()
-#     if status_text in ["assert", "passed"]:
-#         print("pass")
-#     elif status_text == "warning":
-#         print("warning")
-#     else:
-#         print(f"알 수 없는 상태: {status_text}")
-
+        assert target_text in found_text
+    else:
+        print("⚠️ target_text 미발견")
+        assert False, f"'{target_text}' step을 찾지 못함"
 
 # def test_007_back_testrun_list_AOS_epub1(main_homepage, aos_flag):
 #     back_and_or_reset_AOS(main_homepage, aos_flag.get("run", False))

@@ -8,7 +8,6 @@ btn_changeaccount = "#root > header > div.sc-empnci.jgzAsH > div.sc-ePDLzJ.rrOtd
 qa_account = "text=QA part"
 
 btn_collapse = "#root > div.sc-bJBgwP.cukmPM > div.sc-fThUAz.izgTQR > div.sc-SrznA.jxvbfe > div:nth-child(2) > div"
-#container_scroll = "#virtuoso-grid-wrapper > div"
 
 # -------------------------------
 # mobile app 폴더
@@ -79,6 +78,17 @@ reset_filter = "#content_box > div > main > div > div.sc-gytJtb.fnWbHz > div > d
 
 # scren
 btn_screen = "#result-wrapper > div.sc-hiEoHn.jAfewu > div.sc-gcmbcs.eCcAQ > div.sc-cwtFMH.hbzWud > div:nth-child(2) > span"
-#step_name = ".sc-hBLBPu.eilAuJ"
+# context box
+container_scroll = ".sc-fAGzit.jOPQOB"
+step_status_warning = ".sc-libyxW.bGUMwN.warning"
+step_status_assert = ".sc-libyxW.bGUMwN.assert"
+step_status_passed = ".sc-libyxW.bGUMwN.passed"
 
-screenshot = "div.sc-bCosJw.kLLVqz"
+# step name target text 문구 영역
+step_name = ".sc-hBLBPu.eilAuJ"
+
+# screen 최하단 test complete 문구 포함하고있는 div클래스
+end_test = ".sc-knbyxe.opkTW"
+
+
+
