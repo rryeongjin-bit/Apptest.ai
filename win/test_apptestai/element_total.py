@@ -6,16 +6,13 @@
 account_section = "#root > header > div.sc-empnci.jgzAsH > div.sc-ePDLzJ.rrOtd > div > div > div"
 btn_changeaccount = "#root > header > div.sc-empnci.jgzAsH > div.sc-ePDLzJ.rrOtd > div > img"
 qa_account = "text=QA part"
-
-btn_collapse = "#root > div.sc-bJBgwP.cukmPM > div.sc-fThUAz.izgTQR > div.sc-SrznA.jxvbfe > div:nth-child(2) > div"
+btn_collapse = "#root > div.sc-fAGzit.feuPoV > div.sc-fThUAz.izgTQR > div.sc-eoVZPG.xHsWj > div.sc-jOnpCo.hYzKQd > div > div"
 
 # -------------------------------
 # mobile app 폴더
-# -------------------------------
-
-folder_mobileapp = "#root > div.sc-bJBgwP.cukmPM > div.sc-fThUAz.izgTQR > div.sc-SrznA.jxvbfe > div.sc-czkgLR.MPcHN > div:nth-child(2)"
+# -------------------------------s
+folder_mobileapp = "text=Mobile App"
 folder_title_section = "#content_box"
-project_title = "#content_box > div > main > div > div.sc-bwGlVi.eVgfbA > div.sc-fnLEGM.bwlCBK > div.sc-kSRfVL.cNsZuF > div"
 
 onestore_shortcut =  "#default-table > tbody > tr:nth-child(1) > td:nth-child(1) > div > div > div"
 onestore_widget = "#default-table > tbody > tr:nth-child(2) > td:nth-child(1) > div > div > div"
@@ -47,20 +44,24 @@ prod_launchapp = "#default-table > tbody > tr:nth-child(26) > td:nth-child(1) > 
 prod_genrehome = "#default-table > tbody > tr:nth-child(27) > td:nth-child(1) > div > div > div"
 prod_viewer = "#default-table > tbody > tr:nth-child(28) > td:nth-child(1) > div > div > div"
 
-btn_test_run = "#content_box > div > main > div > div.sc-gytJtb.fnWbHz > div > div.sc-hhmtaI.khyKCC > div.sc-ffWQKd.fAZKew"
-title_recent_result = "#content_box > div > main > div > div.sc-gytJtb.fnWbHz > div > div.sc-SqAfZ.YQrKg > div.sc-fhzFiK.khqNog.title-name"
+#미완성 시나리오
+test_scenario = "#default-table > tbody > tr:nth-child(19) > td:nth-child(1) > div > div > div"
+
+project_title = "#content_box > div > main > div > div.sc-jRUPCi.eEExkW > div.sc-jNwOwP.fuLgTS > div.sc-flBipw.gROATl > div > div"
+btn_test_run = "#content_box > div > main > div > div.sc-jNUliw.kdnfmO > div > div.sc-eLDg.jLXjXZ > div.sc-kWbXmz.fDGGVs > div > span"
+title_recent_result =".sc-fhzFiK.khqNog.title-name"
 
 #필터버튼
-btn_test_filter = "#content_box > div > main > div > div.sc-gytJtb.fnWbHz > div > div.sc-SqAfZ.YQrKg > div.sc-fPHcVk.CZLqG > div.sc-efFkwH.bjOcBl > div > div.sc-jRBLiq.krpUeL"
+btn_test_filter = ".sc-hybRYi.bQGZaA"
 
 #필터박스 상단 타이틀명
-title_filter_section = r"#content_box > div > main > div > div.sc-gytJtb.fnWbHz > div > div.sc-jCDwHD.eaSytZ > div.sc-gPdWHE.kDvSnv > div.sc-joYSUE.VkESz > div.fixed.top-0.left-0.h-screen.w-screen.inset-0.z-\[1200\].bg-\[\#292929\].bg-opacity-30.animate-\[fadeIn_0\.5s_ease-in-out\].text-modal-header-font-color > div > div.text-\[18px\].font-semibold.flex.justify-between.p-\[20px\].border-b.border-\[\#E4E4E3\].text-modal-header-font-color > span"
+title_filter_section = r"#content_box > div > main > div > div.sc-jNUliw.kdnfmO > div > div.sc-kPzOQx.gdGhpc > div.sc-exuIgM.jweByR > div.sc-gqhEIo.kopMlp > div.fixed.top-0.left-0.h-screen.w-screen.inset-0.z-\[1200\].bg-\[\#292929\].bg-opacity-30.animate-\[fadeIn_0\.5s_ease-in-out\].text-modal-header-font-color > div > div.text-\[18px\].font-semibold.flex.justify-between.p-\[20px\].border-b.border-\[\#E4E4E3\].text-modal-header-font-color.border-solid > span"
 
 #필터박스 os섹션 영역
-filter_os_section = "div.sc-gpaZuh.kByeUA"
+filter_os_section = "div.sc-cDnByv.cjPWdR"
 
 #필터적용 이후 box
-target_filterbox = "div.sc-eWzREE.kilehQ > div.sc-eXAmlR.dNgBgM:nth-child(2)"
+target_filterbox = "div.sc-lmJFLr:has(img):has(div.sc-jRBLiq)"
 
 testrun_first = "#default-table > tbody > tr > td:nth-child(3) > a div.sc-eBMEME.jQHsJX > div"
 testrun_id_section = "#result-wrapper > div.sc-hiEoHn.jAfewu > div.sc-ixziMx.bFIyFm > div.sc-iWvALN.faYaIC"

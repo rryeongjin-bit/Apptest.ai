@@ -1,0 +1,165 @@
+import pytest
+import re
+from element_total import *
+from common_utils2 import *
+from conftest import *
+
+def test_001_login_enter_project(main_homepage):
+    page = main_homepage
+    login_and_select_project(page)
+
+def test_002_check_enter_project(main_homepage):
+    page = main_homepage
+    page.click(test_scenario)
+
+    target_project = page.locator(project_title).get_by_text("미완성 시나리오")
+    try:
+        target_project.wait_for(state="visible", timeout=5000)
+    except TimeoutError:
+        assert False, f"❌ {prod_usersfile} 폴더 진입 실패"
+
+    assert target_project.is_visible(), f"❌ {test_scenario} 폴더 진입 실패"
+
+def test_003_checkresult(main_homepage):
+    page = main_homepage
+    targets = [
+            (title_recent_result, "Recent Test Runs"),
+        ]
+
+    click_and_verify(page, btn_test_run, targets)
+    select_rows(page)
+
+def test_004_checkresult_AOS(main_homepage):
+    page = main_homepage
+    apply_filter_checkbox_AOS(page)
+
+def test_005_testrun_info_AOS_epub1(main_homepage, aos_flag, sheet):
+    page = main_homepage
+    testrun_basic = page.locator(testrun_first).filter(
+        has_text=re.compile(r"[영진] 기본기능확인", re.IGNORECASE)
+    ).first
+
+    try:
+        testrun_basic.wait_for(state="attached", timeout=5000)
+        testrun_basic.scroll_into_view_if_needed()
+        testrun_basic.wait_for(state="visible", timeout=5000)
+        testrun_basic.click()
+
+        AOS_testrun_info = get_testrun_info(page, testrun_id_section)
+        write_result_by_key(sheet,"[결과] App_CheckList_029", AOS_testrun_info, column="S")
+
+    except Exception as e:
+        write_result_by_key(sheet, "[결과] App_CheckList_029", "No Info", column="S")
+        aos_flag["run"] = False
+        pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
+
+# App_CheckList_029
+def test_006_scroll_find_and_record_AOS(main_homepage, aos_flag, sheet):
+    page = main_homepage
+
+    # 1️⃣ 화면 열기
+    page.locator(btn_screen).filter(has_text="Screen").click()
+    page.wait_for_timeout(1000)
+
+    # 2️⃣ 공통 selector
+    content_box_selector = container_scroll
+    step_status_selectors = [
+        step_status_warning,
+        step_status_assert,
+        step_status_passed,
+    ]
+    step_name_selector = step_name
+    end_test_selector = end_test
+
+    target_text = "[결과] App_CheckList_029"
+
+    # 3️⃣ step status 찾기
+    matched_status, found_text = scroll_and_find_step_status(
+        page=page,
+        content_box_selector=content_box_selector,
+        step_status_selectors=step_status_selectors,
+        step_name_selector=step_name_selector,
+        end_test_selector=end_test_selector,
+        target_text=target_text,
+        debug=True,
+    )
+
+    # 4️⃣ 검증
+    if not matched_status:
+        write_result_by_key(sheet, target_text, "N/T", column="P")
+        pytest.fail(f"'{target_text}' step을 찾지 못함")
+
+    assert target_text in found_text
+
+    # 5️⃣ status 판별
+    status_text = matched_status.inner_text().strip().lower()
+
+    if "pass" in status_text or "assert" in status_text:
+        result = "pass"
+    elif "warning" in status_text:
+        result = "warning"
+    else:
+        result = "fail"
+
+    # 6️⃣ AOS flag 처리
+    if not aos_flag["run"]:
+        result = "N/T"
+
+    # 7️⃣ 엑셀 기록
+    write_result_by_key(sheet, "App_CheckList_029", result, column="P")
+
+
+
+
+# def test_006_scroll_and_find(main_homepage):
+#     page = main_homepage
+
+#     # 화면 열기
+#     page.locator(btn_screen).filter(has_text="Screen").click()
+#     page.wait_for_timeout(1000)
+
+#     # 실제 스크롤 영역
+#     content_box_selector = container_scroll
+
+#     # ✅ step status (warning / assert / passed)
+#     step_status_selectors = [
+#         step_status_warning,
+#         step_status_assert,
+#         step_status_passed,
+#     ]
+
+#     # ✅ step 이름이 들어있는 요소
+#     step_name_selector = step_name
+
+#     # ✅ 리스트 최하단 판단용 요소
+#     end_test_selector = end_test
+
+#     target_text = "[결과] App_CheckList_029"
+
+#     # 🔍 공통함수 호출
+#     matched_status, found_text = scroll_and_find_step_status(
+#         page=page,
+#         content_box_selector=content_box_selector,
+#         step_status_selectors=step_status_selectors,
+#         step_name_selector=step_name_selector,
+#         end_test_selector=end_test_selector,
+#         target_text=target_text,
+#         debug=True,
+#     )
+
+#     # ✅ 결과 처리
+#     if matched_status:
+#         print("🎯 최종 발견:", found_text)
+
+#         # (선택) 해당 status 클래스 출력
+#         class_name = matched_status.get_attribute("class")
+#         print("📌 status class:", class_name)
+
+#         # (선택) 화면에 확실히 보이게
+#         matched_status.scroll_into_view_if_needed()
+
+#         assert target_text in found_text
+#     else:
+#         print("⚠️ target_text 미발견")
+#         assert False, f"'{target_text}' step을 찾지 못함"
+
