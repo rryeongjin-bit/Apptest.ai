@@ -1,12 +1,12 @@
 import os
 import pytest
 import gspread
-from common_utils import *
+from common_utils2 import *
 from google.oauth2.service_account import Credentials
 from playwright.sync_api import sync_playwright
 
 
-checklist_sheet = "[자동화] App_Regression_결과확인_v1.6"
+checklist_sheet = "[자동화] App_기본기능확인_v1.0"
 
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",

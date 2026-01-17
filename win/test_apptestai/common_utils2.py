@@ -307,23 +307,24 @@ def write_to_sheet(auto_test_sheet, cell: str, value: str):
     auto_test_sheet.update(range_name = cell, values = [[value]])
     time.sleep(0.1)
 
-def write_result_by_key(auto_test_sheet, check_keys, result_value, column="B"):
+def write_result_by_key(
+    auto_test_sheet,
+    check_keys,
+    result_value,
+    search_col=2,   # 기준 컬럼 (E=5, B=2)
+    column="O"  # 결과 입력 컬럼
+):
     if isinstance(check_keys, str):
         check_keys = [check_keys]
 
-    e_col_values = auto_test_sheet.col_values(2)
+    search_values = auto_test_sheet.col_values(search_col)
 
     for check_key in check_keys:
         try:
-            target_row = e_col_values.index(check_key) + 1
+            target_row = search_values.index(check_key) + 1
             target_cell = f"{column.upper()}{target_row}"
             write_to_sheet(auto_test_sheet, target_cell, result_value)
             print(f"✅ '{check_key}' ({target_cell}) → '{result_value}' 기록 완료")
         except ValueError:
-            print(f"⚠️ '{check_key}' 를 B열에서 찾을 수 없습니다.")
-            continue
-
-    target_cell = f"{column.upper()}{target_row}"
-    write_to_sheet(auto_test_sheet, target_cell, result_value)
-    print(f"✅ '{check_key}' ({target_cell}) → '{result_value}'테스트 결과 입력 성공")
+            print(f"⚠️ '{check_key}' 를 {search_col}열에서 찾을 수 없습니다.")
 

@@ -2,7 +2,7 @@ import pytest
 import re
 from element_total import *
 from common_utils2 import *
-from conftest import *
+from conftest2 import *
 
 def test_001_login_enter_project(main_homepage):
     page = main_homepage
@@ -33,10 +33,10 @@ def test_004_checkresult_AOS(main_homepage):
     page = main_homepage
     apply_filter_checkbox_AOS(page)
 
-def test_005_testrun_info_AOS_epub1(main_homepage, aos_flag, sheet):
+def test_005_testrun_info_AOS(main_homepage, aos_flag, sheet):
     page = main_homepage
     testrun_basic = page.locator(testrun_first).filter(
-        has_text=re.compile(r"[영진] 기본기능확인", re.IGNORECASE)
+        has_text=re.compile(r"\[영진\]\s*기본기능확인", re.IGNORECASE)
     ).first
 
     try:
@@ -46,10 +46,10 @@ def test_005_testrun_info_AOS_epub1(main_homepage, aos_flag, sheet):
         testrun_basic.click()
 
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        write_result_by_key(sheet,"[결과] App_CheckList_029", AOS_testrun_info, column="S")
+        write_result_by_key(sheet,"App_CheckList_029", AOS_testrun_info, column="O")
 
     except Exception as e:
-        write_result_by_key(sheet, "[결과] App_CheckList_029", "No Info", column="S")
+        write_result_by_key(sheet, "App_CheckList_029", "No Info", column="O")
         aos_flag["run"] = False
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
@@ -86,7 +86,7 @@ def test_006_scroll_find_and_record_AOS(main_homepage, aos_flag, sheet):
 
     # 4️⃣ 검증
     if not matched_status:
-        write_result_by_key(sheet, target_text, "N/T", column="P")
+        write_result_by_key(sheet, target_text, "N/T", column="L")
         pytest.fail(f"'{target_text}' step을 찾지 못함")
 
     assert target_text in found_text
@@ -106,9 +106,7 @@ def test_006_scroll_find_and_record_AOS(main_homepage, aos_flag, sheet):
         result = "N/T"
 
     # 7️⃣ 엑셀 기록
-    write_result_by_key(sheet, "App_CheckList_029", result, column="P")
-
-
+    write_result_by_key(sheet, "App_CheckList_029", result, column="L")
 
 
 # def test_006_scroll_and_find(main_homepage):

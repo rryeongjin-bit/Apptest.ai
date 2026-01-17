@@ -64,32 +64,40 @@ filter_os_section = "div.sc-cDnByv.cjPWdR"
 target_filterbox = "div.sc-lmJFLr:has(img):has(div.sc-jRBLiq)"
 
 testrun_first = "#default-table > tbody > tr > td:nth-child(3) > a div.sc-eBMEME.jQHsJX > div"
-testrun_id_section = "#result-wrapper > div.sc-hiEoHn.jAfewu > div.sc-ixziMx.bFIyFm > div.sc-iWvALN.faYaIC"
-testrun_status = "#result-wrapper > div.sc-ckIfTa.kZEXWM > div > div > div.sc-iAITSW.fnPOYm > div.sc-gRfXlQ.iKtyGj > div > div.sc-hIsoIq.jBlmaP > div > div > div > div:nth-child(9) > div.sc-dKBpOM.iqIaUm > div > div > span"
-testrun_passmessage_AOS = "#result-wrapper > div.sc-ckIfTa.kZEXWM > div > div > div.sc-gMZIbH.jwEIEk"
-testrun_warningmessage_AOS = "#result-wrapper > div.sc-ckIfTa.kZEXWM > div > div > div.sc-gMZIbH.fCmnFE"
-testrun_failmessage_AOS = "#result-wrapper > div.sc-ckIfTa.kZEXWM > div > div > div.sc-gMZIbH.kCxeAt"
+testrun_id_section = "#result-wrapper > div.sc-iugpza.cDkGsP > div.sc-jGONNV.llmpp > div.sc-cAXmzm.jbjFEN"
+testrun_status = "#result-wrapper > div.sc-cnVEmp.zEFIV > div > div > div.sc-jfLtok.xmWNP > div.sc-cibtfC.fiumJk > div > div.sc-gYNeLZ.cvKyOV > div > div > div > div:nth-child(9) > div.sc-gLjfqm.fksuQy > div > div"
 
-testrun_passmessage_IOS = "#result-wrapper > div.sc-ckIfTa.kZEXWM > div > div > div.sc-gMZIbH.jwEIEk"
-testrun_warningmessage_IOS = "#result-wrapper > div.sc-ckIfTa.kZEXWM > div > div > div.sc-gMZIbH.fCmnFE"
-testrun_failmessage_IOS = "#result-wrapper > div.sc-ckIfTa.kZEXWM > div > div > div.sc-gMZIbH.kCxeAt"
+testrun_passmessage_AOS ="#result-wrapper > div.sc-cnVEmp.zEFIV > div > div > div.sc-bzywxr.iHxtZb"
+testrun_warningmessage_AOS ="#result-wrapper > div.sc-cnVEmp.zEFIV > div > div > div.sc-bzywxr.hQUeZz"
+testrun_failmessage_AOS = "#result-wrapper > div.sc-cnVEmp.zEFIV > div > div > div.sc-bzywxr.jjRGYS" 
+testrun_passmessage_IOS ="#result-wrapper > div.sc-cnVEmp.zEFIV > div > div > div.sc-bzywxr.iHxtZb"
+testrun_warningmessage_IOS ="#result-wrapper > div.sc-cnVEmp.zEFIV > div > div > div.sc-bzywxr.hQUeZz"
+testrun_failmessage_IOS = "#result-wrapper > div.sc-cnVEmp.zEFIV > div > div > div.sc-bzywxr.jjRGYS" 
 
-return_to_testrun = "#result-wrapper > div.sc-hiEoHn.jAfewu > div.sc-ixziMx.bFIyFm > div.sc-bXxnNr.ciVfYv > div.sc-fDpJdc.bHCtrn"
-reset_filter = "#content_box > div > main > div > div.sc-gytJtb.fnWbHz > div > div.sc-SqAfZ.YQrKg > div.sc-fPHcVk.CZLqG > div.sc-efFkwH.bjOcBl > div > div.sc-eXAmlR.sc-jtskMo.dNgBgM.jwNRkK"
+return_to_testrun = "#result-wrapper > div.sc-iugpza.cDkGsP > div.sc-jGONNV.llmpp > div.sc-jaZhys.kcOdbQ > div.sc-gMFoeA.kPPeOP"
+reset_filter = "div.sc-lmJFLr.sc-eTTeRg.jJojms.guhfxr"
 
 # scren
-btn_screen = "#result-wrapper > div.sc-hiEoHn.jAfewu > div.sc-gcmbcs.eCcAQ > div.sc-cwtFMH.hbzWud > div:nth-child(2) > span"
+btn_screen = "#result-wrapper > div.sc-iugpza.cDkGsP > div.sc-kTYlsj.BBwxo > div.sc-idPYgo.eGrUfy > div:nth-child(2) > span"
 # context box
-container_scroll = ".sc-fAGzit.jOPQOB"
-step_status_warning = ".sc-libyxW.bGUMwN.warning"
-step_status_assert = ".sc-libyxW.bGUMwN.assert"
-step_status_passed = ".sc-libyxW.bGUMwN.passed"
+container_scroll = ".sc-deXhhX cHqulH"
+step_status_warning = ".sc-gjrWpL isJaMc.warning"
+step_status_assert = ".sc-gjrWpL isJaMc.assert"
+step_status_passed = ".sc-gjrWpL isJaMc.passed"
 
 # step name target text 문구 영역
-step_name = ".sc-hBLBPu.eilAuJ"
+step_name = ".sc-jpSpfa dEqHKS"
 
 # screen 최하단 test complete 문구 포함하고있는 div클래스
 end_test = ".sc-knbyxe.opkTW"
 
+
+#btn_screen = "#result-wrapper > div.sc-hiEoHn.jAfewu > div.sc-gcmbcs.eCcAQ > div.sc-cwtFMH.hbzWud > div:nth-child(2) > span"
+#container_scroll = ".sc-fAGzit.jOPQOB"
+#step_status_warning = ".sc-libyxW.bGUMwN.warning"
+#step_status_assert = ".sc-libyxW.bGUMwN.assert"
+#step_status_passed = ".sc-libyxW.bGUMwN.passed"
+#step_name = ".sc-hBLBPu.eilAuJ"
+#end_test = ".sc-knbyxe.opkTW"
 
 
