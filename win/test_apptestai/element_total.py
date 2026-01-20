@@ -48,8 +48,8 @@ prod_viewer = "#default-table > tbody > tr:nth-child(28) > td:nth-child(1) > div
 test_scenario = "#default-table > tbody > tr:nth-child(19) > td:nth-child(1) > div > div > div"
 
 project_title = "#content_box > div > main > div > div.sc-jRUPCi.eEExkW > div.sc-jNwOwP.fuLgTS > div.sc-flBipw.gROATl > div > div"
-btn_test_run = "#content_box > div > main > div > div.sc-jNUliw.kdnfmO > div > div.sc-eLDg.jLXjXZ > div.sc-kWbXmz.fDGGVs > div > span"
-title_recent_result =".sc-fhzFiK.khqNog.title-name"
+btn_test_run = "text=Test Runs"
+title_recent_result = "#content_box > div > main > div > div.sc-jNUliw.kdnfmO > div > div.sc-edHxqe.IhdmC > div.sc-fhzFiK.khqNog.title-name"
 
 #필터버튼
 btn_test_filter = ".sc-hybRYi.bQGZaA"
@@ -65,14 +65,15 @@ target_filterbox = "div.sc-lmJFLr:has(img):has(div.sc-jRBLiq)"
 
 testrun_first = "#default-table > tbody > tr > td:nth-child(3) > a div.sc-eBMEME.jQHsJX > div"
 testrun_id_section = "#result-wrapper > div.sc-iugpza.cDkGsP > div.sc-jGONNV.llmpp > div.sc-cAXmzm.jbjFEN"
-testrun_status = "#result-wrapper > div.sc-cnVEmp.zEFIV > div > div > div.sc-jfLtok.xmWNP > div.sc-cibtfC.fiumJk > div > div.sc-gYNeLZ.cvKyOV > div > div > div > div:nth-child(9) > div.sc-gLjfqm.fksuQy > div > div"
+testrun_status = "#result-wrapper > div.sc-gJuWgF.bCBkOQ > div > div > div.sc-bjbJYN.kqCfAA > div.sc-ivewpf.gizCK > div > div.sc-iUVXli.dUCcqB > div > div > div > div:nth-child(9) > div.sc-dlObkE.iKPoVK > div > div > span"
 
-testrun_passmessage_AOS ="#result-wrapper > div.sc-cnVEmp.zEFIV > div > div > div.sc-bzywxr.iHxtZb"
-testrun_warningmessage_AOS ="#result-wrapper > div.sc-cnVEmp.zEFIV > div > div > div.sc-bzywxr.hQUeZz"
-testrun_failmessage_AOS = "#result-wrapper > div.sc-cnVEmp.zEFIV > div > div > div.sc-bzywxr.jjRGYS" 
-testrun_passmessage_IOS ="#result-wrapper > div.sc-cnVEmp.zEFIV > div > div > div.sc-bzywxr.iHxtZb"
-testrun_warningmessage_IOS ="#result-wrapper > div.sc-cnVEmp.zEFIV > div > div > div.sc-bzywxr.hQUeZz"
-testrun_failmessage_IOS = "#result-wrapper > div.sc-cnVEmp.zEFIV > div > div > div.sc-bzywxr.jjRGYS" 
+testrun_passmessage_AOS ="#result-wrapper > div.sc-gJuWgF.bCBkOQ > div > div > div.sc-gkKXDf.eSkTiC"
+testrun_warningmessage_AOS ="#result-wrapper > div.sc-gJuWgF.bCBkOQ > div > div > div.sc-gkKXDf.iyfJjW"
+testrun_failmessage_AOS = "#result-wrapper > div.sc-gJuWgF.bCBkOQ > div > div > div.sc-gkKXDf.iGRwcn"
+
+testrun_passmessage_IOS ="#result-wrapper > div.sc-gJuWgF.bCBkOQ > div > div > div.sc-gkKXDf.eSkTiC"
+testrun_warningmessage_IOS ="#result-wrapper > div.sc-gJuWgF.bCBkOQ > div > div > div.sc-gkKXDf.iyfJjW"
+testrun_failmessage_IOS ="#result-wrapper > div.sc-gJuWgF.bCBkOQ > div > div > div.sc-gkKXDf.iGRwcn"
 
 return_to_testrun = "#result-wrapper > div.sc-iugpza.cDkGsP > div.sc-jGONNV.llmpp > div.sc-jaZhys.kcOdbQ > div.sc-gMFoeA.kPPeOP"
 reset_filter = "div.sc-lmJFLr.sc-eTTeRg.jJojms.guhfxr"

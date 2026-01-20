@@ -28,7 +28,7 @@ def test_003_checkresult(main_homepage):
             (title_recent_result, "Recent Test Runs"),
         ]
 
-    click_and_verify(page, btn_test_run, targets)
+    click_and_verify(page, btn_test_run,targets)
     
 def test_004_checkresult_AOS(main_homepage):
     page = main_homepage
