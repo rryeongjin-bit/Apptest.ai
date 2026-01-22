@@ -10,15 +10,15 @@ def test_001_login_enter_project(main_homepage):
 
 def test_002_check_enter_project(main_homepage):
     page = main_homepage
-    page.click(test_scenario)
+    page.click(prod_basic)
 
-    target_project = page.locator(project_title).get_by_text("미완성 시나리오")
+    target_project = page.locator(project_title).get_by_text("[Prod] 기본기능 확인")
     try:
         target_project.wait_for(state="visible", timeout=5000)
     except TimeoutError:
-        assert False, f"❌ {prod_usersfile} 폴더 진입 실패"
+        assert False, f"❌ {prod_basic} 폴더 진입 실패"
 
-    assert target_project.is_visible(), f"❌ {test_scenario} 폴더 진입 실패"
+    assert target_project.is_visible(), f"❌ {prod_basic} 폴더 진입 실패"
 
 def test_003_checkresult(main_homepage):
     page = main_homepage
@@ -36,7 +36,7 @@ def test_004_checkresult_AOS(main_homepage):
 def test_005_testrun_info_AOS(main_homepage, aos_flag, sheet):
     page = main_homepage
     testrun_basic = page.locator(testrun_first).filter(
-        has_text=re.compile(r"\[영진\]\s*기본기능확인", re.IGNORECASE)
+        has_text=re.compile(r"기본기능 확인", re.IGNORECASE)
     ).first
 
     try:
@@ -46,20 +46,19 @@ def test_005_testrun_info_AOS(main_homepage, aos_flag, sheet):
         testrun_basic.click()
 
         AOS_testrun_info = get_testrun_info(page, testrun_id_section)
-        write_result_by_key(sheet,"App_CheckList_029", AOS_testrun_info, column="O")
+        write_result_by_key(sheet,"App_CheckList_003", AOS_testrun_info, column="O")
 
     except Exception as e:
-        write_result_by_key(sheet, "App_CheckList_029", "No Info", column="O")
+        write_result_by_key(sheet, "App_CheckList_003", "No Info", column="O")
         aos_flag["run"] = False
         pytest.skip("⚠️ AOS 테스트 결과 없음 - 테스트 정보 확인 skip")
 
-# App_CheckList_029
-def test_006_scroll_find_and_record_AOS(main_homepage, aos_flag, sheet):
+def test_006_App_CheckList_003(main_homepage, aos_flag, sheet):
     page = main_homepage
 
     # 1️⃣ 화면 열기
     page.locator(btn_screen).filter(has_text="Screen").click()
-    page.wait_for_timeout(1000)
+    page.wait_for_timeout(30000)
 
     # 2️⃣ 공통 selector
     content_box_selector = container_scroll
@@ -71,7 +70,7 @@ def test_006_scroll_find_and_record_AOS(main_homepage, aos_flag, sheet):
     step_name_selector = step_name
     end_test_selector = end_test
 
-    target_text = "[결과] App_CheckList_029"
+    target_text = "$[결과] App_CheckList_003 리디캐시 상세화면"
 
     # 3️⃣ step status 찾기
     matched_status, found_text = scroll_and_find_step_status(
@@ -106,7 +105,7 @@ def test_006_scroll_find_and_record_AOS(main_homepage, aos_flag, sheet):
         result = "N/T"
 
     # 7️⃣ 엑셀 기록
-    write_result_by_key(sheet, "App_CheckList_029", result, column="L")
+    write_result_by_key(sheet, "App_CheckList_003", result, column="L")
 
 
 # def test_006_scroll_and_find(main_homepage):
