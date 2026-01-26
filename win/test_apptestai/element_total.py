@@ -3,8 +3,8 @@
 # -------------------------------
 # 로그인
 # -------------------------------
-account_section = "#root > header > div.sc-empnci.jgzAsH > div.sc-ePDLzJ.rrOtd > div > div > div"
-btn_changeaccount = "#root > header > div.sc-empnci.jgzAsH > div.sc-ePDLzJ.rrOtd > div > img"
+account_section = ".sc-ePDLzJ.rrOtd > div"
+btn_changeaccount = "#root > header > div.sc-empnci.jgzAsH > div.sc-ePDLzJ.rrOtd > div.sc-eBHhsj.jXRaLT > div"
 qa_account = "text=QA part"
 btn_collapse = "#root > div.sc-fAGzit.feuPoV > div.sc-fThUAz.izgTQR > div.sc-eoVZPG.xHsWj > div.sc-jOnpCo.hYzKQd > div > div"
 
@@ -86,14 +86,11 @@ reset_filter = "div.sc-lmJFLr.sc-eTTeRg.jJojms.guhfxr"
 btn_screen = "#result-wrapper > div.sc-iugpza.cDkGsP > div.sc-kTYlsj.BBwxo > div.sc-idPYgo.eGrUfy > div:nth-child(2) > span"
 # context box
 container_scroll = ".sc-deXhhX.cHqulH"
-step_status_warning = ".sc-gjrWpL isJaMc.warning"
-step_status_assert = ".sc-gjrWpL isJaMc.assert"
-step_status_passed = ".sc-gjrWpL isJaMc.passed"
+step_status_warning = ".sc-hZfPgi.kwjKlO.warning"
+step_status_assert = ".sc-hZfPgi.kwjKlO.assert"
+step_status_passed = ".sc-hZfPgi.kwjKlO.passed"
 
 # step name target text 문구 영역
-step_name = ".sc-jpSpfa dEqHKS"
-
+step_name = ".sc-YLzOL.dXGXIg"
 # screen 최하단 test complete 문구 포함하고있는 div클래스
-end_test = ".sc-knbyxe.opkTW"
-
-
+end_test = ".sc-eXGDq.joASNp"

@@ -64,7 +64,7 @@ def scroll_and_find_step_status(
     step_status_selectors: list[str],
     step_name_selector: str,
     end_test_selector: str,
-    target_text: str,
+    target_text: str | re.Pattern,
     wait_ms: int = 200,
     max_scroll_attempts: int = 120,
     debug: bool = True,
@@ -109,11 +109,16 @@ def scroll_and_find_step_status(
                     if debug:
                         print(f"   🔍 check: {repr(text)}")
 
-                    if target_text in text:
+                    if isinstance(target_text, re.Pattern):
+                        matched = target_text.search(text)
+                    else:
+                        matched = target_text in text
+
+                    if matched:
                         if debug:
                             print(f"   ✅ FOUND TARGET: {text}")
                         return status, text
-
+                    
         # ✅ end_test 도달 시 종료
         if content_box.locator(end_test_selector).count() > 0:
             if debug:

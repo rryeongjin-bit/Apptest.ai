@@ -4,6 +4,7 @@ from element_total import *
 from common_utils2 import *
 from conftest2 import *
 
+# myridi 영역
 def test_001_login_enter_project(main_homepage):
     page = main_homepage
     login_and_select_project(page)
@@ -70,7 +71,9 @@ def test_006_App_CheckList_003(main_homepage, aos_flag, sheet):
     step_name_selector = step_name
     end_test_selector = end_test
 
-    target_text = "$[결과] App_CheckList_003 리디캐시 상세화면"
+    EXCEL_KEY = "App_CheckList_003"
+
+    target_text = re.compile(r"\[결과\]\s*App_CheckList_003\s*리디캐시\s*상세화면$")
 
     # 3️⃣ step status 찾기
     matched_status, found_text = scroll_and_find_step_status(
@@ -85,27 +88,29 @@ def test_006_App_CheckList_003(main_homepage, aos_flag, sheet):
 
     # 4️⃣ 검증
     if not matched_status:
-        write_result_by_key(sheet, target_text, "N/T", column="L")
-        pytest.fail(f"'{target_text}' step을 찾지 못함")
+        write_result_by_key(sheet, EXCEL_KEY, "N/T", column="L")
+        pytest.fail("step을 찾지 못함")
 
-    assert target_text in found_text
+    assert target_text.search(found_text) is not None
 
     # 5️⃣ status 판별
     status_text = matched_status.inner_text().strip().lower()
 
-    if "pass" in status_text or "assert" in status_text:
-        result = "pass"
+    if "passed" in status_text or "assert" in status_text:
+        result = "passed"
     elif "warning" in status_text:
         result = "warning"
+    elif "failed" in status_text:
+        result = "failed"
     else:
-        result = "fail"
+        result = "N/T"
 
     # 6️⃣ AOS flag 처리
     if not aos_flag["run"]:
         result = "N/T"
 
     # 7️⃣ 엑셀 기록
-    write_result_by_key(sheet, "App_CheckList_003", result, column="L")
+    write_result_by_key(sheet, EXCEL_KEY, result, column="L")
 
 
 # def test_006_scroll_and_find(main_homepage):
