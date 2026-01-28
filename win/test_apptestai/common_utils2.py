@@ -12,6 +12,7 @@ from playwright.sync_api import TimeoutError
 def login_and_select_project(page, target_account_name="QA part", folder_name="Mobile App"):
     try:
         page.goto("https://app.apptest.ai")
+        page.wait_for_selector("text=Dashboard", timeout=10000)
         if "Dashboard" not in page.inner_text("body"):
             raise RuntimeError("❌ 로그인 실패")
 
@@ -333,3 +334,54 @@ def write_result_by_key(
         except ValueError:
             print(f"⚠️ '{check_key}' 를 {search_col}열에서 찾을 수 없습니다.")
 
+def open_screen_tab(page):
+    page.locator(btn_screen).filter(has_text="Screen").click()
+    page.wait_for_timeout(10000)
+
+def resolve_step_result(matched_status):
+    cls = (matched_status.get_attribute("class") or "").lower()
+
+    if "passed" in cls or "assert" in cls:
+        return "passed"
+    elif "warning" in cls:
+        return "warning"
+    elif "failed" in cls:
+        return "failed"
+    else:
+        return "N/T"
+    
+def run_step_and_record_result(
+    *,
+    page,
+    sheet,
+    tcid,
+    target_text: re.Pattern,
+    selectors,
+    result_column="L",
+    debug=False,
+):
+    
+    matched_status, found_text = scroll_and_find_step_status(
+    page=page,
+    content_box_selector=selectors["content_box"],
+    step_status_selectors=[
+        step_status_warning,
+        step_status_assert,
+        step_status_passed,
+    ],
+    step_name_selector=step_name,
+    end_test_selector=end_test,
+    target_text=target_text,
+    debug=debug,
+)
+
+    if not matched_status:
+        write_result_by_key(sheet, tcid, "N/T", column=result_column)
+        pytest.fail(f"step '{target_text.pattern}' 을 찾지 못함")
+
+    assert target_text.search(found_text)
+
+    result = resolve_step_result(matched_status)
+    write_result_by_key(sheet, tcid, result, column=result_column)
+
+    return result

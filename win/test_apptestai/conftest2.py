@@ -31,7 +31,7 @@ def storage_state_file():
     return STORAGE_STATE_PATH
 
 @pytest.fixture(scope="module")
-def main_homepage(storage_state_file):
+def page(storage_state_file):
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False)
         context = browser.new_context(
@@ -74,3 +74,17 @@ def write_result(sheet):
     def _write(cell: str, status: str):
         write_to_sheet(sheet, cell, status)
     return _write
+
+
+@pytest.fixture
+def step_selectors():
+    return {
+        "content_box": container_scroll,
+        "step_status": [
+            step_status_warning,
+            step_status_assert,
+            step_status_passed,
+        ],
+        "step_name": step_name,
+        "end_test": end_test,
+    }

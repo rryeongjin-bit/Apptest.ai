@@ -89,6 +89,7 @@ container_scroll = ".sc-deXhhX.cHqulH"
 step_status_warning = ".sc-hZfPgi.kwjKlO.warning"
 step_status_assert = ".sc-hZfPgi.kwjKlO.assert"
 step_status_passed = ".sc-hZfPgi.kwjKlO.passed"
+step_status_failed = ".sc-hZfPgi.kwjKlO.failed"
 
 # step name target text 문구 영역
 step_name = ".sc-YLzOL.dXGXIg"
